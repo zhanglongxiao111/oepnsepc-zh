@@ -234,88 +234,88 @@ openspec/
 - [...]
 \`\`\`
 
-## Spec File Format
+## 规范文件格式
 
-### Critical: Scenario Formatting
+### 关键：场景格式
 
-**CORRECT** (use #### headers):
+**正确**（使用 #### 标题）：
 \`\`\`markdown
-#### Scenario: User login success
-- **WHEN** valid credentials provided
-- **THEN** return JWT token
+#### Scenario: 用户登录成功
+- **WHEN** 提供有效凭据
+- **THEN** 返回 JWT 令牌
 \`\`\`
 
-**WRONG** (don't use bullets or bold):
+**错误**（不要使用项目符号或粗体）：
 \`\`\`markdown
-- **Scenario: User login**  ❌
-**Scenario**: User login     ❌
-### Scenario: User login      ❌
+- **Scenario: 用户登录**  ❌
+**Scenario**: 用户登录     ❌
+### Scenario: 用户登录      ❌
 \`\`\`
 
-Every requirement MUST have at least one scenario.
+每个需求必须至少有一个场景。
 
-### Requirement Wording
-- Use SHALL/MUST for normative requirements (avoid should/may unless intentionally non-normative)
+### 需求措辞
+- 对规范性需求使用 SHALL/MUST（除非有意为非规范性，否则避免使用 should/may）
 
-### Delta Operations
+### Delta 操作
 
-- \`## ADDED Requirements\` - New capabilities
-- \`## MODIFIED Requirements\` - Changed behavior
-- \`## REMOVED Requirements\` - Deprecated features
-- \`## RENAMED Requirements\` - Name changes
+- \`## ADDED Requirements\` - 新能力
+- \`## MODIFIED Requirements\` - 变更的行为
+- \`## REMOVED Requirements\` - 已弃用的功能
+- \`## RENAMED Requirements\` - 名称变更
 
-Headers matched with \`trim(header)\` - whitespace ignored.
+标题使用 \`trim(header)\` 匹配 - 忽略空格。
 
-#### When to use ADDED vs MODIFIED
-- ADDED: Introduces a new capability or sub-capability that can stand alone as a requirement. Prefer ADDED when the change is orthogonal (e.g., adding "Slash Command Configuration") rather than altering the semantics of an existing requirement.
-- MODIFIED: Changes the behavior, scope, or acceptance criteria of an existing requirement. Always paste the full, updated requirement content (header + all scenarios). The archiver will replace the entire requirement with what you provide here; partial deltas will drop previous details.
-- RENAMED: Use when only the name changes. If you also change behavior, use RENAMED (name) plus MODIFIED (content) referencing the new name.
+#### 何时使用 ADDED vs MODIFIED
+- ADDED：引入可以独立作为需求的新能力或子能力。当变更是正交的（例如，添加"Slash 命令配置"）而不是改变现有需求的语义时，优先使用 ADDED。
+- MODIFIED：更改现有需求的行为、范围或验收标准。始终粘贴完整的、更新的需求内容（标题 + 所有场景）。归档器将用你在此处提供的内容替换整个需求；部分 delta 将丢失先前的详细信息。
+- RENAMED：仅在名称更改时使用。如果你还更改了行为，使用 RENAMED（名称）加上引用新名称的 MODIFIED（内容）。
 
 Common pitfall: Using MODIFIED to add a new concern without including the previous text. This causes loss of detail at archive time. If you aren’t explicitly changing the existing requirement, add a new requirement under ADDED instead.
 
-Authoring a MODIFIED requirement correctly:
-1) Locate the existing requirement in \`openspec/specs/<capability>/spec.md\`.
-2) Copy the entire requirement block (from \`### Requirement: ...\` through its scenarios).
-3) Paste it under \`## MODIFIED Requirements\` and edit to reflect the new behavior.
-4) Ensure the header text matches exactly (whitespace-insensitive) and keep at least one \`#### Scenario:\`.
+正确编写 MODIFIED 需求：
+1) 在 \`openspec/specs/<capability>/spec.md\` 中找到现有需求。
+2) 复制整个需求块（从 \`### Requirement: ...\` 到其场景）。
+3) 将其粘贴到 \`## MODIFIED Requirements\` 下并编辑以反映新行为。
+4) 确保标题文本完全匹配（不区分空格）并保留至少一个 \`#### Scenario:\`。
 
-Example for RENAMED:
+RENAMED 示例：
 \`\`\`markdown
 ## RENAMED Requirements
 - FROM: \`### Requirement: Login\`
 - TO: \`### Requirement: User Authentication\`
 \`\`\`
 
-## Troubleshooting
+## 故障排除
 
-### Common Errors
+### 常见错误
 
-**"Change must have at least one delta"**
-- Check \`changes/[name]/specs/\` exists with .md files
-- Verify files have operation prefixes (## ADDED Requirements)
+**"Change must have at least one delta"（变更必须至少有一个 delta）**
+- 检查 \`changes/[name]/specs/\` 是否存在 .md 文件
+- 验证文件是否有操作前缀（## ADDED Requirements）
 
-**"Requirement must have at least one scenario"**
-- Check scenarios use \`#### Scenario:\` format (4 hashtags)
-- Don't use bullet points or bold for scenario headers
+**"Requirement must have at least one scenario"（需求必须至少有一个场景）**
+- 检查场景是否使用 \`#### Scenario:\` 格式（4 个井号）
+- 不要对场景标题使用项目符号或粗体
 
-**Silent scenario parsing failures**
-- Exact format required: \`#### Scenario: Name\`
-- Debug with: \`openspec show [change] --json --deltas-only\`
+**静默场景解析失败**
+- 需要精确格式：\`#### Scenario: Name\`
+- 使用以下命令调试：\`openspec show [change] --json --deltas-only\`
 
-### Validation Tips
+### 验证技巧
 
 \`\`\`bash
-# Always use strict mode for comprehensive checks
+# 始终使用严格模式进行全面检查
 openspec validate [change] --strict
 
-# Debug delta parsing
+# 调试 delta 解析
 openspec show [change] --json | jq '.deltas'
 
-# Check specific requirement
+# 检查特定需求
 openspec show [spec] --json -r 1
 \`\`\`
 
-## Happy Path Script
+## 快乐路径脚本
 
 \`\`\`bash
 # 1) Explore current state
@@ -346,7 +346,7 @@ EOF
 openspec validate $CHANGE --strict
 \`\`\`
 
-## Multi-Capability Example
+## 多能力示例
 
 \`\`\`
 openspec/changes/add-2fa-notify/
@@ -354,104 +354,104 @@ openspec/changes/add-2fa-notify/
 ├── tasks.md
 └── specs/
     ├── auth/
-    │   └── spec.md   # ADDED: Two-Factor Authentication
+    │   └── spec.md   # ADDED: 双因素认证
     └── notifications/
-        └── spec.md   # ADDED: OTP email notification
+        └── spec.md   # ADDED: OTP 邮件通知
 \`\`\`
 
 auth/spec.md
 \`\`\`markdown
 ## ADDED Requirements
-### Requirement: Two-Factor Authentication
+### Requirement: 双因素认证
 ...
 \`\`\`
 
 notifications/spec.md
 \`\`\`markdown
 ## ADDED Requirements
-### Requirement: OTP Email Notification
+### Requirement: OTP 邮件通知
 ...
 \`\`\`
 
-## Best Practices
+## 最佳实践
 
-### Simplicity First
-- Default to <100 lines of new code
-- Single-file implementations until proven insufficient
-- Avoid frameworks without clear justification
-- Choose boring, proven patterns
+### 简单优先
+- 默认新代码少于 100 行
+- 单文件实现，直到证明不足
+- 避免没有明确理由的框架
+- 选择无聊的、经过验证的模式
 
-### Complexity Triggers
-Only add complexity with:
-- Performance data showing current solution too slow
-- Concrete scale requirements (>1000 users, >100MB data)
-- Multiple proven use cases requiring abstraction
+### 复杂性触发器
+仅在以下情况下添加复杂性：
+- 性能数据显示当前解决方案太慢
+- 具体的规模要求（>1000 用户，>100MB 数据）
+- 需要抽象的多个经过验证的用例
 
-### Clear References
-- Use \`file.ts:42\` format for code locations
-- Reference specs as \`specs/auth/spec.md\`
-- Link related changes and PRs
+### 清晰的引用
+- 对代码位置使用 \`file.ts:42\` 格式
+- 将规范引用为 \`specs/auth/spec.md\`
+- 链接相关变更和 PR
 
-### Capability Naming
-- Use verb-noun: \`user-auth\`, \`payment-capture\`
-- Single purpose per capability
-- 10-minute understandability rule
-- Split if description needs "AND"
+### 能力命名
+- 使用动词-名词：\`user-auth\`、\`payment-capture\`
+- 每个能力单一目的
+- 10 分钟可理解性规则
+- 如果描述需要"AND"则拆分
 
-### Change ID Naming
-- Use kebab-case, short and descriptive: \`add-two-factor-auth\`
-- Prefer verb-led prefixes: \`add-\`, \`update-\`, \`remove-\`, \`refactor-\`
-- Ensure uniqueness; if taken, append \`-2\`, \`-3\`, etc.
+### 变更 ID 命名
+- 使用 kebab-case，简短且描述性：\`add-two-factor-auth\`
+- 优先使用动词开头的前缀：\`add-\`、\`update-\`、\`remove-\`、\`refactor-\`
+- 确保唯一性；如果已占用，追加 \`-2\`、\`-3\` 等。
 
-## Tool Selection Guide
+## 工具选择指南
 
-| Task | Tool | Why |
+| 任务 | 工具 | 原因 |
 |------|------|-----|
-| Find files by pattern | Glob | Fast pattern matching |
-| Search code content | Grep | Optimized regex search |
-| Read specific files | Read | Direct file access |
-| Explore unknown scope | Task | Multi-step investigation |
+| 按模式查找文件 | Glob | 快速模式匹配 |
+| 搜索代码内容 | Grep | 优化的正则表达式搜索 |
+| 读取特定文件 | Read | 直接文件访问 |
+| 探索未知范围 | Task | 多步骤调查 |
 
-## Error Recovery
+## 错误恢复
 
-### Change Conflicts
-1. Run \`openspec list\` to see active changes
-2. Check for overlapping specs
-3. Coordinate with change owners
-4. Consider combining proposals
+### 变更冲突
+1. 运行 \`openspec list\` 查看活跃的变更
+2. 检查重叠的规范
+3. 与变更所有者协调
+4. 考虑合并提案
 
-### Validation Failures
-1. Run with \`--strict\` flag
-2. Check JSON output for details
-3. Verify spec file format
-4. Ensure scenarios properly formatted
+### 验证失败
+1. 使用 \`--strict\` 标志运行
+2. 检查 JSON 输出以获取详细信息
+3. 验证规范文件格式
+4. 确保场景格式正确
 
-### Missing Context
-1. Read project.md first
-2. Check related specs
-3. Review recent archives
-4. Ask for clarification
+### 缺少上下文
+1. 首先阅读 project.md
+2. 检查相关规范
+3. 查看最近的归档
+4. 请求澄清
 
-## Quick Reference
+## 快速参考
 
-### Stage Indicators
-- \`changes/\` - Proposed, not yet built
-- \`specs/\` - Built and deployed
-- \`archive/\` - Completed changes
+### 阶段指示器
+- \`changes/\` - 已提议，尚未构建
+- \`specs/\` - 已构建和部署
+- \`archive/\` - 已完成的变更
 
-### File Purposes
-- \`proposal.md\` - Why and what
-- \`tasks.md\` - Implementation steps
-- \`design.md\` - Technical decisions
-- \`spec.md\` - Requirements and behavior
+### 文件用途
+- \`proposal.md\` - 为什么和什么
+- \`tasks.md\` - 实施步骤
+- \`design.md\` - 技术决策
+- \`spec.md\` - 需求和行为
 
-### CLI Essentials
+### CLI 要点
 \`\`\`bash
-openspec list              # What's in progress?
-openspec show [item]       # View details
-openspec validate --strict # Is it correct?
-openspec archive <change-id> [--yes|-y]  # Mark complete (add --yes for automation)
+openspec list              # 正在进行什么？
+openspec show [item]       # 查看详情
+openspec validate --strict # 是否正确？
+openspec archive <change-id> [--yes|-y]  # 标记完成（添加 --yes 用于自动化）
 \`\`\`
 
-Remember: Specs are truth. Changes are proposals. Keep them in sync.
+记住：规范是真相。变更是提案。保持它们同步。
 `;

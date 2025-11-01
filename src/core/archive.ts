@@ -32,14 +32,14 @@ export class ArchiveCommand {
     try {
       await fs.access(changesDir);
     } catch {
-      throw new Error("No OpenSpec changes directory found. Run 'openspec init' first.");
+      throw new Error("未找到 OpenSpec 变更目录。请先运行 'openspec init'。");
     }
 
     // Get change name interactively if not provided
     if (!changeName) {
       const selectedChange = await this.selectChange(changesDir);
       if (!selectedChange) {
-        console.log('No change selected. Aborting.');
+        console.log('未选择变更。正在中止。');
         return;
       }
       changeName = selectedChange;
@@ -51,10 +51,10 @@ export class ArchiveCommand {
     try {
       const stat = await fs.stat(changeDir);
       if (!stat.isDirectory()) {
-        throw new Error(`Change '${changeName}' not found.`);
+        throw new Error(`变更 '${changeName}' 未找到。`);
       }
     } catch {
-      throw new Error(`Change '${changeName}' not found.`);
+      throw new Error(`变更 '${changeName}' 未找到。`);
     }
 
     const skipValidation = options.validate === false || options.noValidate === true;
