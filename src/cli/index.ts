@@ -20,11 +20,11 @@ const { version } = require('../../package.json');
 
 program
   .name('openspec')
-  .description('AI-native system for spec-driven development')
+  .description('AI 原生的规范驱动开发系统')
   .version(version);
 
 // Global options
-program.option('--no-color', 'Disable color output');
+program.option('--no-color', '禁用彩色输出');
 
 // Apply global flags before any command runs
 program.hook('preAction', (thisCommand) => {
@@ -35,11 +35,11 @@ program.hook('preAction', (thisCommand) => {
 });
 
 const availableToolIds = AI_TOOLS.filter((tool) => tool.available).map((tool) => tool.value);
-const toolsOptionDescription = `Configure AI tools non-interactively. Use "all", "none", or a comma-separated list of: ${availableToolIds.join(', ')}`;
+const toolsOptionDescription = `非交互式配置 AI 工具。使用 "all"、"none" 或逗号分隔的列表：${availableToolIds.join(', ')}`;
 
 program
   .command('init [path]')
-  .description('Initialize OpenSpec in your project')
+  .description('在你的项目中初始化 OpenSpec')
   .option('--tools <tools>', toolsOptionDescription)
   .action(async (targetPath = '.', options?: { tools?: string }) => {
     try {
@@ -49,16 +49,16 @@ program
       try {
         const stats = await fs.stat(resolvedPath);
         if (!stats.isDirectory()) {
-          throw new Error(`Path "${targetPath}" is not a directory`);
+          throw new Error(`路径 "${targetPath}" 不是一个目录`);
         }
       } catch (error: any) {
         if (error.code === 'ENOENT') {
           // Directory doesn't exist, but we can create it
-          console.log(`Directory "${targetPath}" doesn't exist, it will be created.`);
+          console.log(`目录 "${targetPath}" 不存在，将会被创建。`);
         } else if (error.message && error.message.includes('not a directory')) {
           throw error;
         } else {
-          throw new Error(`Cannot access path "${targetPath}": ${error.message}`);
+          throw new Error(`无法访问路径 "${targetPath}": ${error.message}`);
         }
       }
       
@@ -68,14 +68,14 @@ program
       await initCommand.execute(targetPath);
     } catch (error) {
       console.log(); // Empty line for spacing
-      ora().fail(`Error: ${(error as Error).message}`);
+      ora().fail(`错误：${(error as Error).message}`);
       process.exit(1);
     }
   });
 
 program
   .command('update [path]')
-  .description('Update OpenSpec instruction files')
+  .description('更新 OpenSpec 指令文件')
   .action(async (targetPath = '.') => {
     try {
       const resolvedPath = path.resolve(targetPath);
@@ -83,16 +83,16 @@ program
       await updateCommand.execute(resolvedPath);
     } catch (error) {
       console.log(); // Empty line for spacing
-      ora().fail(`Error: ${(error as Error).message}`);
+      ora().fail(`错误：${(error as Error).message}`);
       process.exit(1);
     }
   });
 
 program
   .command('list')
-  .description('List items (changes by default). Use --specs to list specs.')
-  .option('--specs', 'List specs instead of changes')
-  .option('--changes', 'List changes explicitly (default)')
+  .description('列出项目（默认为变更）。使用 --specs 列出规范。')
+  .option('--specs', '列出规范而不是变更')
+  .option('--changes', '明确列出变更（默认）')
   .action(async (options?: { specs?: boolean; changes?: boolean }) => {
     try {
       const listCommand = new ListCommand();
@@ -100,21 +100,21 @@ program
       await listCommand.execute('.', mode);
     } catch (error) {
       console.log(); // Empty line for spacing
-      ora().fail(`Error: ${(error as Error).message}`);
+      ora().fail(`错误：${(error as Error).message}`);
       process.exit(1);
     }
   });
 
 program
   .command('view')
-  .description('Display an interactive dashboard of specs and changes')
+  .description('显示规范和变更的交互式仪表板')
   .action(async () => {
     try {
       const viewCommand = new ViewCommand();
       await viewCommand.execute('.');
     } catch (error) {
       console.log(); // Empty line for spacing
-      ora().fail(`Error: ${(error as Error).message}`);
+      ora().fail(`错误：${(error as Error).message}`);
       process.exit(1);
     }
   });
@@ -122,52 +122,52 @@ program
 // Change command with subcommands
 const changeCmd = program
   .command('change')
-  .description('Manage OpenSpec change proposals');
+  .description('管理 OpenSpec 变更提案');
 
 // Deprecation notice for noun-based commands
 changeCmd.hook('preAction', () => {
-  console.error('Warning: The "openspec change ..." commands are deprecated. Prefer verb-first commands (e.g., "openspec list", "openspec validate --changes").');
+  console.error('警告："openspec change ..." 命令已弃用。请使用动词优先的命令（例如 "openspec list"、"openspec validate --changes"）。');
 });
 
 changeCmd
   .command('show [change-name]')
-  .description('Show a change proposal in JSON or markdown format')
-  .option('--json', 'Output as JSON')
-  .option('--deltas-only', 'Show only deltas (JSON only)')
-  .option('--requirements-only', 'Alias for --deltas-only (deprecated)')
-  .option('--no-interactive', 'Disable interactive prompts')
+  .description('以 JSON 或 markdown 格式显示变更提案')
+  .option('--json', '以 JSON 格式输出')
+  .option('--deltas-only', '仅显示 delta（仅 JSON）')
+  .option('--requirements-only', '--deltas-only 的别名（已弃用）')
+  .option('--no-interactive', '禁用交互式提示')
   .action(async (changeName?: string, options?: { json?: boolean; requirementsOnly?: boolean; deltasOnly?: boolean; noInteractive?: boolean }) => {
     try {
       const changeCommand = new ChangeCommand();
       await changeCommand.show(changeName, options);
     } catch (error) {
-      console.error(`Error: ${(error as Error).message}`);
+      console.error(`错误：${(error as Error).message}`);
       process.exitCode = 1;
     }
   });
 
 changeCmd
   .command('list')
-  .description('List all active changes (DEPRECATED: use "openspec list" instead)')
-  .option('--json', 'Output as JSON')
-  .option('--long', 'Show id and title with counts')
+  .description('列出所有活跃的变更（已弃用：请使用 "openspec list"）')
+  .option('--json', '以 JSON 格式输出')
+  .option('--long', '显示 ID 和标题及计数')
   .action(async (options?: { json?: boolean; long?: boolean }) => {
     try {
-      console.error('Warning: "openspec change list" is deprecated. Use "openspec list".');
+      console.error('警告："openspec change list" 已弃用。请使用 "openspec list"。');
       const changeCommand = new ChangeCommand();
       await changeCommand.list(options);
     } catch (error) {
-      console.error(`Error: ${(error as Error).message}`);
+      console.error(`错误：${(error as Error).message}`);
       process.exitCode = 1;
     }
   });
 
 changeCmd
   .command('validate [change-name]')
-  .description('Validate a change proposal')
-  .option('--strict', 'Enable strict validation mode')
-  .option('--json', 'Output validation report as JSON')
-  .option('--no-interactive', 'Disable interactive prompts')
+  .description('验证变更提案')
+  .option('--strict', '启用严格验证模式')
+  .option('--json', '以 JSON 格式输出验证报告')
+  .option('--no-interactive', '禁用交互式提示')
   .action(async (changeName?: string, options?: { strict?: boolean; json?: boolean; noInteractive?: boolean }) => {
     try {
       const changeCommand = new ChangeCommand();
@@ -176,24 +176,24 @@ changeCmd
         process.exit(process.exitCode);
       }
     } catch (error) {
-      console.error(`Error: ${(error as Error).message}`);
+      console.error(`错误：${(error as Error).message}`);
       process.exitCode = 1;
     }
   });
 
 program
   .command('archive [change-name]')
-  .description('Archive a completed change and update main specs')
-  .option('-y, --yes', 'Skip confirmation prompts')
-  .option('--skip-specs', 'Skip spec update operations (useful for infrastructure, tooling, or doc-only changes)')
-  .option('--no-validate', 'Skip validation (not recommended, requires confirmation)')
+  .description('归档已完成的变更并更新主规范')
+  .option('-y, --yes', '跳过确认提示')
+  .option('--skip-specs', '跳过规范更新操作（适用于基础设施、工具或仅文档的变更）')
+  .option('--no-validate', '跳过验证（不推荐，需要确认）')
   .action(async (changeName?: string, options?: { yes?: boolean; skipSpecs?: boolean; noValidate?: boolean; validate?: boolean }) => {
     try {
       const archiveCommand = new ArchiveCommand();
       await archiveCommand.execute(changeName, options);
     } catch (error) {
       console.log(); // Empty line for spacing
-      ora().fail(`Error: ${(error as Error).message}`);
+      ora().fail(`错误：${(error as Error).message}`);
       process.exit(1);
     }
   });
@@ -203,22 +203,22 @@ registerSpecCommand(program);
 // Top-level validate command
 program
   .command('validate [item-name]')
-  .description('Validate changes and specs')
-  .option('--all', 'Validate all changes and specs')
-  .option('--changes', 'Validate all changes')
-  .option('--specs', 'Validate all specs')
-  .option('--type <type>', 'Specify item type when ambiguous: change|spec')
-  .option('--strict', 'Enable strict validation mode')
-  .option('--json', 'Output validation results as JSON')
-  .option('--concurrency <n>', 'Max concurrent validations (defaults to env OPENSPEC_CONCURRENCY or 6)')
-  .option('--no-interactive', 'Disable interactive prompts')
+  .description('验证变更和规范')
+  .option('--all', '验证所有变更和规范')
+  .option('--changes', '验证所有变更')
+  .option('--specs', '验证所有规范')
+  .option('--type <type>', '当存在歧义时指定项目类型：change|spec')
+  .option('--strict', '启用严格验证模式')
+  .option('--json', '以 JSON 格式输出验证结果')
+  .option('--concurrency <n>', '最大并发验证数（默认为环境变量 OPENSPEC_CONCURRENCY 或 6）')
+  .option('--no-interactive', '禁用交互式提示')
   .action(async (itemName?: string, options?: { all?: boolean; changes?: boolean; specs?: boolean; type?: string; strict?: boolean; json?: boolean; noInteractive?: boolean; concurrency?: string }) => {
     try {
       const validateCommand = new ValidateCommand();
       await validateCommand.execute(itemName, options);
     } catch (error) {
       console.log();
-      ora().fail(`Error: ${(error as Error).message}`);
+      ora().fail(`错误：${(error as Error).message}`);
       process.exit(1);
     }
   });
@@ -226,17 +226,17 @@ program
 // Top-level show command
 program
   .command('show [item-name]')
-  .description('Show a change or spec')
-  .option('--json', 'Output as JSON')
-  .option('--type <type>', 'Specify item type when ambiguous: change|spec')
-  .option('--no-interactive', 'Disable interactive prompts')
+  .description('显示变更或规范')
+  .option('--json', '以 JSON 格式输出')
+  .option('--type <type>', '当存在歧义时指定项目类型：change|spec')
+  .option('--no-interactive', '禁用交互式提示')
   // change-only flags
-  .option('--deltas-only', 'Show only deltas (JSON only, change)')
-  .option('--requirements-only', 'Alias for --deltas-only (deprecated, change)')
+  .option('--deltas-only', '仅显示 delta（仅 JSON，变更）')
+  .option('--requirements-only', '--deltas-only 的别名（已弃用，变更）')
   // spec-only flags
-  .option('--requirements', 'JSON only: Show only requirements (exclude scenarios)')
-  .option('--no-scenarios', 'JSON only: Exclude scenario content')
-  .option('-r, --requirement <id>', 'JSON only: Show specific requirement by ID (1-based)')
+  .option('--requirements', '仅 JSON：仅显示需求（排除场景）')
+  .option('--no-scenarios', '仅 JSON：排除场景内容')
+  .option('-r, --requirement <id>', '仅 JSON：按 ID 显示特定需求（从 1 开始）')
   // allow unknown options to pass-through to underlying command implementation
   .allowUnknownOption(true)
   .action(async (itemName?: string, options?: { json?: boolean; type?: string; noInteractive?: boolean; [k: string]: any }) => {
@@ -245,7 +245,7 @@ program
       await showCommand.execute(itemName, options ?? {});
     } catch (error) {
       console.log();
-      ora().fail(`Error: ${(error as Error).message}`);
+      ora().fail(`错误：${(error as Error).message}`);
       process.exit(1);
     }
   });
