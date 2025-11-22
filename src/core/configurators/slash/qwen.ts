@@ -7,6 +7,7 @@
  */
 import { TomlSlashCommandConfigurator } from './toml-base.js';
 import { SlashCommandId } from '../../templates/index.js';
+import { SLASH_COMMAND_DESCRIPTIONS } from './base.js';
 
 /** 
  * Mapping of slash command IDs to their corresponding file paths in .qwen/commands directory.
@@ -16,12 +17,6 @@ const FILE_PATHS: Record<SlashCommandId, string> = {
   proposal: '.qwen/commands/openspec-proposal.toml',
   apply: '.qwen/commands/openspec-apply.toml',
   archive: '.qwen/commands/openspec-archive.toml'
-};
-
-const DESCRIPTIONS: Record<SlashCommandId, string> = {
-  proposal: 'Scaffold a new OpenSpec change and validate strictly.',
-  apply: 'Implement an approved OpenSpec change and keep tasks in sync.',
-  archive: 'Archive a deployed OpenSpec change and update specs.'
 };
 
 /**
@@ -50,6 +45,6 @@ export class QwenSlashCommandConfigurator extends TomlSlashCommandConfigurator {
   }
 
   protected getDescription(id: SlashCommandId): string {
-    return DESCRIPTIONS[id];
+    return SLASH_COMMAND_DESCRIPTIONS[id];
   }
 }

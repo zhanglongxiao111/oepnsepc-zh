@@ -1,6 +1,6 @@
 import path from "path";
 import os from "os";
-import { SlashCommandConfigurator } from "./base.js";
+import { SlashCommandConfigurator, SLASH_COMMAND_DESCRIPTIONS } from "./base.js";
 import { SlashCommandId, TemplateManager } from "../../templates/index.js";
 import { FileSystemUtils } from "../../../utils/file-system.js";
 import { OPENSPEC_MARKERS } from "../../config.js";
@@ -25,19 +25,19 @@ export class CodexSlashCommandConfigurator extends SlashCommandConfigurator {
     // plus $ARGUMENTS to capture all arguments as a single string.
     const frontmatter: Record<SlashCommandId, string> = {
       proposal: `---
-description: Scaffold a new OpenSpec change and validate strictly.
+description: ${SLASH_COMMAND_DESCRIPTIONS.proposal}
 argument-hint: request or feature description
 ---
 
 $ARGUMENTS`,
       apply: `---
-description: Implement an approved OpenSpec change and keep tasks in sync.
+description: ${SLASH_COMMAND_DESCRIPTIONS.apply}
 argument-hint: change-id
 ---
 
 $ARGUMENTS`,
       archive: `---
-description: Archive a deployed OpenSpec change and update specs.
+description: ${SLASH_COMMAND_DESCRIPTIONS.archive}
 argument-hint: change-id
 ---
 

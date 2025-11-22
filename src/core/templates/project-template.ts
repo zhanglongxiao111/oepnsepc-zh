@@ -5,34 +5,34 @@ export interface ProjectContext {
   conventions?: string;
 }
 
-export const projectTemplate = (context: ProjectContext = {}) => `# ${context.projectName || 'Project'} Context
+export const projectTemplate = (context: ProjectContext = {}) => `# ${context.projectName || '项目'} 上下文
 
-## Purpose
-${context.description || '[Describe your project\'s purpose and goals]'}
+## 目的
+${context.description || '[描述你的项目目的和目标]'}
 
-## Tech Stack
-${context.techStack?.length ? context.techStack.map(tech => `- ${tech}`).join('\n') : '- [List your primary technologies]\n- [e.g., TypeScript, React, Node.js]'}
+## 技术栈
+${context.techStack?.length ? context.techStack.map(tech => `- ${tech}`).join('\n') : '- [列出你的主要技术]\n- [例如：TypeScript、React、Node.js]'}
 
-## Project Conventions
+## 项目约定
 
-### Code Style
-[Describe your code style preferences, formatting rules, and naming conventions]
+### 代码风格
+[描述你的代码风格偏好、格式化规则和命名约定]
 
-### Architecture Patterns
-[Document your architectural decisions and patterns]
+### 架构模式
+[记录你的架构决策和模式]
 
-### Testing Strategy
-[Explain your testing approach and requirements]
+### 测试策略
+[解释你的测试方法和要求]
 
-### Git Workflow
-[Describe your branching strategy and commit conventions]
+### Git 工作流
+[描述你的分支策略和提交约定]
 
-## Domain Context
-[Add domain-specific knowledge that AI assistants need to understand]
+## 领域上下文
+[添加 AI 助手需要理解的领域特定知识]
 
-## Important Constraints
-[List any technical, business, or regulatory constraints]
+## 重要约束
+[列出任何技术、业务或监管约束]
 
-## External Dependencies
-[Document key external services, APIs, or systems]
+## 外部依赖
+[记录关键的外部服务、API 或系统]
 `;

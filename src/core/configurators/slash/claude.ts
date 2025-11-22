@@ -1,4 +1,4 @@
-import { SlashCommandConfigurator } from './base.js';
+import { SlashCommandConfigurator, SLASH_COMMAND_DESCRIPTIONS } from './base.js';
 import { SlashCommandId } from '../../templates/index.js';
 
 const FILE_PATHS: Record<SlashCommandId, string> = {
@@ -10,19 +10,19 @@ const FILE_PATHS: Record<SlashCommandId, string> = {
 const FRONTMATTER: Record<SlashCommandId, string> = {
   proposal: `---
 name: OpenSpec: Proposal
-description: Scaffold a new OpenSpec change and validate strictly.
+description: ${SLASH_COMMAND_DESCRIPTIONS.proposal}
 category: OpenSpec
 tags: [openspec, change]
 ---`,
   apply: `---
 name: OpenSpec: Apply
-description: Implement an approved OpenSpec change and keep tasks in sync.
+description: ${SLASH_COMMAND_DESCRIPTIONS.apply}
 category: OpenSpec
 tags: [openspec, apply]
 ---`,
   archive: `---
 name: OpenSpec: Archive
-description: Archive a deployed OpenSpec change and update specs.
+description: ${SLASH_COMMAND_DESCRIPTIONS.archive}
 category: OpenSpec
 tags: [openspec, archive]
 ---`

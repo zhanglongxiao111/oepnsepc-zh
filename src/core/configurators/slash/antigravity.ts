@@ -1,16 +1,10 @@
-import { SlashCommandConfigurator } from './base.js';
+import { SlashCommandConfigurator, SLASH_COMMAND_DESCRIPTIONS } from './base.js';
 import { SlashCommandId } from '../../templates/index.js';
 
 const FILE_PATHS: Record<SlashCommandId, string> = {
   proposal: '.agent/workflows/openspec-proposal.md',
   apply: '.agent/workflows/openspec-apply.md',
   archive: '.agent/workflows/openspec-archive.md'
-};
-
-const DESCRIPTIONS: Record<SlashCommandId, string> = {
-  proposal: 'Scaffold a new OpenSpec change and validate strictly.',
-  apply: 'Implement an approved OpenSpec change and keep tasks in sync.',
-  archive: 'Archive a deployed OpenSpec change and update specs.'
 };
 
 export class AntigravitySlashCommandConfigurator extends SlashCommandConfigurator {
@@ -22,7 +16,8 @@ export class AntigravitySlashCommandConfigurator extends SlashCommandConfigurato
   }
 
   protected getFrontmatter(id: SlashCommandId): string | undefined {
-    const description = DESCRIPTIONS[id];
-    return `---\ndescription: ${description}\n---`;
+    const description = SLASH_COMMAND_DESCRIPTIONS[id];
+    return `---\ndescription: ${description}
+---`;
   }
 }
