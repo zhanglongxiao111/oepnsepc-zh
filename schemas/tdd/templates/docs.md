@@ -1,15 +1,15 @@
 ## Overview
 
-<!-- Feature overview -->
+<!-- 功能概述 -->
 
 ## Getting Started
 
-<!-- Quick start guide -->
+<!-- 快速入门指南 -->
 
 ## Examples
 
-<!-- Code examples -->
+<!-- 代码示例 -->
 
 ## Reference
 
-<!-- API reference or additional details -->
+<!-- API 参考或其他详细信息 -->

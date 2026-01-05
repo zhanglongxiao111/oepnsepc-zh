@@ -1,11 +1,11 @@
-## Feature: <!-- feature name -->
+## Feature: <!-- 功能名称 -->
 
-<!-- Feature description -->
+<!-- 功能描述 -->
 
 ## Requirements
 
-<!-- List of requirements -->
+<!-- 需求列表 -->
 
 ## Acceptance Criteria
 
-<!-- List of acceptance criteria -->
+<!-- 验收标准列表 -->

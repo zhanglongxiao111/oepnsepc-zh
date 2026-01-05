@@ -51,21 +51,21 @@ export class CompletionCommand {
 
       // Shell was detected but not supported
       if (detectionResult.detected && !detectionResult.shell) {
-        console.error(`Error: Shell '${detectionResult.detected}' is not supported yet. Currently supported: ${CompletionFactory.getSupportedShells().join(', ')}`);
+        console.error(`错误：Shell '${detectionResult.detected}' 目前不支持。当前支持的 shell：${CompletionFactory.getSupportedShells().join(', ')}`);
         process.exitCode = 1;
         return null;
       }
 
       // No shell specified and cannot auto-detect
-      console.error('Error: Could not auto-detect shell. Please specify shell explicitly.');
-      console.error(`Usage: openspec completion ${operationName} [shell]`);
-      console.error(`Currently supported: ${CompletionFactory.getSupportedShells().join(', ')}`);
+      console.error('错误：无法自动检测 shell。请显式指定 shell。');
+      console.error(`用法：openspec completion ${operationName} [shell]`);
+      console.error(`当前支持的 shell：${CompletionFactory.getSupportedShells().join(', ')}`);
       process.exitCode = 1;
       return null;
     }
 
     if (!CompletionFactory.isSupported(normalizedShell)) {
-      console.error(`Error: Shell '${normalizedShell}' is not supported yet. Currently supported: ${CompletionFactory.getSupportedShells().join(', ')}`);
+      console.error(`错误：Shell '${normalizedShell}' 目前不支持。当前支持的 shell：${CompletionFactory.getSupportedShells().join(', ')}`);
       process.exitCode = 1;
       return null;
     }
@@ -125,7 +125,7 @@ export class CompletionCommand {
     const generator = CompletionFactory.createGenerator(shell);
     const installer = CompletionFactory.createInstaller(shell);
 
-    const spinner = ora(`Installing ${shell} completion script...`).start();
+    const spinner = ora(`正在安装 ${shell} 补全脚本...`).start();
 
     try {
       // Generate the completion script
@@ -140,12 +140,12 @@ export class CompletionCommand {
         console.log(`✓ ${result.message}`);
 
         if (verbose && result.installedPath) {
-          console.log(`  Installed to: ${result.installedPath}`);
+          console.log(`  安装位置：${result.installedPath}`);
           if (result.backupPath) {
-            console.log(`  Backup created: ${result.backupPath}`);
+            console.log(`  已创建备份：${result.backupPath}`);
           }
           if (result.zshrcConfigured) {
-            console.log(`  ~/.zshrc configured automatically`);
+            console.log(`  ~/.zshrc 已自动配置`);
           }
         }
 
@@ -157,7 +157,7 @@ export class CompletionCommand {
           }
         } else if (result.zshrcConfigured) {
           console.log('');
-          console.log('Restart your shell or run: exec zsh');
+          console.log('请重启 shell 或执行：exec zsh');
         }
       } else {
         console.error(`✗ ${result.message}`);
@@ -165,7 +165,7 @@ export class CompletionCommand {
       }
     } catch (error) {
       spinner.stop();
-      console.error(`✗ Failed to install completion script: ${error instanceof Error ? error.message : String(error)}`);
+      console.error(`✗ 安装补全脚本失败：${error instanceof Error ? error.message : String(error)}`);
       process.exitCode = 1;
     }
   }
@@ -180,17 +180,17 @@ export class CompletionCommand {
     if (!skipConfirmation) {
       const { confirm } = await import('@inquirer/prompts');
       const confirmed = await confirm({
-        message: 'Remove OpenSpec configuration from ~/.zshrc?',
+        message: '是否从 ~/.zshrc 中移除 OpenSpec 配置？',
         default: false,
       });
 
       if (!confirmed) {
-        console.log('Uninstall cancelled.');
+        console.log('已取消卸载。');
         return;
       }
     }
 
-    const spinner = ora(`Uninstalling ${shell} completion script...`).start();
+    const spinner = ora(`正在卸载 ${shell} 补全脚本...`).start();
 
     try {
       const result = await installer.uninstall();
@@ -205,7 +205,7 @@ export class CompletionCommand {
       }
     } catch (error) {
       spinner.stop();
-      console.error(`✗ Failed to uninstall completion script: ${error instanceof Error ? error.message : String(error)}`);
+      console.error(`✗ 卸载补全脚本失败：${error instanceof Error ? error.message : String(error)}`);
       process.exitCode = 1;
     }
   }
@@ -224,21 +224,21 @@ export class CompletionCommand {
         case 'changes': {
           const changeIds = await this.completionProvider.getChangeIds();
           for (const id of changeIds) {
-            console.log(`${id}\tactive change`);
+            console.log(`${id}\t活跃变更`);
           }
           break;
         }
         case 'specs': {
           const specIds = await this.completionProvider.getSpecIds();
           for (const id of specIds) {
-            console.log(`${id}\tspecification`);
+            console.log(`${id}\t规范`);
           }
           break;
         }
         case 'archived-changes': {
           const archivedIds = await getArchivedChangeIds();
           for (const id of archivedIds) {
-            console.log(`${id}\tarchived change`);
+            console.log(`${id}\t已归档变更`);
           }
           break;
         }

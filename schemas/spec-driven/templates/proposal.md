@@ -1,11 +1,11 @@
 ## Why
 
-<!-- Explain the motivation for this change -->
+<!-- 说明进行此变更的动机 -->
 
 ## What Changes
 
-<!-- Describe what will change -->
+<!-- 描述将要变更的内容 -->
 
 ## Impact
 
-<!-- List affected areas -->
+<!-- 列出受影响的范围 -->

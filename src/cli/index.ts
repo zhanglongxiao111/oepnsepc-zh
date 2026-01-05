@@ -260,48 +260,48 @@ program
 // Completion command with subcommands
 const completionCmd = program
   .command('completion')
-  .description('Manage shell completions for OpenSpec CLI');
+  .description('管理 OpenSpec CLI 的 shell 自动补全');
 
 completionCmd
   .command('generate [shell]')
-  .description('Generate completion script for a shell (outputs to stdout)')
+  .description('为指定 shell 生成补全脚本（输出到 stdout）')
   .action(async (shell?: string) => {
     try {
       const completionCommand = new CompletionCommand();
       await completionCommand.generate({ shell });
     } catch (error) {
       console.log();
-      ora().fail(`Error: ${(error as Error).message}`);
+      ora().fail(`错误：${(error as Error).message}`);
       process.exit(1);
     }
   });
 
 completionCmd
   .command('install [shell]')
-  .description('Install completion script for a shell')
-  .option('--verbose', 'Show detailed installation output')
+  .description('为指定 shell 安装补全脚本')
+  .option('--verbose', '显示详细安装输出')
   .action(async (shell?: string, options?: { verbose?: boolean }) => {
     try {
       const completionCommand = new CompletionCommand();
       await completionCommand.install({ shell, verbose: options?.verbose });
     } catch (error) {
       console.log();
-      ora().fail(`Error: ${(error as Error).message}`);
+      ora().fail(`错误：${(error as Error).message}`);
       process.exit(1);
     }
   });
 
 completionCmd
   .command('uninstall [shell]')
-  .description('Uninstall completion script for a shell')
-  .option('-y, --yes', 'Skip confirmation prompts')
+  .description('为指定 shell 卸载补全脚本')
+  .option('-y, --yes', '跳过确认提示')
   .action(async (shell?: string, options?: { yes?: boolean }) => {
     try {
       const completionCommand = new CompletionCommand();
       await completionCommand.uninstall({ shell, yes: options?.yes });
     } catch (error) {
       console.log();
-      ora().fail(`Error: ${(error as Error).message}`);
+      ora().fail(`错误：${(error as Error).message}`);
       process.exit(1);
     }
   });
@@ -309,7 +309,7 @@ completionCmd
 // Hidden command for machine-readable completion data
 program
   .command('__complete <type>', { hidden: true })
-  .description('Output completion data in machine-readable format (internal use)')
+  .description('以机器可读格式输出补全数据（内部使用）')
   .action(async (type: string) => {
     try {
       const completionCommand = new CompletionCommand();

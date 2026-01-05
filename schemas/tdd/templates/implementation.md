@@ -1,11 +1,11 @@
 ## Implementation Notes
 
-<!-- Technical implementation details -->
+<!-- 技术实现细节 -->
 
 ## API
 
-<!-- Public API documentation -->
+<!-- 公开 API 文档 -->
 
 ## Usage
 
-<!-- Usage examples -->
+<!-- 使用示例 -->
