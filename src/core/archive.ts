@@ -461,7 +461,7 @@ export class ArchiveCommand {
       if (plan.removed.length > 0) {
         console.log(
           chalk.yellow(
-            `⚠️  Warning: ${specName} - ${plan.removed.length} REMOVED requirement(s) ignored for new spec (nothing to remove).`
+            `⚠️  警告：${specName} - ${plan.removed.length} 个 REMOVED 需求被忽略（新规范无内容可移除）。`
           )
         );
       }

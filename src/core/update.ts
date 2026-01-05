@@ -13,7 +13,7 @@ export class UpdateCommand {
 
     // 1. Check openspec directory exists
     if (!await FileSystemUtils.directoryExists(openspecPath)) {
-      throw new Error(`No OpenSpec directory found. Run 'openspec init' first.`);
+      throw new Error(`未找到 OpenSpec 目录。请先运行 'openspec init'。`);
     }
 
     // 2. Update AGENTS.md (full replacement)
@@ -46,7 +46,7 @@ export class UpdateCommand {
       try {
         if (fileExists && !await FileSystemUtils.canWriteFile(configFilePath)) {
           throw new Error(
-            `Insufficient permissions to modify ${configurator.configFileName}`
+            `没有权限修改 ${configurator.configFileName}`
           );
         }
 
@@ -59,8 +59,7 @@ export class UpdateCommand {
       } catch (error) {
         failedFiles.push(configurator.configFileName);
         console.error(
-          `Failed to update ${configurator.configFileName}: ${
-            error instanceof Error ? error.message : String(error)
+          `更新 ${configurator.configFileName} 失败：${error instanceof Error ? error.message : String(error)
           }`
         );
       }
@@ -80,8 +79,7 @@ export class UpdateCommand {
       } catch (error) {
         failedSlashTools.push(slashConfigurator.toolId);
         console.error(
-          `Failed to update slash commands for ${slashConfigurator.toolId}: ${
-            error instanceof Error ? error.message : String(error)
+          `更新 ${slashConfigurator.toolId} 的 slash 命令失败：${error instanceof Error ? error.message : String(error)
           }`
         );
       }
@@ -97,18 +95,17 @@ export class UpdateCommand {
     }
 
     summaryParts.push(
-      `Updated OpenSpec instructions (${instructionFiles.join(', ')})`
+      `已更新 OpenSpec 指令 (${instructionFiles.join(', ')})`
     );
 
     const aiToolFiles = updatedFiles.filter((file) => file !== 'AGENTS.md');
     if (aiToolFiles.length > 0) {
-      summaryParts.push(`Updated AI tool files: ${aiToolFiles.join(', ')}`);
+      summaryParts.push(`已更新 AI 工具文件：${aiToolFiles.join(', ')}`);
     }
 
     if (updatedSlashFiles.length > 0) {
-      // Normalize to forward slashes for cross-platform log consistency
       const normalized = updatedSlashFiles.map((p) => FileSystemUtils.toPosixPath(p));
-      summaryParts.push(`Updated slash commands: ${normalized.join(', ')}`);
+      summaryParts.push(`已更新 slash 命令：${normalized.join(', ')}`);
     }
 
     const failedItems = [
@@ -119,7 +116,7 @@ export class UpdateCommand {
     ];
 
     if (failedItems.length > 0) {
-      summaryParts.push(`Failed to update: ${failedItems.join(', ')}`);
+      summaryParts.push(`更新失败：${failedItems.join(', ')}`);
     }
 
     console.log(summaryParts.join(' | '));
