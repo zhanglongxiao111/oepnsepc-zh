@@ -11,9 +11,9 @@ export interface SlashCommandTarget {
 const ALL_COMMANDS: SlashCommandId[] = ['proposal', 'apply', 'archive'];
 
 export const SLASH_COMMAND_DESCRIPTIONS: Record<SlashCommandId, string> = {
-  proposal: '\\u521b\\u5efa\\u65b0\\u7684 OpenSpec \\u53d8\\u66f4\\u5e76\\u8fdb\\u884c\\u4e25\\u683c\\u9a8c\\u8bc1',
-  apply: '\\u5b9e\\u65bd\\u5df2\\u6279\\u51c6\\u7684 OpenSpec \\u53d8\\u66f4\\u5e76\\u4fdd\\u6301\\u4efb\\u52a1\\u540c\\u6b65',
-  archive: '\\u5f52\\u6863\\u5df2\\u90e8\\u7f72\\u7684 OpenSpec \\u53d8\\u66f4\\u5e76\\u66f4\\u65b0\\u89c4\\u8303'
+  proposal: '创建新的 OpenSpec 变更并进行严格验证',
+  apply: '实施已批准的 OpenSpec 变更并保持任务同步',
+  archive: '归档已部署的 OpenSpec 变更并更新规范'
 };
 
 export abstract class SlashCommandConfigurator {

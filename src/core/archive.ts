@@ -1,7 +1,5 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import { select, confirm } from '@inquirer/prompts';
-import { FileSystemUtils } from '../utils/file-system.js';
 import { getTaskProgressForChange, formatTaskStatus } from '../utils/task-progress.js';
 import { Validator } from './validation/validator.js';
 import chalk from 'chalk';
@@ -96,10 +94,10 @@ export class ArchiveCommand {
                 hasDeltaSpecs = true;
                 break;
               }
-            } catch {}
+            } catch { }
           }
         }
-      } catch {}
+      } catch { }
       if (hasDeltaSpecs) {
         const deltaReport = await validator.validateChangeDeltaSpecs(changeDir);
         if (!deltaReport.valid) {
@@ -125,6 +123,7 @@ export class ArchiveCommand {
       const timestamp = new Date().toISOString();
 
       if (!options.yes) {
+        const { confirm } = await import('@inquirer/prompts');
         const proceed = await confirm({
           message: chalk.yellow('⚠️  警告：跳过验证可能会归档无效的规范。继续？(y/N)'),
           default: false
@@ -149,6 +148,7 @@ export class ArchiveCommand {
     const incompleteTasks = Math.max(progress.total - progress.completed, 0);
     if (incompleteTasks > 0) {
       if (!options.yes) {
+        const { confirm } = await import('@inquirer/prompts');
         const proceed = await confirm({
           message: `警告：发现 ${incompleteTasks} 个未完成的任务。继续？`,
           default: false
@@ -179,6 +179,7 @@ export class ArchiveCommand {
 
         let shouldUpdateSpecs = true;
         if (!options.yes) {
+          const { confirm } = await import('@inquirer/prompts');
           shouldUpdateSpecs = await confirm({
             message: '继续进行规范更新？',
             default: true
@@ -256,6 +257,7 @@ export class ArchiveCommand {
   }
 
   private async selectChange(changesDir: string): Promise<string | null> {
+    const { select } = await import('@inquirer/prompts');
     // Get all directories in changes (excluding archive)
     const entries = await fs.readdir(changesDir, { withFileTypes: true });
     const changeDirs = entries
@@ -310,15 +312,15 @@ export class ArchiveCommand {
 
     try {
       const entries = await fs.readdir(changeSpecsDir, { withFileTypes: true });
-      
+
       for (const entry of entries) {
         if (entry.isDirectory()) {
           const specFile = path.join(changeSpecsDir, entry.name, 'spec.md');
           const targetFile = path.join(mainSpecsDir, entry.name, 'spec.md');
-          
+
           try {
             await fs.access(specFile);
-            
+
             // Check if target exists
             let exists = false;
             try {
@@ -444,15 +446,26 @@ export class ArchiveCommand {
 
     // Load or create base target content
     let targetContent: string;
+    let isNewSpec = false;
     try {
       targetContent = await fs.readFile(update.target, 'utf-8');
     } catch {
-      // Target spec does not exist; only ADDED operations are permitted
-      if (plan.modified.length > 0 || plan.removed.length > 0 || plan.renamed.length > 0) {
+      // Target spec does not exist; MODIFIED and RENAMED are not allowed for new specs
+      // REMOVED will be ignored with a warning since there's nothing to remove
+      if (plan.modified.length > 0 || plan.renamed.length > 0) {
         throw new Error(
-          `${specName}：目标规范不存在；新规范只允许 ADDED 需求。`
+          `${specName}：目标规范不存在；新规范只允许 ADDED 需求。MODIFIED 和 RENAMED 操作需要已存在的规范。`
         );
       }
+      // Warn about REMOVED requirements being ignored for new specs
+      if (plan.removed.length > 0) {
+        console.log(
+          chalk.yellow(
+            `⚠️  Warning: ${specName} - ${plan.removed.length} REMOVED requirement(s) ignored for new spec (nothing to remove).`
+          )
+        );
+      }
+      isNewSpec = true;
       targetContent = this.buildSpecSkeleton(specName, changeName);
     }
 
@@ -495,9 +508,15 @@ export class ArchiveCommand {
     for (const name of plan.removed) {
       const key = normalizeRequirementName(name);
       if (!nameToBlock.has(key)) {
-        throw new Error(
-          `${specName} REMOVED 失败，标题为 "### Requirement: ${name}" - 未找到`
-        );
+        // 对于新规范，REMOVED 需求已在上方警告并忽略
+        // 对于现有规范，缺失需求是一个错误
+        if (!isNewSpec) {
+          throw new Error(
+            `${specName} REMOVED 失败，标题为 "### Requirement: ${name}" - 未找到`
+          );
+        }
+        // 对于新规范跳过删除（已在上方警告）
+        continue;
       }
       nameToBlock.delete(key);
     }

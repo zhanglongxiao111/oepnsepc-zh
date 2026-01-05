@@ -3,7 +3,6 @@ import { createRequire } from 'module';
 import ora from 'ora';
 import path from 'path';
 import { promises as fs } from 'fs';
-import { InitCommand } from '../core/init.js';
 import { AI_TOOLS } from '../core/config.js';
 import { UpdateCommand } from '../core/update.js';
 import { ListCommand } from '../core/list.js';
@@ -14,6 +13,8 @@ import { ChangeCommand } from '../commands/change.js';
 import { ValidateCommand } from '../commands/validate.js';
 import { ShowCommand } from '../commands/show.js';
 import { CompletionCommand } from '../commands/completion.js';
+import { registerConfigCommand } from '../commands/config.js';
+import { registerArtifactWorkflowCommands } from '../commands/artifact-workflow.js';
 
 const program = new Command();
 const require = createRequire(import.meta.url);
@@ -30,7 +31,7 @@ program.option('--no-color', '禁用彩色输出');
 // Apply global flags before any command runs
 program.hook('preAction', (thisCommand) => {
   const opts = thisCommand.opts();
-  if (opts.noColor) {
+  if (opts.color === false) {
     process.env.NO_COLOR = '1';
   }
 });
@@ -46,7 +47,7 @@ program
     try {
       // Validate that the path is a valid directory
       const resolvedPath = path.resolve(targetPath);
-      
+
       try {
         const stats = await fs.stat(resolvedPath);
         if (!stats.isDirectory()) {
@@ -62,7 +63,8 @@ program
           throw new Error(`无法访问路径 "${targetPath}": ${error.message}`);
         }
       }
-      
+
+      const { InitCommand } = await import('../core/init.js');
       const initCommand = new InitCommand({
         tools: options?.tools,
       });
@@ -94,11 +96,14 @@ program
   .description('列出项目（默认为变更）。使用 --specs 列出规范。')
   .option('--specs', '列出规范而不是变更')
   .option('--changes', '明确列出变更（默认）')
-  .action(async (options?: { specs?: boolean; changes?: boolean }) => {
+  .option('--sort <order>', '排序方式："recent"（默认，最近优先）或 "name"（按名称）', 'recent')
+  .option('--json', '以 JSON 格式输出（用于程序化处理）')
+  .action(async (options?: { specs?: boolean; changes?: boolean; sort?: string; json?: boolean }) => {
     try {
       const listCommand = new ListCommand();
       const mode: 'changes' | 'specs' = options?.specs ? 'specs' : 'changes';
-      await listCommand.execute('.', mode);
+      const sort = options?.sort === 'name' ? 'name' : 'recent';
+      await listCommand.execute('.', mode, { sort, json: options?.json });
     } catch (error) {
       console.log(); // Empty line for spacing
       ora().fail(`错误：${(error as Error).message}`);
@@ -200,6 +205,7 @@ program
   });
 
 registerSpecCommand(program);
+registerConfigCommand(program);
 
 // Top-level validate command
 program
@@ -240,7 +246,7 @@ program
   .option('-r, --requirement <id>', '仅 JSON：按 ID 显示特定需求（从 1 开始）')
   // allow unknown options to pass-through to underlying command implementation
   .allowUnknownOption(true)
-  .action(async (itemName?: string, options?: { json?: boolean; type?: string; noInteractive?: boolean; [k: string]: any }) => {
+  .action(async (itemName?: string, options?: { json?: boolean; type?: string; noInteractive?: boolean;[k: string]: any }) => {
     try {
       const showCommand = new ShowCommand();
       await showCommand.execute(itemName, options ?? {});
@@ -313,5 +319,8 @@ program
       process.exitCode = 1;
     }
   });
+
+// Register artifact workflow commands (experimental)
+registerArtifactWorkflowCommands(program);
 
 program.parse();

@@ -1,4 +1,4 @@
-import { promises as fs } from 'fs';
+import { promises as fs, constants as fsConstants } from 'fs';
 import path from 'path';
 
 function isMarkerOnOwnLine(content: string, markerIndex: number, markerLength: number): boolean {
@@ -42,6 +42,14 @@ function findMarkerIndex(
 }
 
 export class FileSystemUtils {
+  /**
+   * Converts a path to use forward slashes (POSIX style).
+   * Essential for cross-platform compatibility with glob libraries like fast-glob.
+   */
+  static toPosixPath(p: string): string {
+    return p.replace(/\\/g, '/');
+  }
+
   private static isWindowsBasePath(basePath: string): boolean {
     return /^[A-Za-z]:[\\/]/.test(basePath) || basePath.startsWith('\\');
   }
@@ -93,10 +101,24 @@ export class FileSystemUtils {
         return true;
       }
 
-      return (stats.mode & 0o222) !== 0;
+      // On Windows, stats.mode doesn't reliably indicate write permissions.
+      // Use fs.access with W_OK to check actual write permissions cross-platform.
+      try {
+        await fs.access(filePath, fsConstants.W_OK);
+        return true;
+      } catch {
+        return false;
+      }
     } catch (error: any) {
       if (error.code === 'ENOENT') {
-        return true;
+        // File doesn't exist; check if we can write to the parent directory
+        const parentDir = path.dirname(filePath);
+        try {
+          await fs.access(parentDir, fsConstants.W_OK);
+          return true;
+        } catch {
+          return false;
+        }
       }
 
       console.debug(`Unable to determine write permissions for ${filePath}: ${error.message}`);
