@@ -98,7 +98,11 @@ export class ListCommand {
         if (json) {
           console.log(JSON.stringify({ changes: [] }));
         } else {
+<<<<<<< HEAD
           console.log('没有找到活跃的变更。');
+=======
+          console.log('未找到活跃的变更。');
+>>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
         }
         return;
       }
@@ -188,7 +192,7 @@ export class ListCommand {
     const nameWidth = Math.max(...specs.map(s => s.id.length));
     for (const spec of specs) {
       const padded = spec.id.padEnd(nameWidth);
-      console.log(`${padding}${padded}     requirements ${spec.requirementCount}`);
+      console.log(`${padding}${padded}     需求 ${spec.requirementCount}`);
     }
   }
 }

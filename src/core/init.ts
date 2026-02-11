@@ -56,9 +56,349 @@ const PROGRESS_SPINNER = {
   frames: ['░░░', '▒░░', '▒▒░', '▒▒▒', '▓▒▒', '▓▓▒', '▓▓▓', '▒▓▓', '░▒▓'],
 };
 
+<<<<<<< HEAD
 // -----------------------------------------------------------------------------
 // Types
 // -----------------------------------------------------------------------------
+=======
+const LETTER_MAP: Record<string, string[]> = {
+  O: [' ████ ', '██  ██', '██  ██', '██  ██', ' ████ '],
+  P: ['█████ ', '██  ██', '█████ ', '██    ', '██    '],
+  E: ['██████', '██    ', '█████ ', '██    ', '██████'],
+  N: ['██  ██', '███ ██', '██ ███', '██  ██', '██  ██'],
+  S: [' █████', '██    ', ' ████ ', '    ██', '█████ '],
+  C: [' █████', '██    ', '██    ', '██    ', ' █████'],
+  ' ': ['  ', '  ', '  ', '  ', '  '],
+};
+
+type ToolLabel = {
+  primary: string;
+  annotation?: string;
+};
+
+const sanitizeToolLabel = (raw: string): string =>
+  raw.replace(/✅/gu, '✔').trim();
+
+const parseToolLabel = (raw: string): ToolLabel => {
+  const sanitized = sanitizeToolLabel(raw);
+  const match = sanitized.match(/^(.*?)\s*\((.+)\)$/u);
+  if (!match) {
+    return { primary: sanitized };
+  }
+  return {
+    primary: match[1].trim(),
+    annotation: match[2].trim(),
+  };
+};
+
+const isSelectableChoice = (
+  choice: ToolWizardChoice
+): choice is Extract<ToolWizardChoice, { selectable: true }> => choice.selectable;
+
+type ToolWizardChoice =
+  | {
+      kind: 'heading' | 'info';
+      value: string;
+      label: ToolLabel;
+      selectable: false;
+    }
+  | {
+      kind: 'option';
+      value: string;
+      label: ToolLabel;
+      configured: boolean;
+      selectable: true;
+    };
+
+type ToolWizardConfig = {
+  extendMode: boolean;
+  baseMessage: string;
+  choices: ToolWizardChoice[];
+  initialSelected?: string[];
+};
+
+type WizardStep = 'intro' | 'select' | 'review';
+
+type ToolSelectionPrompt = (config: ToolWizardConfig) => Promise<string[]>;
+
+type RootStubStatus = 'created' | 'updated' | 'skipped';
+
+const ROOT_STUB_CHOICE_VALUE = '__root_stub__';
+
+const OTHER_TOOLS_HEADING_VALUE = '__heading-other__';
+const LIST_SPACER_VALUE = '__list-spacer__';
+
+const toolSelectionWizard = createPrompt<string[], ToolWizardConfig>(
+  (config, done) => {
+    const totalSteps = 3;
+    const [step, setStep] = useState<WizardStep>('intro');
+    const selectableChoices = config.choices.filter(isSelectableChoice);
+    const initialCursorIndex = config.choices.findIndex((choice) =>
+      choice.selectable
+    );
+    const [cursor, setCursor] = useState<number>(
+      initialCursorIndex === -1 ? 0 : initialCursorIndex
+    );
+    const [selected, setSelected] = useState<string[]>(() => {
+      const initial = new Set(
+        (config.initialSelected ?? []).filter((value) =>
+          selectableChoices.some((choice) => choice.value === value)
+        )
+      );
+      return selectableChoices
+        .map((choice) => choice.value)
+        .filter((value) => initial.has(value));
+    });
+    const [error, setError] = useState<string | null>(null);
+
+    const selectedSet = new Set(selected);
+    const pageSize = Math.max(config.choices.length, 1);
+
+    const updateSelected = (next: Set<string>) => {
+      const ordered = selectableChoices
+        .map((choice) => choice.value)
+        .filter((value) => next.has(value));
+      setSelected(ordered);
+    };
+
+    const page = usePagination({
+      items: config.choices,
+      active: cursor,
+      pageSize,
+      loop: false,
+      renderItem: ({ item, isActive }) => {
+        if (!item.selectable) {
+          const prefix = item.kind === 'info' ? '  ' : '';
+          const textColor =
+            item.kind === 'heading' ? PALETTE.lightGray : PALETTE.midGray;
+          return `${PALETTE.midGray(' ')} ${PALETTE.midGray(' ')} ${textColor(
+            `${prefix}${item.label.primary}`
+          )}`;
+        }
+
+        const isSelected = selectedSet.has(item.value);
+        const cursorSymbol = isActive
+          ? PALETTE.white('›')
+          : PALETTE.midGray(' ');
+        const indicator = isSelected
+          ? PALETTE.white('◉')
+          : PALETTE.midGray('○');
+        const nameColor = isActive ? PALETTE.white : PALETTE.midGray;
+        const annotation = item.label.annotation
+          ? PALETTE.midGray(` (${item.label.annotation})`)
+          : '';
+        const configuredNote = item.configured
+          ? PALETTE.midGray(' (already configured)')
+          : '';
+        const label = `${nameColor(item.label.primary)}${annotation}${configuredNote}`;
+        return `${cursorSymbol} ${indicator} ${label}`;
+      },
+    });
+
+    const moveCursor = (direction: 1 | -1) => {
+      if (selectableChoices.length === 0) {
+        return;
+      }
+
+      let nextIndex = cursor;
+      while (true) {
+        nextIndex = nextIndex + direction;
+        if (nextIndex < 0 || nextIndex >= config.choices.length) {
+          return;
+        }
+
+        if (config.choices[nextIndex]?.selectable) {
+          setCursor(nextIndex);
+          return;
+        }
+      }
+    };
+
+    useKeypress((key) => {
+      if (step === 'intro') {
+        if (isEnterKey(key)) {
+          setStep('select');
+        }
+        return;
+      }
+
+      if (step === 'select') {
+        if (isUpKey(key)) {
+          moveCursor(-1);
+          setError(null);
+          return;
+        }
+
+        if (isDownKey(key)) {
+          moveCursor(1);
+          setError(null);
+          return;
+        }
+
+        if (isSpaceKey(key)) {
+          const current = config.choices[cursor];
+          if (!current || !current.selectable) return;
+
+          const next = new Set(selected);
+          if (next.has(current.value)) {
+            next.delete(current.value);
+          } else {
+            next.add(current.value);
+          }
+
+          updateSelected(next);
+          setError(null);
+          return;
+        }
+
+        if (isEnterKey(key)) {
+          const current = config.choices[cursor];
+          if (
+            current &&
+            current.selectable &&
+            !selectedSet.has(current.value)
+          ) {
+            const next = new Set(selected);
+            next.add(current.value);
+            updateSelected(next);
+          }
+          setStep('review');
+          setError(null);
+          return;
+        }
+
+        if (key.name === 'escape') {
+          const next = new Set<string>();
+          updateSelected(next);
+          setError(null);
+        }
+        return;
+      }
+
+      if (step === 'review') {
+        if (isEnterKey(key)) {
+          const finalSelection = config.choices
+            .map((choice) => choice.value)
+            .filter(
+              (value) =>
+                selectedSet.has(value) && value !== ROOT_STUB_CHOICE_VALUE
+            );
+          done(finalSelection);
+          return;
+        }
+
+        if (isBackspaceKey(key) || key.name === 'escape') {
+          setStep('select');
+          setError(null);
+        }
+      }
+    });
+
+    const rootStubChoice = selectableChoices.find(
+      (choice) => choice.value === ROOT_STUB_CHOICE_VALUE
+    );
+    const rootStubSelected = rootStubChoice
+      ? selectedSet.has(ROOT_STUB_CHOICE_VALUE)
+      : false;
+    const nativeChoices = selectableChoices.filter(
+      (choice) => choice.value !== ROOT_STUB_CHOICE_VALUE
+    );
+    const selectedNativeChoices = nativeChoices.filter((choice) =>
+      selectedSet.has(choice.value)
+    );
+
+    const formatSummaryLabel = (
+      choice: Extract<ToolWizardChoice, { selectable: true }>
+    ) => {
+      const annotation = choice.label.annotation
+        ? PALETTE.midGray(` (${choice.label.annotation})`)
+        : '';
+      const configuredNote = choice.configured
+        ? PALETTE.midGray(' (already configured)')
+        : '';
+      return `${PALETTE.white(choice.label.primary)}${annotation}${configuredNote}`;
+    };
+
+    const stepIndex = step === 'intro' ? 1 : step === 'select' ? 2 : 3;
+    const lines: string[] = [];
+    lines.push(PALETTE.midGray(`Step ${stepIndex}/${totalSteps}`));
+    lines.push('');
+
+    if (step === 'intro') {
+      const introHeadline = config.extendMode
+        ? '扩展你的 OpenSpec 工具'
+        : '配置你的 OpenSpec 工具';
+      const introBody = config.extendMode
+        ? '我们检测到现有设置。我们将帮助你刷新或添加集成。'
+        : '让我们连接你的 AI 助手，以便它们理解 OpenSpec。';
+
+      lines.push(PALETTE.white(introHeadline));
+      lines.push(PALETTE.midGray(introBody));
+      lines.push('');
+      lines.push(PALETTE.midGray('按 Enter 继续。'));
+    } else if (step === 'select') {
+      lines.push(PALETTE.white(config.baseMessage));
+      lines.push(
+        PALETTE.midGray(
+          '使用 ↑/↓ 移动 · 空格切换 · Enter 选择高亮工具并查看。'
+        )
+      );
+      lines.push('');
+      lines.push(page);
+      lines.push('');
+      lines.push(PALETTE.midGray('已选择的配置：'));
+      if (rootStubSelected && rootStubChoice) {
+        lines.push(
+          `  ${PALETTE.white('-')} ${formatSummaryLabel(rootStubChoice)}`
+        );
+      }
+      if (selectedNativeChoices.length === 0) {
+        lines.push(
+          `  ${PALETTE.midGray('- 未选择原生支持的提供商')}`
+        );
+      } else {
+        selectedNativeChoices.forEach((choice) => {
+          lines.push(
+            `  ${PALETTE.white('-')} ${formatSummaryLabel(choice)}`
+          );
+        });
+      }
+    } else {
+      lines.push(PALETTE.white('查看选择'));
+      lines.push(
+        PALETTE.midGray('按 Enter 确认或 Backspace 调整。')
+      );
+      lines.push('');
+
+      if (rootStubSelected && rootStubChoice) {
+        lines.push(
+          `${PALETTE.white('▌')} ${formatSummaryLabel(rootStubChoice)}`
+        );
+      }
+
+      if (selectedNativeChoices.length === 0) {
+        lines.push(
+          PALETTE.midGray(
+            '未选择原生支持的提供商。通用指令仍将应用。'
+          )
+        );
+      } else {
+        selectedNativeChoices.forEach((choice) => {
+          lines.push(
+            `${PALETTE.white('▌')} ${formatSummaryLabel(choice)}`
+          );
+        });
+      }
+    }
+
+    if (error) {
+      return [lines.join('\n'), chalk.red(error)];
+    }
+
+    return lines.join('\n');
+  }
+);
+>>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
 
 type InitCommandOptions = {
   tools?: string;
@@ -521,6 +861,7 @@ export class InitCommand {
     },
     configStatus: 'created' | 'exists' | 'skipped'
   ): void {
+<<<<<<< HEAD
     console.log();
     console.log(chalk.bold('OpenSpec 设置完成'));
     console.log();
@@ -542,6 +883,136 @@ export class InitCommand {
         console.log(`${getSkillTemplates().length} skills and ${getCommandContents().length} commands in ${toolDirs}/`);
       } else {
         console.log(`${getSkillTemplates().length} skills in ${toolDirs}/`);
+=======
+    console.log(); // Empty line for spacing
+    const successHeadline = extendMode
+      ? 'OpenSpec 工具配置已更新！'
+      : 'OpenSpec 初始化成功！';
+    ora().succeed(PALETTE.white(successHeadline));
+
+    console.log();
+    console.log(PALETTE.lightGray('工具摘要：'));
+    const summaryLines = [
+      rootStubStatus === 'created'
+        ? `${PALETTE.white('▌')} ${PALETTE.white(
+            '已为其他助手创建根 AGENTS.md 存根'
+          )}`
+        : null,
+      rootStubStatus === 'updated'
+        ? `${PALETTE.lightGray('▌')} ${PALETTE.lightGray(
+            '已为其他助手刷新根 AGENTS.md 存根'
+          )}`
+        : null,
+      created.length
+        ? `${PALETTE.white('▌')} ${PALETTE.white(
+            '已创建：'
+          )} ${this.formatToolNames(created)}`
+        : null,
+      refreshed.length
+        ? `${PALETTE.lightGray('▌')} ${PALETTE.lightGray(
+            '已刷新：'
+          )} ${this.formatToolNames(refreshed)}`
+        : null,
+      skippedExisting.length
+        ? `${PALETTE.midGray('▌')} ${PALETTE.midGray(
+            '已跳过（已配置）：'
+          )} ${this.formatToolNames(skippedExisting)}`
+        : null,
+      skipped.length
+        ? `${PALETTE.darkGray('▌')} ${PALETTE.darkGray(
+            '已跳过：'
+          )} ${this.formatToolNames(skipped)}`
+        : null,
+    ].filter((line): line is string => Boolean(line));
+    for (const line of summaryLines) {
+      console.log(line);
+    }
+
+    console.log();
+    console.log(
+      PALETTE.midGray(
+        '使用 `openspec update` 在将来刷新共享的 OpenSpec 指令。'
+      )
+    );
+
+    // Get the selected tool name(s) for display
+    const toolName = this.formatToolNames(selectedTools);
+
+    console.log();
+    console.log(`下一步 - 将这些提示复制到 ${toolName}：`);
+    console.log(
+      chalk.gray('────────────────────────────────────────────────────────────')
+    );
+    console.log(PALETTE.white('1. 填充你的项目上下文：'));
+    console.log(
+      PALETTE.lightGray(
+        '   "请阅读 openspec/project.md 并帮我填写'
+      )
+    );
+    console.log(
+      PALETTE.lightGray(
+        '    关于我的项目、技术栈和约定的详细信息"\n'
+      )
+    );
+    console.log(PALETTE.white('2. 创建你的第一个变更提案：'));
+    console.log(
+      PALETTE.lightGray(
+        '   "我想添加 [你的功能]。请为此功能创建一个'
+      )
+    );
+    console.log(
+      PALETTE.lightGray('    OpenSpec 变更提案"\n')
+    );
+    console.log(PALETTE.white('3. 学习 OpenSpec 工作流：'));
+    console.log(
+      PALETTE.lightGray(
+        '   "请从 openspec/AGENTS.md 解释 OpenSpec 工作流'
+      )
+    );
+    console.log(
+      PALETTE.lightGray('    以及我应该如何在这个项目上与你合作"')
+    );
+    console.log(
+      PALETTE.darkGray(
+        '────────────────────────────────────────────────────────────\n'
+      )
+    );
+
+    // Codex heads-up: prompts installed globally
+    const selectedToolIds = new Set(selectedTools.map((t) => t.value));
+    if (selectedToolIds.has('codex')) {
+      console.log(PALETTE.white('Codex 设置说明'));
+      console.log(
+        PALETTE.midGray('提示已安装到 ~/.codex/prompts（或 $CODEX_HOME/prompts）。')
+      );
+      console.log();
+    }
+  }
+
+  private formatToolNames(tools: AIToolOption[]): string {
+    const names = tools
+      .map((tool) => tool.successLabel ?? tool.name)
+      .filter((name): name is string => Boolean(name));
+
+    if (names.length === 0)
+      return PALETTE.lightGray('your AGENTS.md-compatible assistant');
+    if (names.length === 1) return PALETTE.white(names[0]);
+
+    const base = names.slice(0, -1).map((name) => PALETTE.white(name));
+    const last = PALETTE.white(names[names.length - 1]);
+
+    return `${base.join(PALETTE.midGray(', '))}${
+      base.length ? PALETTE.midGray(', and ') : ''
+    }${last}`;
+  }
+
+  private renderBanner(_extendMode: boolean): void {
+    const rows = ['', '', '', '', ''];
+    for (const char of 'OPENSPEC') {
+      const glyph = LETTER_MAP[char] ?? LETTER_MAP[' '];
+      for (let i = 0; i < rows.length; i += 1) {
+        rows[i] += `${glyph[i]}  `;
+>>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
       }
     }
 
@@ -577,6 +1048,7 @@ export class InitCommand {
 
     // Links
     console.log();
+<<<<<<< HEAD
     console.log(`了解更多： ${chalk.cyan('https://github.com/Fission-AI/OpenSpec')}`);
     console.log(`问题反馈： ${chalk.cyan('https://github.com/Fission-AI/OpenSpec/issues')}`);
 
@@ -586,6 +1058,9 @@ export class InitCommand {
       console.log(chalk.white('重启您的 IDE 以使斜杠命令生效。'));
     }
 
+=======
+    console.log(PALETTE.white('欢迎使用 OpenSpec！'));
+>>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
     console.log();
   }
 

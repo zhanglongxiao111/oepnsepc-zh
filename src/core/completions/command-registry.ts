@@ -6,23 +6,23 @@ import { CommandDefinition, FlagDefinition } from './types.js';
 const COMMON_FLAGS = {
   json: {
     name: 'json',
-    description: 'Output as JSON',
+    description: '以 JSON 格式输出',
   } as FlagDefinition,
   jsonValidation: {
     name: 'json',
-    description: 'Output validation results as JSON',
+    description: '以 JSON 格式输出验证结果',
   } as FlagDefinition,
   strict: {
     name: 'strict',
-    description: 'Enable strict validation mode',
+    description: '启用严格验证模式',
   } as FlagDefinition,
   noInteractive: {
     name: 'no-interactive',
-    description: 'Disable interactive prompts',
+    description: '禁用交互式提示',
   } as FlagDefinition,
   type: {
     name: 'type',
-    description: 'Specify item type when ambiguous',
+    description: '当存在歧义时指定项目类型',
     takesValue: true,
     values: ['change', 'spec'],
   } as FlagDefinition,
@@ -35,67 +35,67 @@ const COMMON_FLAGS = {
 export const COMMAND_REGISTRY: CommandDefinition[] = [
   {
     name: 'init',
-    description: 'Initialize OpenSpec in your project',
+    description: '在你的项目中初始化 OpenSpec',
     acceptsPositional: true,
     positionalType: 'path',
     flags: [
       {
         name: 'tools',
-        description: 'Configure AI tools non-interactively (e.g., "all", "none", or comma-separated tool IDs)',
+        description: '非交互式配置 AI 工具（例如 "all"、"none" 或逗号分隔的工具 ID）',
         takesValue: true,
       },
     ],
   },
   {
     name: 'update',
-    description: 'Update OpenSpec instruction files',
+    description: '更新 OpenSpec 指令文件',
     acceptsPositional: true,
     positionalType: 'path',
     flags: [],
   },
   {
     name: 'list',
-    description: 'List items (changes by default, or specs with --specs)',
+    description: '列出项目（默认为变更，使用 --specs 列出规范）',
     flags: [
       {
         name: 'specs',
-        description: 'List specs instead of changes',
+        description: '列出规范而不是变更',
       },
       {
         name: 'changes',
-        description: 'List changes explicitly (default)',
+        description: '明确列出变更（默认）',
       },
     ],
   },
   {
     name: 'view',
-    description: 'Display an interactive dashboard of specs and changes',
+    description: '显示规范和变更的交互式仪表盘',
     flags: [],
   },
   {
     name: 'validate',
-    description: 'Validate changes and specs',
+    description: '验证变更和规范',
     acceptsPositional: true,
     positionalType: 'change-or-spec-id',
     flags: [
       {
         name: 'all',
-        description: 'Validate all changes and specs',
+        description: '验证所有变更和规范',
       },
       {
         name: 'changes',
-        description: 'Validate all changes',
+        description: '验证所有变更',
       },
       {
         name: 'specs',
-        description: 'Validate all specs',
+        description: '验证所有规范',
       },
       COMMON_FLAGS.type,
       COMMON_FLAGS.strict,
       COMMON_FLAGS.jsonValidation,
       {
         name: 'concurrency',
-        description: 'Max concurrent validations (defaults to env OPENSPEC_CONCURRENCY or 6)',
+        description: '最大并发验证数（默认为环境变量 OPENSPEC_CONCURRENCY 或 6）',
         takesValue: true,
       },
       COMMON_FLAGS.noInteractive,
@@ -103,7 +103,7 @@ export const COMMAND_REGISTRY: CommandDefinition[] = [
   },
   {
     name: 'show',
-    description: 'Show a change or spec',
+    description: '显示变更或规范',
     acceptsPositional: true,
     positionalType: 'change-or-spec-id',
     flags: [
@@ -112,46 +112,46 @@ export const COMMAND_REGISTRY: CommandDefinition[] = [
       COMMON_FLAGS.noInteractive,
       {
         name: 'deltas-only',
-        description: 'Show only deltas (JSON only, change-specific)',
+        description: '仅显示 delta（仅 JSON，变更专用）',
       },
       {
         name: 'requirements-only',
-        description: 'Alias for --deltas-only (deprecated, change-specific)',
+        description: '--deltas-only 的别名（已弃用，变更专用）',
       },
       {
         name: 'requirements',
-        description: 'Show only requirements, exclude scenarios (JSON only, spec-specific)',
+        description: '仅显示需求，排除场景（仅 JSON，规范专用）',
       },
       {
         name: 'no-scenarios',
-        description: 'Exclude scenario content (JSON only, spec-specific)',
+        description: '排除场景内容（仅 JSON，规范专用）',
       },
       {
         name: 'requirement',
         short: 'r',
-        description: 'Show specific requirement by ID (JSON only, spec-specific)',
+        description: '按 ID 显示特定需求（仅 JSON，规范专用）',
         takesValue: true,
       },
     ],
   },
   {
     name: 'archive',
-    description: 'Archive a completed change and update main specs',
+    description: '归档已完成的变更并更新主规范',
     acceptsPositional: true,
     positionalType: 'change-id',
     flags: [
       {
         name: 'yes',
         short: 'y',
-        description: 'Skip confirmation prompts',
+        description: '跳过确认提示',
       },
       {
         name: 'skip-specs',
-        description: 'Skip spec update operations',
+        description: '跳过规范更新操作',
       },
       {
         name: 'no-validate',
-        description: 'Skip validation (not recommended)',
+        description: '跳过验证（不推荐）',
       },
     ],
   },
@@ -169,41 +169,41 @@ export const COMMAND_REGISTRY: CommandDefinition[] = [
   },
   {
     name: 'change',
-    description: 'Manage OpenSpec change proposals (deprecated)',
+    description: '管理 OpenSpec 变更提案（已弃用）',
     flags: [],
     subcommands: [
       {
         name: 'show',
-        description: 'Show a change proposal',
+        description: '显示变更提案',
         acceptsPositional: true,
         positionalType: 'change-id',
         flags: [
           COMMON_FLAGS.json,
           {
             name: 'deltas-only',
-            description: 'Show only deltas (JSON only)',
+            description: '仅显示 delta（仅 JSON）',
           },
           {
             name: 'requirements-only',
-            description: 'Alias for --deltas-only (deprecated)',
+            description: '--deltas-only 的别名（已弃用）',
           },
           COMMON_FLAGS.noInteractive,
         ],
       },
       {
         name: 'list',
-        description: 'List all active changes (deprecated)',
+        description: '列出所有活跃变更（已弃用）',
         flags: [
           COMMON_FLAGS.json,
           {
             name: 'long',
-            description: 'Show id and title with counts',
+            description: '显示 ID、标题和计数',
           },
         ],
       },
       {
         name: 'validate',
-        description: 'Validate a change proposal',
+        description: '验证变更提案',
         acceptsPositional: true,
         positionalType: 'change-id',
         flags: [
@@ -216,28 +216,28 @@ export const COMMAND_REGISTRY: CommandDefinition[] = [
   },
   {
     name: 'spec',
-    description: 'Manage OpenSpec specifications',
+    description: '管理 OpenSpec 规范',
     flags: [],
     subcommands: [
       {
         name: 'show',
-        description: 'Show a specification',
+        description: '显示规范',
         acceptsPositional: true,
         positionalType: 'spec-id',
         flags: [
           COMMON_FLAGS.json,
           {
             name: 'requirements',
-            description: 'Show only requirements, exclude scenarios (JSON only)',
+            description: '仅显示需求，排除场景（仅 JSON）',
           },
           {
             name: 'no-scenarios',
-            description: 'Exclude scenario content (JSON only)',
+            description: '排除场景内容（仅 JSON）',
           },
           {
             name: 'requirement',
             short: 'r',
-            description: 'Show specific requirement by ID (JSON only)',
+            description: '按 ID 显示特定需求（仅 JSON）',
             takesValue: true,
           },
           COMMON_FLAGS.noInteractive,
@@ -245,18 +245,18 @@ export const COMMAND_REGISTRY: CommandDefinition[] = [
       },
       {
         name: 'list',
-        description: 'List all specifications',
+        description: '列出所有规范',
         flags: [
           COMMON_FLAGS.json,
           {
             name: 'long',
-            description: 'Show id and title with counts',
+            description: '显示 ID、标题和计数',
           },
         ],
       },
       {
         name: 'validate',
-        description: 'Validate a specification',
+        description: '验证规范',
         acceptsPositional: true,
         positionalType: 'spec-id',
         flags: [
@@ -269,31 +269,31 @@ export const COMMAND_REGISTRY: CommandDefinition[] = [
   },
   {
     name: 'completion',
-    description: 'Manage shell completions for OpenSpec CLI',
+    description: '管理 OpenSpec CLI 的 shell 自动补全',
     flags: [],
     subcommands: [
       {
         name: 'generate',
-        description: 'Generate completion script for a shell (outputs to stdout)',
+        description: '为指定 shell 生成补全脚本（输出到 stdout）',
         acceptsPositional: true,
         positionalType: 'shell',
         flags: [],
       },
       {
         name: 'install',
-        description: 'Install completion script for a shell',
+        description: '为指定 shell 安装补全脚本',
         acceptsPositional: true,
         positionalType: 'shell',
         flags: [
           {
             name: 'verbose',
-            description: 'Show detailed installation output',
+            description: '显示详细安装输出',
           },
         ],
       },
       {
         name: 'uninstall',
-        description: 'Uninstall completion script for a shell',
+        description: '为指定 shell 卸载补全脚本',
         acceptsPositional: true,
         positionalType: 'shell',
         flags: [
