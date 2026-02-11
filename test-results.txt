@@ -1,0 +1,2559 @@
+﻿
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90mD:/AI/oepnsepc/oepnsepc-zh[39m
+
+ [31m鉂?[39m test/core/archive.test.ts [2m([22m[2m23 tests[22m[2m | [22m[31m5 failed[39m[2m)[22m[32m 198[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould archive a change successfully[32m 11[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould warn about incomplete tasks[32m 7[2mms[22m[39m
+[31m   [31m脳[31m ArchiveCommand[2m > [22mexecute[2m > [22mshould update specs when archiving (delta-based ADDED) and include change name in skeleton[39m[32m 17[2mms[22m[39m
+[31m     鈫?expected '# test-capability Specification\n\n##鈥? to contain 'created by archiving change spec-feat鈥?[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould allow REMOVED requirements when creating new spec file (issue #403)[32m 10[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould still error on MODIFIED when creating new spec file[32m 9[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould still error on RENAMED when creating new spec file[32m 9[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould throw error if change does not exist[32m 3[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould throw error if archive already exists[32m 4[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould handle changes without tasks.md[32m 5[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould handle changes without specs[32m 5[2mms[22m[39m
+[31m   [31m脳[31m ArchiveCommand[2m > [22mexecute[2m > [22mshould skip spec updates when --skip-specs flag is used[39m[32m 8[2mms[22m[39m
+[31m     鈫?expected "spy" to be called with arguments: [ Array(1) ][90m
+
+Received: 
+
+[1m  1st spy call:
+
+[22m[2m  [[22m
+[32m-   "Skipping spec updates (--skip-specs flag provided).",[90m
+[31m+   "[90m
+[31m+ 鈿狅笍  璀﹀憡锛氳烦杩囨牎楠屽彲鑳戒細褰掓。鏃犳晥鐨勮鑼冦€?,[90m
+[2m  ][22m
+
+[1m  2nd spy call:
+
+[22m[2m  [[22m
+[32m-   "Skipping spec updates (--skip-specs flag provided).",[90m
+[31m+   "[2026-02-11T13:42:47.042Z] 宸茶烦杩囧彉鏇寸殑鏍￠獙锛歴kip-specs-feature",[90m
+[2m  ][22m
+
+[1m  3rd spy call:
+
+[22m[2m  [[22m
+[32m-   "Skipping spec updates (--skip-specs flag provided).",[90m
+[31m+   "鍙楀奖鍝嶇殑鏂囦欢锛歰penspec\\changes\\skip-specs-feature",[90m
+[2m  ][22m
+
+[1m  4th spy call:
+
+[22m[2m  [[22m
+[32m-   "Skipping spec updates (--skip-specs flag provided).",[90m
+[31m+   "浠诲姟鐘舵€侊細鏃犱换鍔?,[90m
+[2m  ][22m
+
+[1m  5th spy call:
+
+[22m[2m  [[22m
+[32m-   "Skipping spec updates (--skip-specs flag provided).",[90m
+[31m+   "璺宠繃瑙勮寖鏇存柊锛堝凡鎻愪緵 --skip-specs 鏍囧織锛夈€?,[90m
+[2m  ][22m
+
+[1m  6th spy call:
+
+[22m[2m  [[22m
+[32m-   "Skipping spec updates (--skip-specs flag provided).",[90m
+[31m+   "鍙樻洿 'skip-specs-feature' 宸插綊妗ｄ负 '2026-02-11-skip-specs-feature'銆?,[90m
+[2m  ][22m
+[31m[90m
+
+Number of calls: [1m6[22m
+[31m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould skip validation when commander sets validate to false (--no-validate)[32m 7[2mms[22m[39m
+[31m   [31m脳[31m ArchiveCommand[2m > [22mexecute[2m > [22mshould proceed with archive when user declines spec updates[39m[32m 10[2mms[22m[39m
+[31m     鈫?expected "spy" to be called with arguments: [ { 鈥?2) } ][90m
+
+Received: 
+
+[1m  1st spy call:
+
+[22m[2m  [[22m
+[2m    {[22m
+[2m      "default": true,[22m
+[32m-     "message": "Proceed with spec updates?",[90m
+[31m+     "message": "缁х画鏇存柊瑙勮寖锛?,[90m
+[2m    },[22m
+[2m  ][22m
+[31m[90m
+
+Number of calls: [1m1[22m
+[31m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould support header trim-only normalization for matching[32m 10[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould apply operations in order: RENAMED 鈫?REMOVED 鈫?MODIFIED 鈫?ADDED[32m 10[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould abort with error when MODIFIED/REMOVED reference non-existent requirements[32m 8[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould require MODIFIED to reference the NEW header when a rename exists (error format)[32m 12[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould process multiple specs atomically (any failure aborts all)[32m 9[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22mexecute[2m > [22mshould display aggregated totals across multiple specs[32m 19[2mms[22m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22merror handling[2m > [22mshould throw error when openspec directory does not exist[32m 6[2mms[22m[39m
+[31m   [31m脳[31m ArchiveCommand[2m > [22minteractive mode[2m > [22mshould use select prompt for change selection[39m[32m 6[2mms[22m[39m
+[31m     鈫?expected "spy" to be called with arguments: [ ObjectContaining{鈥 ][90m
+
+Received: 
+
+[1m  1st spy call:
+
+[22m[2m  [[22m
+[32m-   ObjectContaining {[90m
+[32m-     "choices": ArrayContaining [[90m
+[32m-       ObjectContaining {[90m
+[31m+   {[90m
+[31m+     "choices": [[90m
+[31m+       {[90m
+[31m+         "name": "feature-a     鏃犱换鍔?,[90m
+[2m          "value": "feature-a",[22m
+[2m        },[22m
+[32m-       ObjectContaining {[90m
+[31m+       {[90m
+[31m+         "name": "feature-b     鏃犱换鍔?,[90m
+[2m          "value": "feature-b",[22m
+[2m        },[22m
+[2m      ],[22m
+[32m-     "message": "Select a change to archive",[90m
+[31m+     "message": "閫夋嫨瑕佸綊妗ｇ殑鍙樻洿",[90m
+[2m    },[22m
+[2m  ][22m
+[31m[90m
+
+Number of calls: [1m1[22m
+[31m[39m
+   [32m鉁?[39m ArchiveCommand[2m > [22minteractive mode[2m > [22mshould use confirm prompt for task warnings[32m 6[2mms[22m[39m
+[31m   [31m脳[31m ArchiveCommand[2m > [22minteractive mode[2m > [22mshould cancel when user declines task warning[39m[32m 5[2mms[22m[39m
+[31m     鈫?expected "spy" to be called with arguments: [ 'Archive cancelled.' ][90m
+
+Received: 
+
+[1m  1st spy call:
+
+[22m[2m  [[22m
+[32m-   "Archive cancelled.",[90m
+[31m+   "褰掓。宸插彇娑堛€?,[90m
+[2m  ][22m
+[31m[90m
+
+Number of calls: [1m1[22m
+[31m[39m
+ [31m鉂?[39m test/core/legacy-cleanup.test.ts [2m([22m[2m82 tests[22m[2m | [22m[31m17 failed[39m[2m)[22m[33m 328[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mhasOpenSpecMarkers[2m > [22mshould return true when both markers are present[32m 5[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mhasOpenSpecMarkers[2m > [22mshould return false when start marker is missing[32m 3[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mhasOpenSpecMarkers[2m > [22mshould return false when end marker is missing[32m 3[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mhasOpenSpecMarkers[2m > [22mshould return false when no markers are present[32m 3[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22misOnlyOpenSpecContent[2m > [22mshould return true when content is only markers and whitespace outside[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22misOnlyOpenSpecContent[2m > [22mshould return true with whitespace before and after markers[32m 4[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22misOnlyOpenSpecContent[2m > [22mshould return false when content exists before markers[32m 3[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22misOnlyOpenSpecContent[2m > [22mshould return false when content exists after markers[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22misOnlyOpenSpecContent[2m > [22mshould return false when markers are missing[32m 3[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22misOnlyOpenSpecContent[2m > [22mshould return false when end marker comes before start marker[32m 3[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mremoveMarkerBlock[2m > [22mshould remove marker block and preserve content before[32m 4[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mremoveMarkerBlock[2m > [22mshould remove marker block and preserve content after[32m 3[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mremoveMarkerBlock[2m > [22mshould remove marker block and preserve content before and after[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mremoveMarkerBlock[2m > [22mshould clean up double blank lines[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mremoveMarkerBlock[2m > [22mshould return empty string when only markers remain[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mremoveMarkerBlock[2m > [22mshould return original content when markers are missing[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mremoveMarkerBlock[2m > [22mshould return original content when markers are in wrong order[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mremoveMarkerBlock[2m > [22mshould ignore inline mentions of markers and only remove actual block[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyConfigFiles[2m > [22mshould detect CLAUDE.md with OpenSpec markers and put in update list[32m 5[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyConfigFiles[2m > [22mshould detect files with mixed content and put in update list[32m 4[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyConfigFiles[2m > [22mshould not detect files without OpenSpec markers[32m 4[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyConfigFiles[2m > [22mshould detect multiple config files[32m 6[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyConfigFiles[2m > [22mshould handle non-existent files gracefully[32m 3[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacySlashCommands[2m > [22mshould detect legacy Claude slash command directory[32m 10[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacySlashCommands[2m > [22mshould detect legacy Cursor slash command files[32m 8[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacySlashCommands[2m > [22mshould detect legacy Windsurf workflow files[32m 7[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacySlashCommands[2m > [22mshould detect multiple tool directories and files[32m 10[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacySlashCommands[2m > [22mshould not detect non-openspec files[32m 6[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacySlashCommands[2m > [22mshould handle non-existent directories gracefully[32m 4[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacySlashCommands[2m > [22mshould detect TOML-based slash commands for Qwen[32m 7[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacySlashCommands[2m > [22mshould detect Continue prompt files[32m 7[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyStructureFiles[2m > [22mshould detect openspec/AGENTS.md[32m 4[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyStructureFiles[2m > [22mshould detect openspec/project.md[32m 12[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyStructureFiles[2m > [22mshould detect root AGENTS.md with OpenSpec markers[32m 4[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyStructureFiles[2m > [22mshould not detect root AGENTS.md without markers[32m 3[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyStructureFiles[2m > [22mshould handle non-existent files gracefully[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyArtifacts[2m > [22mshould return hasLegacyArtifacts: false when nothing is found[32m 3[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyArtifacts[2m > [22mshould return hasLegacyArtifacts: true when config files are found[32m 6[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyArtifacts[2m > [22mshould return hasLegacyArtifacts: true when slash commands are found[32m 6[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyArtifacts[2m > [22mshould return hasLegacyArtifacts: true when openspec/AGENTS.md is found[32m 5[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyArtifacts[2m > [22mshould detect project.md for migration hint (it is preserved, not deleted)[32m 6[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mdetectLegacyArtifacts[2m > [22mshould combine all detection results[32m 9[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mcleanupLegacyArtifacts[2m > [22mshould remove markers from config files that have only OpenSpec content (never delete)[32m 9[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mcleanupLegacyArtifacts[2m > [22mshould remove marker block from files with mixed content[32m 8[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mcleanupLegacyArtifacts[2m > [22mshould delete legacy slash command directories[32m 11[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mcleanupLegacyArtifacts[2m > [22mshould delete legacy slash command files[32m 7[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mcleanupLegacyArtifacts[2m > [22mshould delete openspec/AGENTS.md[32m 6[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mcleanupLegacyArtifacts[2m > [22mshould NOT delete openspec/project.md[32m 5[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mcleanupLegacyArtifacts[2m > [22mshould handle root AGENTS.md with mixed content[32m 7[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mcleanupLegacyArtifacts[2m > [22mshould remove markers from root AGENTS.md even when only OpenSpec content (never delete)[32m 7[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mcleanupLegacyArtifacts[2m > [22mshould report errors without stopping cleanup[32m 2[2mms[22m[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatCleanupSummary[2m > [22mshould format deleted files[39m[32m 8[2mms[22m[39m
+[31m     鈫?expected '宸叉竻鐞嗘棫鐗堟枃浠讹細\n  鉁?宸插垹闄?CLAUDE.md\n  鉁?宸插垹闄?鈥? to contain 'Cleaned up legacy files:'[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatCleanupSummary[2m > [22mshould format deleted directories[39m[32m 3[2mms[22m[39m
+[31m     鈫?expected '宸叉竻鐞嗘棫鐗堟枃浠讹細\n  鉁?宸插垹闄?.claude/commands/op鈥? to contain '鉁?Removed .claude/commands/openspec/ 鈥?[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatCleanupSummary[2m > [22mshould format modified files[39m[32m 3[2mms[22m[39m
+[31m     鈫?expected '宸叉竻鐞嗘棫鐗堟枃浠讹細\n  鉁?宸蹭粠 AGENTS.md 涓Щ闄?OpenSp鈥? to contain '鉁?Removed OpenSpec markers from AGENT鈥?[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatCleanupSummary[2m > [22mshould include migration hint for project.md[39m[32m 3[2mms[22m[39m
+[31m     鈫?expected '闇€瑕佹偍鐨勬敞鎰廫n  鈥?openspec/project.md\n    鈥? to contain 'Needs your attention'[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatCleanupSummary[2m > [22mshould include errors[39m[32m 3[2mms[22m[39m
+[31m     鈫?expected '娓呯悊杩囩▼涓嚭鐜伴敊璇細\n  鈿?Failed to delete CLAU鈥? to contain 'Errors during cleanup:'[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mformatCleanupSummary[2m > [22mshould return empty string when nothing to report[32m 2[2mms[22m[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatDetectionSummary[2m > [22mshould include welcoming upgrade header and explanation[39m[32m 3[2mms[22m[39m
+[31m     鈫?expected '姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to contain 'Upgrading to the new OpenSpec'[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatDetectionSummary[2m > [22mshould format config files as files to update (never remove)[39m[32m 3[2mms[22m[39m
+[31m     鈫?expected '姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to contain 'Files to update'[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatDetectionSummary[2m > [22mshould format files to be updated[39m[32m 3[2mms[22m[39m
+[31m     鈫?expected '姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to contain 'Files to update'[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatDetectionSummary[2m > [22mshould format slash command directories[39m[32m 3[2mms[22m[39m
+[31m     鈫?expected '姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to contain 'Files to remove'[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatDetectionSummary[2m > [22mshould format slash command files[39m[32m 2[2mms[22m[39m
+[31m     鈫?expected '姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to contain 'Files to remove'[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatDetectionSummary[2m > [22mshould format openspec/AGENTS.md[39m[32m 2[2mms[22m[39m
+[31m     鈫?expected '姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to contain 'Files to remove'[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatDetectionSummary[2m > [22mshould include attention section for project.md[39m[32m 2[2mms[22m[39m
+[31m     鈫?expected '姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to contain 'Needs your attention'[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatDetectionSummary[2m > [22mshould include attention section with other legacy artifacts[39m[32m 2[2mms[22m[39m
+[31m     鈫?expected '姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to contain 'Files to update'[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatDetectionSummary[2m > [22mshould group both removals and updates correctly[39m[32m 2[2mms[22m[39m
+[31m     鈫?expected '姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to contain 'Files to remove'[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mformatDetectionSummary[2m > [22mshould return empty string when nothing is detected[32m 2[2mms[22m[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatProjectMdMigrationHint[2m > [22mshould return migration hint message[39m[32m 2[2mms[22m[39m
+[31m     鈫?expected '闇€瑕佹偍鐨勬敞鎰廫n  鈥?openspec/project.md\n    鈥? to contain 'Needs your attention'[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatProjectMdMigrationHint[2m > [22mshould include actionable instructions[39m[32m 3[2mms[22m[39m
+[31m     鈫?expected '闇€瑕佹偍鐨勬敞鎰廫n  鈥?openspec/project.md\n    鈥? to contain 'move any useful content'[39m
+[31m   [31m脳[31m legacy-cleanup[2m > [22mformatProjectMdMigrationHint[2m > [22mshould explain the new context section benefits[39m[32m 2[2mms[22m[39m
+[31m     鈫?expected '闇€瑕佹偍鐨勬敞鎰廫n  鈥?openspec/project.md\n    鈥? to contain 'included in every OpenSpec request'[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mLEGACY_CONFIG_FILES[2m > [22mshould include expected config file names[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mLEGACY_SLASH_COMMAND_PATHS[2m > [22mshould include expected tool patterns[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mLEGACY_SLASH_COMMAND_PATHS[2m > [22mshould cover all tools from the CommandAdapterRegistry[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mgetToolsFromLegacyArtifacts[2m > [22mshould extract claude from directory-based legacy artifacts[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mgetToolsFromLegacyArtifacts[2m > [22mshould extract cursor from file-based legacy artifacts[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mgetToolsFromLegacyArtifacts[2m > [22mshould extract multiple tools from mixed legacy artifacts[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mgetToolsFromLegacyArtifacts[2m > [22mshould deduplicate tools when multiple files match same tool[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mgetToolsFromLegacyArtifacts[2m > [22mshould return empty array when no legacy artifacts[32m 1[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mgetToolsFromLegacyArtifacts[2m > [22mshould handle qwen TOML-based legacy files[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mgetToolsFromLegacyArtifacts[2m > [22mshould handle continue prompt files[32m 2[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mgetToolsFromLegacyArtifacts[2m > [22mshould handle github-copilot prompt files[32m 1[2mms[22m[39m
+   [32m鉁?[39m legacy-cleanup[2m > [22mgetToolsFromLegacyArtifacts[2m > [22mshould not extract tools from config files only[32m 2[2mms[22m[39m
+npx : Warning: The "openspec spec ..." command
+s are deprecated. Prefer verb-first commands (
+e.g., "openspec show", "openspec validate --sp
+ecs").
+所在位置 行:1 字符: 1
++ npx vitest run 2>&1 | Out-File -FilePath d:\
+AI\oepnsepc\oepnsepc-zh\t ...
++ ~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( 
+   Warning: The "o...date --specs").:String)  
+   [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandEr 
+   ror
+ 
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+ [32m鉁?[39m test/commands/validate.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 7078[2mms[22m[39m
+   [33m[2m鉁?[22m[39m top-level validate command[2m > [22mprints a helpful hint when no args in non-interactive mode [33m 1256[2mms[22m[39m
+   [33m[2m鉁?[22m[39m top-level validate command[2m > [22mvalidates all with --all and outputs JSON summary [33m 1177[2mms[22m[39m
+   [33m[2m鉁?[22m[39m top-level validate command[2m > [22mvalidates only specs with --specs and respects --concurrency [33m 1199[2mms[22m[39m
+   [33m[2m鉁?[22m[39m top-level validate command[2m > [22merrors on ambiguous item names and suggests type override [33m 1124[2mms[22m[39m
+   [33m[2m鉁?[22m[39m top-level validate command[2m > [22maccepts change proposals saved with CRLF line endings [33m 1157[2mms[22m[39m
+   [33m[2m鉁?[22m[39m top-level validate command[2m > [22mrespects --no-interactive flag passed via CLI [33m 1164[2mms[22m[39m
+ [32m鉁?[39m test/cli-e2e/basic.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 7659[2mms[22m[39m
+   [33m[2m鉁?[22m[39m openspec CLI e2e basics[2m > [22mvalidates the tmp-init fixture with --all --json [33m 1238[2mms[22m[39m
+   [33m[2m鉁?[22m[39m openspec CLI e2e basics[2m > [22mreturns an error for unknown items in the fixture [33m 1295[2mms[22m[39m
+   [33m[2m鉁?[22m[39m openspec CLI e2e basics[2m > [22minit command non-interactive options[2m > [22minitializes with --tools all option [33m 1159[2mms[22m[39m
+   [33m[2m鉁?[22m[39m openspec CLI e2e basics[2m > [22minit command non-interactive options[2m > [22minitializes with --tools list option [33m 1156[2mms[22m[39m
+   [33m[2m鉁?[22m[39m openspec CLI e2e basics[2m > [22minit command non-interactive options[2m > [22minitializes with --tools none option [33m 1186[2mms[22m[39m
+   [33m[2m鉁?[22m[39m openspec CLI e2e basics[2m > [22minit command non-interactive options[2m > [22mreturns error for invalid tool names [33m 336[2mms[22m[39m
+   [33m[2m鉁?[22m[39m openspec CLI e2e basics[2m > [22minit command non-interactive options[2m > [22mreturns error when combining reserved keywords with explicit ids [33m 334[2mms[22m[39m
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mbasic validation[2m > [22m[2mshould report no configured tools when none exist
+[22m[39m鏈壘鍒板凡閰嶇疆鐨勫伐鍏枫€?杩愯 "openspec init" 鏉ヨ缃伐鍏枫€?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mskill updates[2m > [22m[2mshould update skill files for configured Claude tool
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mskill updates[2m > [22m[2mshould update skill files for configured Claude tool
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mskill updates[2m > [22m[2mshould update all 9 skill files when tool is configured
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mskill updates[2m > [22m[2mshould update all 9 skill files when tool is configured
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mcommand updates[2m > [22m[2mshould update opsx commands for configured Claude tool
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mcommand updates[2m > [22m[2mshould update opsx commands for configured Claude tool
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mcommand updates[2m > [22m[2mshould update all 9 opsx commands when tool is configured
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mcommand updates[2m > [22m[2mshould update all 9 opsx commands when tool is configured
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mmulti-tool support[2m > [22m[2mshould update multiple configured tools
+[22m[39m姝ｅ湪鏇存柊 2 涓伐鍏凤細claude (unknown 鈫?1.1.1), cursor (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+- 姝ｅ湪鏇存柊 Cursor...
+鉁?宸叉洿鏂?Cursor
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mmulti-tool support[2m > [22m[2mshould update multiple configured tools
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code, Cursor (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Qwen Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mmulti-tool support[2m > [22m[2mshould update Qwen tool with correct command format
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細qwen (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Qwen Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mmulti-tool support[2m > [22m[2mshould update Qwen tool with correct command format
+[22m[39m
+鉁?宸叉洿鏂帮細Qwen Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Windsurf...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mmulti-tool support[2m > [22m[2mshould update Windsurf tool with correct command format
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細windsurf (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Windsurf
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mmulti-tool support[2m > [22m[2mshould update Windsurf tool with correct command format
+[22m[39m
+鉁?宸叉洿鏂帮細Windsurf (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2merror handling[2m > [22m[2mshould handle tool update failures gracefully
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?鏇存柊 Claude Code 澶辫触
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2merror handling[2m > [22m[2mshould handle tool update failures gracefully
+[22m[39m
+鉁?澶辫触锛欳laude Code (EACCES: permission denied)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2merror handling[2m > [22m[2mshould continue updating other tools when one fails
+[22m[39m姝ｅ湪鏇存柊 2 涓伐鍏凤細claude (unknown 鈫?1.1.1), cursor (unknown 鈫?1.1.1)
+
+
+鉁?鏇存柊 Claude Code 澶辫触
+- 姝ｅ湪鏇存柊 Cursor...
+鉁?宸叉洿鏂?Cursor
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2merror handling[2m > [22m[2mshould continue updating other tools when one fails
+[22m[39m
+鉁?宸叉洿鏂帮細Cursor (v1.1.1)
+鉁?澶辫触锛欳laude Code (EACCES: permission denied)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mtool detection[2m > [22m[2mshould detect tool as configured only when skill file exists
+[22m[39m鏈壘鍒板凡閰嶇疆鐨勫伐鍏枫€?杩愯 "openspec init" 鏉ヨ缃伐鍏枫€?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mtool detection[2m > [22m[2mshould detect tool when any single skill exists
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mtool detection[2m > [22m[2mshould detect tool when any single skill exists
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mskill content validation[2m > [22m[2mshould generate valid YAML frontmatter in skill files
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mskill content validation[2m > [22m[2mshould generate valid YAML frontmatter in skill files
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mskill content validation[2m > [22m[2mshould include proper instructions in skill files
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mskill content validation[2m > [22m[2mshould include proper instructions in skill files
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2msuccess output[2m > [22m[2mshould display success message with tool name
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2msuccess output[2m > [22m[2mshould display success message with tool name
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2msuccess output[2m > [22m[2mshould suggest IDE restart after update
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2msuccess output[2m > [22m[2mshould suggest IDE restart after update
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2msmart update detection[2m > [22m[2mshould show "up to date" message when skills have current version
+[22m[39m鉁?鎵€鏈?1 涓伐鍏峰潎涓烘渶鏂?(v1.1.1)
+  宸ュ叿锛歝laude
+
+浣跨敤 --force 寮哄埗鍒锋柊鎶€鑳姐€?
+Nothing to show. Try one of:
+  openspec show <item>
+  openspec change show
+  openspec spec show
+Or run in an interactive terminal.
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2msmart update detection[2m > [22m[2mshould detect update needed when generatedBy is missing
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2msmart update detection[2m > [22m[2mshould detect update needed when generatedBy is missing
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2msmart update detection[2m > [22m[2mshould detect update needed when version differs
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (0.1.0 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2msmart update detection[2m > [22m[2mshould detect update needed when version differs
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2msmart update detection[2m > [22m[2mshould embed generatedBy in updated skill files
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2msmart update detection[2m > [22m[2mshould embed generatedBy in updated skill files
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2m--force flag[2m > [22m[2mshould update when force is true even if up to date
+[22m[39m寮哄埗鏇存柊 1 涓伐鍏凤細claude
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2m--force flag[2m > [22m[2mshould update when force is true even if up to date
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2m--force flag[2m > [22m[2mshould not show --force hint when force is used
+[22m[39m寮哄埗鏇存柊 1 涓伐鍏凤細claude
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2m--force flag[2m > [22m[2mshould not show --force hint when force is used
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2m--force flag[2m > [22m[2mshould update all tools when force is used with mixed versions
+[22m[39m寮哄埗鏇存柊 2 涓伐鍏凤細claude, cursor
+
+
+鉁?宸叉洿鏂?Claude Code
+- 姝ｅ湪鏇存柊 Cursor...
+鉁?宸叉洿鏂?Cursor
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2m--force flag[2m > [22m[2mshould update all tools when force is used with mixed versions
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code, Cursor (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mversion tracking[2m > [22m[2mshould show version in success message
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mversion tracking[2m > [22m[2mshould show version in success message
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mversion tracking[2m > [22m[2mshould only update tools that need updating
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (0.1.0 鈫?1.1.1)
+宸叉槸鏈€鏂帮細cursor
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mversion tracking[2m > [22m[2mshould only update tools that need updating
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪娓呯悊鏃х増鏂囦欢...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould detect and auto-cleanup legacy files with --force flag
+[22m[39m
+姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec
+
+OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊鏍囧噯銆?杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?
+寰呮洿鏂扮殑鏂囦欢
+灏嗙Щ闄?OpenSpec 鏍囪锛屼繚鐣欐偍鐨勫唴瀹癸細
+  鈥?CLAUDE.md
+
+
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould detect and auto-cleanup legacy files with --force flag
+[22m[39m
+宸叉竻鐞嗘棫鐗堟枃浠讹細
+  鉁?宸蹭粠 CLAUDE.md 涓Щ闄?OpenSpec 鏍囪
+
+
+鉁?鏃х増鏂囦欢宸叉竻鐞?- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould detect and auto-cleanup legacy files with --force flag
+[22m[39m寮哄埗鏇存柊 1 涓伐鍏凤細claude
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould detect and auto-cleanup legacy files with --force flag
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould warn but continue with update when legacy files found in non-interactive mode
+[22m[39m
+姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec
+
+OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊鏍囧噯銆?杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?
+寰呮洿鏂扮殑鏂囦欢
+灏嗙Щ闄?OpenSpec 鏍囪锛屼繚鐣欐偍鐨勫唴瀹癸細
+  鈥?CLAUDE.md
+
+鈿?浣跨敤 --force 鑷姩娓呯悊鏃х増鏂囦欢锛屾垨鍦ㄤ氦浜掓ā寮忎笅杩愯銆?
+
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould warn but continue with update when legacy files found in non-interactive mode
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould warn but continue with update when legacy files found in non-interactive mode
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪娓呯悊鏃х増鏂囦欢...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould cleanup legacy slash command directories with --force
+[22m[39m
+姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec
+
+OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊鏍囧噯銆?杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?
+寰呭垹闄ょ殑鏂囦欢
+鏃犻渶淇濈暀鐨勭敤鎴峰唴瀹癸細
+  鈥?.claude/commands/openspec/
+
+
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould cleanup legacy slash command directories with --force
+[22m[39m
+宸叉竻鐞嗘棫鐗堟枃浠讹細
+  鉁?宸插垹闄?.claude/commands/openspec/锛堝凡琚?/opsx:* 鏇夸唬锛?
+
+鉁?鏃х増鏂囦欢宸叉竻鐞?- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould cleanup legacy slash command directories with --force
+[22m[39m寮哄埗鏇存柊 1 涓伐鍏凤細claude
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould cleanup legacy slash command directories with --force
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪娓呯悊鏃х増鏂囦欢...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould cleanup legacy openspec/AGENTS.md with --force
+[22m[39m
+姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec
+
+OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊鏍囧噯銆?杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?
+寰呭垹闄ょ殑鏂囦欢
+鏃犻渶淇濈暀鐨勭敤鎴峰唴瀹癸細
+  鈥?openspec/AGENTS.md
+
+
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould cleanup legacy openspec/AGENTS.md with --force
+[22m[39m
+宸叉竻鐞嗘棫鐗堟枃浠讹細
+  鉁?宸插垹闄?openspec/AGENTS.md
+
+
+鉁?鏃х増鏂囦欢宸叉竻鐞?- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould cleanup legacy openspec/AGENTS.md with --force
+[22m[39m寮哄埗鏇存柊 1 涓伐鍏凤細claude
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould cleanup legacy openspec/AGENTS.md with --force
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould not show legacy cleanup messages when no legacy files exist
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould not show legacy cleanup messages when no legacy files exist
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪娓呯悊鏃х増鏂囦欢...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould remove OpenSpec marker block from mixed content files
+[22m[39m
+姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec
+
+OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊鏍囧噯銆?杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?
+寰呮洿鏂扮殑鏂囦欢
+灏嗙Щ闄?OpenSpec 鏍囪锛屼繚鐣欐偍鐨勫唴瀹癸細
+  鈥?CLAUDE.md
+
+
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould remove OpenSpec marker block from mixed content files
+[22m[39m
+宸叉竻鐞嗘棫鐗堟枃浠讹細
+  鉁?宸蹭粠 CLAUDE.md 涓Щ闄?OpenSpec 鏍囪
+
+
+鉁?鏃х増鏂囦欢宸叉竻鐞?- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould remove OpenSpec marker block from mixed content files
+[22m[39m寮哄埗鏇存柊 1 涓伐鍏凤細claude
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy cleanup[2m > [22m[2mshould remove OpenSpec marker block from mixed content files
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪娓呯悊鏃х増鏂囦欢...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade legacy tools to new skills with --force
+[22m[39m
+姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec
+
+OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊鏍囧噯銆?杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?
+寰呭垹闄ょ殑鏂囦欢
+鏃犻渶淇濈暀鐨勭敤鎴峰唴瀹癸細
+  鈥?.claude/commands/openspec/
+
+
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade legacy tools to new skills with --force
+[22m[39m
+宸叉竻鐞嗘棫鐗堟枃浠讹細
+  鉁?宸插垹闄?.claude/commands/openspec/锛堝凡琚?/opsx:* 鏇夸唬锛?
+
+鉁?鏃х増鏂囦欢宸叉竻鐞?- 姝ｅ湪璁剧疆 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade legacy tools to new skills with --force
+[22m[39m浠庢棫鐗堝伐浠舵娴嬪埌鐨勫伐鍏凤細
+  鈥?Claude Code
+
+姝ｅ湪涓轰互涓嬪伐鍏疯缃妧鑳斤細claude
+
+鉁?Claude Code 璁剧疆瀹屾垚
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade legacy tools to new skills with --force
+[22m[39m
+
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade legacy tools to new skills with --force
+[22m[39m寮哄埗鏇存柊 1 涓伐鍏凤細claude
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade legacy tools to new skills with --force
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+寮€濮嬩娇鐢細
+  /opsx:new       寮€濮嬩竴涓柊鍙樻洿
+  /opsx:continue  鍒涘缓涓嬩竴涓伐浠?  /opsx:apply     鎵ц浠诲姟
+
+浜嗚В鏇村锛歨ttps://github.com/Fission-AI/OpenSpec
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪娓呯悊鏃х増鏂囦欢...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade multiple legacy tools with --force
+[22m[39m
+姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec
+
+OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊鏍囧噯銆?杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?
+寰呭垹闄ょ殑鏂囦欢
+鏃犻渶淇濈暀鐨勭敤鎴峰唴瀹癸細
+  鈥?.claude/commands/openspec/
+  鈥?.cursor/commands/openspec-proposal.md
+
+
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade multiple legacy tools with --force
+[22m[39m
+宸叉竻鐞嗘棫鐗堟枃浠讹細
+  鉁?宸插垹闄?.cursor/commands/openspec-proposal.md
+  鉁?宸插垹闄?.claude/commands/openspec/锛堝凡琚?/opsx:* 鏇夸唬锛?
+
+鉁?鏃х増鏂囦欢宸叉竻鐞?- 姝ｅ湪璁剧疆 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade multiple legacy tools with --force
+[22m[39m浠庢棫鐗堝伐浠舵娴嬪埌鐨勫伐鍏凤細
+  鈥?Claude Code
+  鈥?Cursor
+
+姝ｅ湪涓轰互涓嬪伐鍏疯缃妧鑳斤細claude, cursor
+
+鉁?Claude Code 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Cursor...
+鉁?Cursor 璁剧疆瀹屾垚
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade multiple legacy tools with --force
+[22m[39m
+
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade multiple legacy tools with --force
+[22m[39m寮哄埗鏇存柊 2 涓伐鍏凤細claude, cursor
+
+
+鉁?宸叉洿鏂?Claude Code
+- 姝ｅ湪鏇存柊 Cursor...
+鉁?宸叉洿鏂?Cursor
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade multiple legacy tools with --force
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code, Cursor (v1.1.1)
+
+寮€濮嬩娇鐢細
+  /opsx:new       寮€濮嬩竴涓柊鍙樻洿
+  /opsx:continue  鍒涘缓涓嬩竴涓伐浠?  /opsx:apply     鎵ц浠诲姟
+
+浜嗚В鏇村锛歨ttps://github.com/Fission-AI/OpenSpec
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪娓呯悊鏃х増鏂囦欢...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould not upgrade legacy tools already configured
+[22m[39m
+姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec
+
+OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊鏍囧噯銆?杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?
+寰呭垹闄ょ殑鏂囦欢
+鏃犻渶淇濈暀鐨勭敤鎴峰唴瀹癸細
+  鈥?.claude/commands/openspec/
+
+
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould not upgrade legacy tools already configured
+[22m[39m
+宸叉竻鐞嗘棫鐗堟枃浠讹細
+  鉁?宸插垹闄?.claude/commands/openspec/锛堝凡琚?/opsx:* 鏇夸唬锛?
+
+鉁?鏃х増鏂囦欢宸叉竻鐞?- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould not upgrade legacy tools already configured
+[22m[39m寮哄埗鏇存柊 1 涓伐鍏凤細claude
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould not upgrade legacy tools already configured
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪娓呯悊鏃х増鏂囦欢...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade only unconfigured legacy tools when mixed
+[22m[39m
+姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec
+
+OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊鏍囧噯銆?杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?
+寰呭垹闄ょ殑鏂囦欢
+鏃犻渶淇濈暀鐨勭敤鎴峰唴瀹癸細
+  鈥?.claude/commands/openspec/
+  鈥?.cursor/commands/openspec-proposal.md
+
+
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade only unconfigured legacy tools when mixed
+[22m[39m
+宸叉竻鐞嗘棫鐗堟枃浠讹細
+  鉁?宸插垹闄?.cursor/commands/openspec-proposal.md
+  鉁?宸插垹闄?.claude/commands/openspec/锛堝凡琚?/opsx:* 鏇夸唬锛?
+
+鉁?鏃х増鏂囦欢宸叉竻鐞?- 姝ｅ湪璁剧疆 Cursor...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade only unconfigured legacy tools when mixed
+[22m[39m浠庢棫鐗堝伐浠舵娴嬪埌鐨勫伐鍏凤細
+  鈥?Cursor
+
+姝ｅ湪涓轰互涓嬪伐鍏疯缃妧鑳斤細cursor
+
+鉁?Cursor 璁剧疆瀹屾垚
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade only unconfigured legacy tools when mixed
+[22m[39m
+
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade only unconfigured legacy tools when mixed
+[22m[39m寮哄埗鏇存柊 2 涓伐鍏凤細claude, cursor
+
+
+鉁?宸叉洿鏂?Claude Code
+- 姝ｅ湪鏇存柊 Cursor...
+鉁?宸叉洿鏂?Cursor
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould upgrade only unconfigured legacy tools when mixed
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code, Cursor (v1.1.1)
+
+寮€濮嬩娇鐢細
+  /opsx:new       寮€濮嬩竴涓柊鍙樻洿
+  /opsx:continue  鍒涘缓涓嬩竴涓伐浠?  /opsx:apply     鎵ц浠诲姟
+
+浜嗚В鏇村锛歨ttps://github.com/Fission-AI/OpenSpec
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould not show getting started message when no new tools configured
+[22m[39m姝ｅ湪鏇存柊 1 涓伐鍏凤細claude (unknown 鈫?1.1.1)
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould not show getting started message when no new tools configured
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪娓呯悊鏃х増鏂囦欢...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould create all 9 skills when upgrading legacy tools
+[22m[39m
+姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec
+
+OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊鏍囧噯銆?杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?
+寰呭垹闄ょ殑鏂囦欢
+鏃犻渶淇濈暀鐨勭敤鎴峰唴瀹癸細
+  鈥?.claude/commands/openspec/
+
+
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould create all 9 skills when upgrading legacy tools
+[22m[39m
+宸叉竻鐞嗘棫鐗堟枃浠讹細
+  鉁?宸插垹闄?.claude/commands/openspec/锛堝凡琚?/opsx:* 鏇夸唬锛?
+
+鉁?鏃х増鏂囦欢宸叉竻鐞?- 姝ｅ湪璁剧疆 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould create all 9 skills when upgrading legacy tools
+[22m[39m浠庢棫鐗堝伐浠舵娴嬪埌鐨勫伐鍏凤細
+  鈥?Claude Code
+
+姝ｅ湪涓轰互涓嬪伐鍏疯缃妧鑳斤細claude
+
+鉁?Claude Code 璁剧疆瀹屾垚
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould create all 9 skills when upgrading legacy tools
+[22m[39m
+
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould create all 9 skills when upgrading legacy tools
+[22m[39m寮哄埗鏇存柊 1 涓伐鍏凤細claude
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould create all 9 skills when upgrading legacy tools
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+寮€濮嬩娇鐢細
+  /opsx:new       寮€濮嬩竴涓柊鍙樻洿
+  /opsx:continue  鍒涘缓涓嬩竴涓伐浠?  /opsx:apply     鎵ц浠诲姟
+
+浜嗚В鏇村锛歨ttps://github.com/Fission-AI/OpenSpec
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+- 姝ｅ湪娓呯悊鏃х増鏂囦欢...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould create commands when upgrading legacy tools
+[22m[39m
+姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec
+
+OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊鏍囧噯銆?杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?
+寰呭垹闄ょ殑鏂囦欢
+鏃犻渶淇濈暀鐨勭敤鎴峰唴瀹癸細
+  鈥?.claude/commands/openspec/
+
+
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould create commands when upgrading legacy tools
+[22m[39m
+宸叉竻鐞嗘棫鐗堟枃浠讹細
+  鉁?宸插垹闄?.claude/commands/openspec/锛堝凡琚?/opsx:* 鏇夸唬锛?
+
+鉁?鏃х増鏂囦欢宸叉竻鐞?- 姝ｅ湪璁剧疆 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould create commands when upgrading legacy tools
+[22m[39m浠庢棫鐗堝伐浠舵娴嬪埌鐨勫伐鍏凤細
+  鈥?Claude Code
+
+姝ｅ湪涓轰互涓嬪伐鍏疯缃妧鑳斤細claude
+
+鉁?Claude Code 璁剧疆瀹屾垚
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould create commands when upgrading legacy tools
+[22m[39m
+
+- 姝ｅ湪鏇存柊 Claude Code...
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould create commands when upgrading legacy tools
+[22m[39m寮哄埗鏇存柊 1 涓伐鍏凤細claude
+
+
+鉁?宸叉洿鏂?Claude Code
+[90mstdout[2m | test/core/update.test.ts[2m > [22m[2mUpdateCommand[2m > [22m[2mlegacy tool upgrade[2m > [22m[2mshould create commands when upgrading legacy tools
+[22m[39m
+鉁?宸叉洿鏂帮細Claude Code (v1.1.1)
+
+寮€濮嬩娇鐢細
+  /opsx:new       寮€濮嬩竴涓柊鍙樻洿
+  /opsx:continue  鍒涘缓涓嬩竴涓伐浠?  /opsx:apply     鎵ц浠诲姟
+
+浜嗚В鏇村锛歨ttps://github.com/Fission-AI/OpenSpec
+
+閲嶅惎鎮ㄧ殑 IDE 浠ヤ娇鏇存敼鐢熸晥銆?
+ [32m鉁?[39m test/core/update.test.ts [2m([22m[2m39 tests[22m[2m)[22m[33m 1547[2mms[22m[39m
+Warning: Ignoring flags not applicable to chan
+ge: scenarios
+- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Cursor...
+鉁?Cursor 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Windsurf...
+鉁?Windsurf 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Cursor...
+鉁?Cursor 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Amazon Q Developer...
+鉁?Amazon Q Developer 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Antigravity...
+鉁?Antigravity 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Auggie (Augment CLI)...
+鉁?Auggie (Augment CLI) 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Cline...
+鉁?Cline 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Codex...
+鉁?Codex 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 CodeBuddy Code (CLI)...
+鉁?CodeBuddy Code (CLI) 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Continue...
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+鉁?Continue 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 CoStrict...
+鉁?CoStrict 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Crush...
+鉁?Crush 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Cursor...
+鉁?Cursor 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Factory Droid...
+鉁?Factory Droid 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Gemini CLI...
+鉁?Gemini CLI 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 GitHub Copilot...
+鉁?GitHub Copilot 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 iFlow...
+鉁?iFlow 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Kilo Code...
+鉁?Kilo Code 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 OpenCode...
+鉁?OpenCode 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Qoder...
+鉁?Qoder 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Qwen Code...
+鉁?Qwen Code 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 RooCode...
+鉁?RooCode 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Trae...
+鉁?Trae 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Windsurf...
+鉁?Windsurf 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Cursor...
+鉁?Cursor 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Cursor...
+鉁?Cursor 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Claude Code...
+鉁?Claude Code 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Cursor...
+鉁?Cursor 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?[90mstdout[2m | test/core/init.test.ts[2m > [22m[2mInitCommand[2m > [22m[2merror handling[2m > [22m[2mshould provide helpful error for insufficient permissions
+[22m[39mInsufficient permissions to write to C:\Users\ADMINI~1\AppData\Local\Temp\openspec-init-test-1770817378590\readonly: EACCES: permission denied
+
+- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Gemini CLI...
+鉁?Gemini CLI 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Windsurf...
+鉁?Windsurf 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Continue...
+鉁?Continue 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 Cline...
+鉁?Cline 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤?- 姝ｅ湪鍒涘缓 OpenSpec 缁撴瀯...
+- 姝ｅ湪璁剧疆 GitHub Copilot...
+鉁?GitHub Copilot 璁剧疆瀹屾垚
+鈻?OpenSpec 缁撴瀯宸插垱寤? [32m鉁?[39m test/core/init.test.ts [2m([22m[2m30 tests[22m[2m)[22m[33m 1536[2mms[22m[39m
+   [33m[2m鉁?[22m[39m InitCommand[2m > [22mexecute with --tools flag[2m > [22mshould select all tools with --tools all option [33m 502[2mms[22m[39m
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+Ambiguous item 'foo' matches both a change and
+ a spec.
+Pass --type change|spec, or use: openspec chan
+ge show / openspec spec show
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+Warning: The "openspec change ..." commands ar
+e deprecated. Prefer verb-first commands (e.g.
+, "openspec list", "openspec validate --change
+s").
+No change specified. Available IDs: demo
+Hint: use "openspec change list" to view avail
+able changes.
+ [32m鉁?[39m test/commands/change.interactive-show.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1145[2mms[22m[39m
+   [33m[2m鉁?[22m[39m change show (interactive behavior)[2m > [22mprints list hint and exits non-zero when no arg and non-interactive [33m 1144[2mms[22m[39m
+Unknown item 'unknown-item'
+Did you mean: demo, auth?
+ [32m鉁?[39m test/commands/show.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 6022[2mms[22m[39m
+   [33m[2m鉁?[22m[39m top-level show command[2m > [22mprints hint and non-zero exit when no args and non-interactive [33m 1196[2mms[22m[39m
+   [33m[2m鉁?[22m[39m top-level show command[2m > [22mauto-detects change id and supports --json [33m 1193[2mms[22m[39m
+   [33m[2m鉁?[22m[39m top-level show command[2m > [22mauto-detects spec id and supports spec-only flags [33m 1232[2mms[22m[39m
+   [33m[2m鉁?[22m[39m top-level show command[2m > [22mhandles ambiguity and suggests --type [33m 1258[2mms[22m[39m
+   [33m[2m鉁?[22m[39m top-level show command[2m > [22mprints nearest matches when not found [33m 1141[2mms[22m[39m
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+Specification 'invalid' has issues
+鉁?[ERROR] file: Spec must have a Purpose secti
+on. Missing required sections. Expected header
+s: "## Purpose" and "## Requirements". Example
+:
+## Purpose
+[brief purpose]
+
+## Requirements
+### Requirement: Clear requirement statement
+Users SHALL ...
+
+#### Scenario: Descriptive name
+- **WHEN** ...
+- **THEN** ...
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+Error: Missing required argument <spec-id>
+ [32m鉁?[39m test/commands/spec.interactive-show.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1178[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec show (interactive behavior)[2m > [22merrors when no arg and non-interactive [33m 1177[2mms[22m[39m
+ [32m鉁?[39m test/core/completions/completion-provider.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 295[2mms[22m[39m
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+Error: Missing required argument <spec-id>
+ [32m鉁?[39m test/commands/spec.interactive-validate.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1208[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec validate (interactive behavior)[2m > [22merrors when no arg and non-interactive [33m 1207[2mms[22m[39m
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+Error: Spec 'nonexistent' not found at openspe
+c/specs/nonexistent/spec.md
+ [32m鉁?[39m test/commands/validate.enriched-output.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 324[2mms[22m[39m
+   [33m[2m鉁?[22m[39m validate command enriched human output[2m > [22mprints Next steps footer and guidance on invalid change [33m 324[2mms[22m[39m
+Warning: The "openspec change ..." commands ar
+e deprecated. Prefer verb-first commands (e.g.
+, "openspec list", "openspec validate --change
+s").
+No change specified. Available IDs: demo
+Hint: use "openspec change list" to view avail
+able changes.
+ [32m鉁?[39m test/commands/change.interactive-validate.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 306[2mms[22m[39m
+   [33m[2m鉁?[22m[39m change validate (interactive behavior)[2m > [22mprints list hint and exits non-zero when no arg and non-interactive [33m 305[2mms[22m[39m
+ [32m鉁?[39m test/commands/schema.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 231[2mms[22m[39m
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall[2m > [22m[2mshould install to Oh My Zsh path when Oh My Zsh is present
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-9496ca79-d8fa-4f04-819c-f64dfa5df2ad\.oh-my-zsh\custom\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-9496ca79-d8fa-4f04-819c-f64dfa5df2ad\.oh-my-zsh\custom\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall[2m > [22m[2mshould install to Oh My Zsh path when Oh My Zsh is present
+[22m[39mUnable to read .zshrc to check fpath config: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-9496ca79-d8fa-4f04-819c-f64dfa5df2ad\.zshrc'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall[2m > [22m[2mshould install to standard Zsh path when Oh My Zsh is not present
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-68c9146a-cef9-43a7-a142-e70306e71b57\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-68c9146a-cef9-43a7-a142-e70306e71b57\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall[2m > [22m[2mshould create necessary directories if they do not exist
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-cfa3fb23-e99e-4eb2-be22-c8cd5c363265\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-cfa3fb23-e99e-4eb2-be22-c8cd5c363265\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall[2m > [22m[2mshould include fpath verification guidance for Oh My Zsh
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-591bb39c-0a64-4baf-9a73-283e277ae5be\.oh-my-zsh\custom\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-591bb39c-0a64-4baf-9a73-283e277ae5be\.oh-my-zsh\custom\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall[2m > [22m[2mshould include fpath verification guidance for Oh My Zsh
+[22m[39mUnable to read .zshrc to check fpath config: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-591bb39c-0a64-4baf-9a73-283e277ae5be\.zshrc'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall[2m > [22m[2mshould include fpath instructions for standard Zsh when auto-config is disabled
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-5f79bd4f-f9a6-4e54-8e80-dbc4fc842b96\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-5f79bd4f-f9a6-4e54-8e80-dbc4fc842b96\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall[2m > [22m[2mshould handle installation errors gracefully
+[22m[39mUnable to read existing completion file at Z:\nonexistent\invalid\path\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'Z:\nonexistent\invalid\path\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall[2m > [22m[2mshould detect already-installed completion with identical content
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-7b9725ca-d3c5-4f0b-8151-b5a4cc3cc720\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-7b9725ca-d3c5-4f0b-8151-b5a4cc3cc720\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall[2m > [22m[2mshould update completion when content differs
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-75fce079-f440-4f37-bbb8-caa3050fd676\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-75fce079-f440-4f37-bbb8-caa3050fd676\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall[2m > [22m[2mshould handle paths with spaces in .zshrc config
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec zsh test 436d466b-fb26-4e15-8f7e-eac9c165e789\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec zsh test 436d466b-fb26-4e15-8f7e-eac9c165e789\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2muninstall[2m > [22m[2mshould remove installed completion script
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-ef2e2210-35ac-4b4a-928a-577c9a350b31\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-ef2e2210-35ac-4b4a-928a-577c9a350b31\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2muninstall[2m > [22m[2mshould remove from correct location for Oh My Zsh
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-5c65079a-c87b-434e-9257-c9fbc99353c2\.oh-my-zsh\custom\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-5c65079a-c87b-434e-9257-c9fbc99353c2\.oh-my-zsh\custom\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2muninstall[2m > [22m[2mshould remove from correct location for Oh My Zsh
+[22m[39mUnable to read .zshrc to check fpath config: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-5c65079a-c87b-434e-9257-c9fbc99353c2\.zshrc'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2misInstalled[2m > [22m[2mshould return true when installed
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-9d111e11-4129-4d04-9404-3d66b6035226\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-9d111e11-4129-4d04-9404-3d66b6035226\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2misInstalled[2m > [22m[2mshould check correct location for Oh My Zsh
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-8a773a83-0494-424f-96dd-78122e494485\.oh-my-zsh\custom\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-8a773a83-0494-424f-96dd-78122e494485\.oh-my-zsh\custom\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2misInstalled[2m > [22m[2mshould check correct location for Oh My Zsh
+[22m[39mUnable to read .zshrc to check fpath config: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-8a773a83-0494-424f-96dd-78122e494485\.zshrc'
+
+ [32m鉁?[39m test/core/artifact-graph/instruction-loader.test.ts [2m([22m[2m38 tests[22m[2m)[22m[32m 204[2mms[22m[39m
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2mgetInstallationInfo[2m > [22m[2mshould return installation info when installed
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-80ffce13-b7b4-4377-8d49-333ffcbd45db\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-80ffce13-b7b4-4377-8d49-333ffcbd45db\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2mgetInstallationInfo[2m > [22m[2mshould indicate Oh My Zsh when installed there
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-207a1208-1bb2-4899-a595-986ebbf8b98e\.oh-my-zsh\custom\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-207a1208-1bb2-4899-a595-986ebbf8b98e\.oh-my-zsh\custom\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2mgetInstallationInfo[2m > [22m[2mshould indicate Oh My Zsh when installed there
+[22m[39mUnable to read .zshrc to check fpath config: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-207a1208-1bb2-4899-a595-986ebbf8b98e\.zshrc'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall with .zshrc auto-configuration[2m > [22m[2mshould auto-configure .zshrc for standard Zsh
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-e8e31398-ca58-47c6-a7e5-43e03f5b183f\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-e8e31398-ca58-47c6-a7e5-43e03f5b183f\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall with .zshrc auto-configuration[2m > [22m[2mshould configure .zshrc for Oh My Zsh when fpath is missing
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-457b0576-e623-4020-9fb9-7437163eed7f\.oh-my-zsh\custom\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-457b0576-e623-4020-9fb9-7437163eed7f\.oh-my-zsh\custom\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall with .zshrc auto-configuration[2m > [22m[2mshould configure .zshrc for Oh My Zsh when fpath is missing
+[22m[39mUnable to read .zshrc to check fpath config: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-457b0576-e623-4020-9fb9-7437163eed7f\.zshrc'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall with .zshrc auto-configuration[2m > [22m[2mshould not include manual instructions when .zshrc was auto-configured
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-c2ffbe2e-933e-4781-8adc-94129896c3b6\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-c2ffbe2e-933e-4781-8adc-94129896c3b6\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall with .zshrc auto-configuration[2m > [22m[2mshould include instructions when .zshrc auto-config fails
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-b047a932-deae-43f8-917a-93d35e4b5d7e\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-b047a932-deae-43f8-917a-93d35e4b5d7e\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2minstall with .zshrc auto-configuration[2m > [22m[2mshould update success message when .zshrc is configured
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-35fa10bf-d985-4c41-95c9-6ea1f4fb56b9\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-35fa10bf-d985-4c41-95c9-6ea1f4fb56b9\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2muninstall with .zshrc cleanup[2m > [22m[2mshould remove .zshrc config when uninstalling
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-9c573b08-7d6e-45fb-99e4-f922ae3ed160\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-9c573b08-7d6e-45fb-99e4-f922ae3ed160\.zsh\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2muninstall with .zshrc cleanup[2m > [22m[2mshould not remove .zshrc config for Oh My Zsh users
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-d2e93446-5f5d-4971-abb0-c9ccdc6280aa\.oh-my-zsh\custom\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-d2e93446-5f5d-4971-abb0-c9ccdc6280aa\.oh-my-zsh\custom\completions\_openspec'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2muninstall with .zshrc cleanup[2m > [22m[2mshould not remove .zshrc config for Oh My Zsh users
+[22m[39mUnable to read .zshrc to check fpath config: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-d2e93446-5f5d-4971-abb0-c9ccdc6280aa\.zshrc'
+
+[90mstdout[2m | test/core/completions/installers/zsh-installer.test.ts[2m > [22m[2mZshInstaller[2m > [22m[2muninstall with .zshrc cleanup[2m > [22m[2mshould include both messages when removing script and .zshrc
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-878edce1-e0bd-4a7d-9538-f95b2ca67cfa\.zsh\completions\_openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-zsh-test-878edce1-e0bd-4a7d-9538-f95b2ca67cfa\.zsh\completions\_openspec'
+
+ [32m鉁?[39m test/core/completions/installers/zsh-installer.test.ts [2m([22m[2m50 tests[22m[2m)[22m[32m 214[2mms[22m[39m
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+[90mstderr[2m | test/core/completions/instal
+lers/powershell-installer.test.ts[2m > [22m
+[2mPowerShellInstaller[2m > [22m[2mremovePr
+ofileConfig[2m > [22m[2mshould return false
+ on invalid marker placement
+[22m[39mWarning: Found start marker but no e
+nd marker in C:\Users\ADMINI~1\AppData\Local\T
+emp\openspec-powershell-test-9749785a-2b60-43f
+e-9113-6af7cda18d44\Documents\PowerShell\Micro
+soft.PowerShell_profile.ps1
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2minstall[2m > [22m[2mshould install completion script for the first time
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-874550bd-c9a1-48ff-bcf0-71be248c2927\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-874550bd-c9a1-48ff-bcf0-71be248c2927\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2minstall[2m > [22m[2mshould create parent directories if they do not exist
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-b9ed1d48-3b38-433a-b3b2-11e1b9a6d097\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-b9ed1d48-3b38-433a-b3b2-11e1b9a6d097\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2minstall[2m > [22m[2mshould write completion script content correctly
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-4048e20b-0bfa-4408-9afd-7025a0411eec\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-4048e20b-0bfa-4408-9afd-7025a0411eec\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2minstall[2m > [22m[2mshould detect when already installed with same content
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-0c097a72-7951-4afd-9d8d-cfd90f333811\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-0c097a72-7951-4afd-9d8d-cfd90f333811\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2minstall[2m > [22m[2mshould update when content is different
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-ff75a99b-6d8e-4493-a49e-52a329f7b8b3\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-ff75a99b-6d8e-4493-a49e-52a329f7b8b3\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2minstall[2m > [22m[2mshould create backup when updating existing installation
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-3670379c-04ab-46a3-832c-78e0208ffe37\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-3670379c-04ab-46a3-832c-78e0208ffe37\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2minstall[2m > [22m[2mshould configure PowerShell profile when not disabled
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-85e8fe11-fa5d-4c95-9121-c7fefda089da\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-85e8fe11-fa5d-4c95-9121-c7fefda089da\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2minstall[2m > [22m[2mshould include backup path in message when updating
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-34adeba3-df4a-44f8-b882-2e1e43b278ea\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-34adeba3-df4a-44f8-b882-2e1e43b278ea\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2minstall[2m > [22m[2mshould handle installation with paths containing spaces
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec powershell test 4f1f9fb7-5488-4791-818d-e2dd132c9ab5\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec powershell test 4f1f9fb7-5488-4791-818d-e2dd132c9ab5\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2minstall[2m > [22m[2mshould handle empty completion script
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-1dce5db3-7482-4fd9-af84-036170bbef4b\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-1dce5db3-7482-4fd9-af84-036170bbef4b\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2minstall[2m > [22m[2mshould handle completion script with special characters
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-834dc577-46c7-4b46-ba3d-4d045fafce56\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-834dc577-46c7-4b46-ba3d-4d045fafce56\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2muninstall[2m > [22m[2mshould successfully uninstall when completion script exists
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-d4f8bbe9-dc3d-496f-9fd3-15011161b398\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-d4f8bbe9-dc3d-496f-9fd3-15011161b398\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2muninstall[2m > [22m[2mshould remove the completion file
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-78a2f0ac-d029-4f0b-9ecb-b429bf43703b\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-78a2f0ac-d029-4f0b-9ecb-b429bf43703b\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2muninstall[2m > [22m[2mshould remove profile configuration
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-ba60b175-342d-466c-9621-50ac80fdcc35\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-ba60b175-342d-466c-9621-50ac80fdcc35\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2muninstall[2m > [22m[2mshould accept yes option parameter
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-4f20fc23-623c-47e0-8d0c-72b0600f409e\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-4f20fc23-623c-47e0-8d0c-72b0600f409e\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+[90mstdout[2m | test/core/completions/installers/powershell-installer.test.ts[2m > [22m[2mPowerShellInstaller[2m > [22m[2muninstall[2m > [22m[2mshould handle both script and config removal
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-ee5f657c-d532-43a7-a934-fb6714c3f9ae\Documents\PowerShell\OpenSpecCompletion.ps1: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-powershell-test-ee5f657c-d532-43a7-a934-fb6714c3f9ae\Documents\PowerShell\OpenSpecCompletion.ps1'
+
+ [32m鉁?[39m test/core/completions/installers/powershell-installer.test.ts [2m([22m[2m44 tests[22m[2m | [22m[33m5 skipped[39m[2m)[22m[32m 216[2mms[22m[39m
+ [32m鉁?[39m test/core/artifact-graph/resolver.test.ts [2m([22m[2m39 tests[22m[2m)[22m[32m 204[2mms[22m[39m
+[90mstdout[2m | test/core/completions/installers/bash-installer.test.ts[2m > [22m[2mBashInstaller[2m > [22m[2minstall[2m > [22m[2mshould install to bash-completion path
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-0b02bea2-7e58-4821-b61e-59535acc9b7c\.local\share\bash-completion\completions\openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-0b02bea2-7e58-4821-b61e-59535acc9b7c\.local\share\bash-completion\completions\openspec'
+
+[90mstdout[2m | test/core/completions/installers/bash-installer.test.ts[2m > [22m[2mBashInstaller[2m > [22m[2minstall[2m > [22m[2mshould create necessary directories if they do not exist
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-47162ef0-4c2f-4af3-a7bf-dc55f6922a3b\.local\share\bash-completion\completions\openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-47162ef0-4c2f-4af3-a7bf-dc55f6922a3b\.local\share\bash-completion\completions\openspec'
+
+[90mstdout[2m | test/core/completions/installers/bash-installer.test.ts[2m > [22m[2mBashInstaller[2m > [22m[2minstall[2m > [22m[2mshould configure .bashrc when auto-config is enabled
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-8cee5f27-198a-407d-82cd-6a1700e79646\.local\share\bash-completion\completions\openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-8cee5f27-198a-407d-82cd-6a1700e79646\.local\share\bash-completion\completions\openspec'
+
+[90mstdout[2m | test/core/completions/installers/bash-installer.test.ts[2m > [22m[2mBashInstaller[2m > [22m[2minstall[2m > [22m[2mshould include instructions when auto-config is disabled
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-a1816b10-3a70-4d75-b1db-075da79401b3\.local\share\bash-completion\completions\openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-a1816b10-3a70-4d75-b1db-075da79401b3\.local\share\bash-completion\completions\openspec'
+
+[90mstdout[2m | test/core/completions/installers/bash-installer.test.ts[2m > [22m[2mBashInstaller[2m > [22m[2minstall[2m > [22m[2mshould handle installation errors gracefully
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-665e1b48-4f24-4763-8dd1-f46f0b6eb4e6\blocking-file\.local\share\bash-completion\completions\openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-665e1b48-4f24-4763-8dd1-f46f0b6eb4e6\blocking-file\.local\share\bash-completion\completions\openspec'
+
+[90mstdout[2m | test/core/completions/installers/bash-installer.test.ts[2m > [22m[2mBashInstaller[2m > [22m[2minstall[2m > [22m[2mshould detect already-installed completion with identical content
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-5105d54d-3e80-48e8-a5fd-d5c887fc1ce9\.local\share\bash-completion\completions\openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-5105d54d-3e80-48e8-a5fd-d5c887fc1ce9\.local\share\bash-completion\completions\openspec'
+
+[90mstdout[2m | test/core/completions/installers/bash-installer.test.ts[2m > [22m[2mBashInstaller[2m > [22m[2minstall[2m > [22m[2mshould update completion when content differs
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-f026d8cb-8948-476b-8823-0da0ce595a71\.local\share\bash-completion\completions\openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-f026d8cb-8948-476b-8823-0da0ce595a71\.local\share\bash-completion\completions\openspec'
+
+[90mstdout[2m | test/core/completions/installers/bash-installer.test.ts[2m > [22m[2mBashInstaller[2m > [22m[2minstall[2m > [22m[2mshould handle paths with spaces in .bashrc config
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec bash test 762ea043-f678-4aa8-82cc-7d7938f6c9b3\.local\share\bash-completion\completions\openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec bash test 762ea043-f678-4aa8-82cc-7d7938f6c9b3\.local\share\bash-completion\completions\openspec'
+
+[90mstdout[2m | test/core/completions/installers/bash-installer.test.ts[2m > [22m[2mBashInstaller[2m > [22m[2muninstall[2m > [22m[2mshould remove installed completion script
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-435c9d66-33df-489e-b81b-9e48090574f6\.local\share\bash-completion\completions\openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-435c9d66-33df-489e-b81b-9e48090574f6\.local\share\bash-completion\completions\openspec'
+
+[90mstdout[2m | test/core/completions/installers/bash-installer.test.ts[2m > [22m[2mBashInstaller[2m > [22m[2muninstall[2m > [22m[2mshould remove .bashrc configuration
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-11c93351-d7c9-48b6-986e-cb7c7a15f28a\.local\share\bash-completion\completions\openspec: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-11c93351-d7c9-48b6-986e-cb7c7a15f28a\.local\share\bash-completion\completions\openspec'
+
+[90mstdout[2m | test/core/completions/installers/bash-installer.test.ts[2m > [22m[2mBashInstaller[2m > [22m[2mconfigureBashrc[2m > [22m[2mshould handle write permission errors gracefully
+[22m[39mPath component C:\Users\ADMINI~1\AppData\Local\Temp\openspec-bash-test-63ad04da-d24a-4ec3-8d46-3fbdc39c941a\blocking-file exists but is not a directory
+
+ [32m鉁?[39m test/core/completions/installers/bash-installer.test.ts [2m([22m[2m29 tests[22m[2m)[22m[32m 150[2mms[22m[39m
+ [32m鉁?[39m test/core/shared/tool-detection.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 118[2mms[22m[39m
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2minstall[2m > [22m[2mshould install completion script for the first time
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-fb4a319b-4d4a-467d-b969-66004f808938\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-fb4a319b-4d4a-467d-b969-66004f808938\.config\fish\completions\openspec.fish'
+
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2minstall[2m > [22m[2mshould create parent directories if they do not exist
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-f0f80a66-0b4c-4a8a-a0a2-10ab4adfd011\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-f0f80a66-0b4c-4a8a-a0a2-10ab4adfd011\.config\fish\completions\openspec.fish'
+
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2minstall[2m > [22m[2mshould write completion script content correctly
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-67336263-4d08-4638-bf4d-982b2f526540\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-67336263-4d08-4638-bf4d-982b2f526540\.config\fish\completions\openspec.fish'
+
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2minstall[2m > [22m[2mshould detect when already installed with same content
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-9deca989-3665-4a11-874c-08a995e1b575\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-9deca989-3665-4a11-874c-08a995e1b575\.config\fish\completions\openspec.fish'
+
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2minstall[2m > [22m[2mshould update when content is different
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-76da5f88-d02f-4e18-89ca-fc69b8f45812\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-76da5f88-d02f-4e18-89ca-fc69b8f45812\.config\fish\completions\openspec.fish'
+
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2minstall[2m > [22m[2mshould create backup when updating existing installation
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-4daa2a13-3ea6-408d-bc20-00599d6c120b\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-4daa2a13-3ea6-408d-bc20-00599d6c120b\.config\fish\completions\openspec.fish'
+
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2minstall[2m > [22m[2mshould include backup path in message when updating
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-aa4c1ff9-2bf1-433e-ad9d-0c0e0a653ff1\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-aa4c1ff9-2bf1-433e-ad9d-0c0e0a653ff1\.config\fish\completions\openspec.fish'
+
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2minstall[2m > [22m[2mshould handle installation with paths containing spaces
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec fish test 933b42c8-4946-41c3-ad37-87455b6498a9\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec fish test 933b42c8-4946-41c3-ad37-87455b6498a9\.config\fish\completions\openspec.fish'
+
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2minstall[2m > [22m[2mshould provide appropriate instructions for Fish
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-72bd92f1-2f8b-431a-be7b-4e26a22a85a0\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-72bd92f1-2f8b-431a-be7b-4e26a22a85a0\.config\fish\completions\openspec.fish'
+
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2minstall[2m > [22m[2mshould handle empty completion script
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-2a8792de-7ac1-42fc-a995-3011c8a40d58\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-2a8792de-7ac1-42fc-a995-3011c8a40d58\.config\fish\completions\openspec.fish'
+
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2minstall[2m > [22m[2mshould handle completion script with special characters
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-e96f9fa4-dd31-4a90-925d-4deab429482e\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-e96f9fa4-dd31-4a90-925d-4deab429482e\.config\fish\completions\openspec.fish'
+
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2muninstall[2m > [22m[2mshould successfully uninstall when completion script exists
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-cfbd0a08-17d0-40cd-9ae0-27434351bdb3\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-cfbd0a08-17d0-40cd-9ae0-27434351bdb3\.config\fish\completions\openspec.fish'
+
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2muninstall[2m > [22m[2mshould remove the completion file
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-c15da366-4896-43bc-9a37-deb14f3e07ae\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-c15da366-4896-43bc-9a37-deb14f3e07ae\.config\fish\completions\openspec.fish'
+
+[90mstdout[2m | test/core/completions/installers/fish-installer.test.ts[2m > [22m[2mFishInstaller[2m > [22m[2muninstall[2m > [22m[2mshould accept yes option parameter
+[22m[39mUnable to read existing completion file at C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-7e55ea64-26e0-4ee8-ac77-be566fa7cb2f\.config\fish\completions\openspec.fish: ENOENT: no such file or directory, open 'C:\Users\ADMINI~1\AppData\Local\Temp\openspec-fish-test-7e55ea64-26e0-4ee8-ac77-be566fa7cb2f\.config\fish\completions\openspec.fish'
+
+ [32m鉁?[39m test/core/completions/installers/fish-installer.test.ts [2m([22m[2m24 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m[32m 109[2mms[22m[39m
+ [32m鉁?[39m test/core/project-config.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 108[2mms[22m[39m
+[90mstdout[2m | test/utils/file-system.test.ts[2m > [22m[2mFileSystemUtils[2m > [22m[2mcanWriteFile[2m > [22m[2mshould return false when intermediate path component is a file
+[22m[39mPath component C:\Users\ADMINI~1\AppData\Local\Temp\openspec-test-97905ad7-8201-4ede-936a-8d6b45ac50eb\blocking-file.txt exists but is not a directory
+
+ [32m鉁?[39m test/utils/change-metadata.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 107[2mms[22m[39m
+ [32m鉁?[39m test/utils/file-system.test.ts [2m([22m[2m32 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m[32m 73[2mms[22m[39m
+ [32m鉁?[39m test/utils/marker-updates.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 65[2mms[22m[39m
+ [32m鉁?[39m test/core/artifact-graph/workflow.integration.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 63[2mms[22m[39m
+ [32m鉁?[39m test/core/list.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 63[2mms[22m[39m
+Warning: The "openspec spec ..." commands are 
+deprecated. Prefer verb-first commands (e.g., 
+"openspec show", "openspec validate --specs").
+ [32m鉁?[39m test/commands/spec.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 18551[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22mspec show[2m > [22mshould display spec in text format [33m 1236[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22mspec show[2m > [22mshould output spec as JSON with --json flag [33m 1246[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22mspec show[2m > [22mshould filter to show only requirements with --requirements flag (JSON only) [33m 1308[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22mspec show[2m > [22mshould exclude scenarios with --no-scenarios flag (JSON only) [33m 1200[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22mspec show[2m > [22mshould show specific requirement with -r flag (JSON only) [33m 1155[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22mspec show[2m > [22mshould return JSON with filtered requirements [33m 1152[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22mspec list[2m > [22mshould list all available specs (IDs only by default) [33m 1160[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22mspec list[2m > [22mshould output spec list as JSON with --json flag [33m 1142[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22mspec validate[2m > [22mshould validate a valid spec [33m 1193[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22mspec validate[2m > [22mshould output validation report as JSON with --json flag [33m 1166[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22mspec validate[2m > [22mshould validate with strict mode [33m 1204[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22mspec validate[2m > [22mshould detect invalid spec structure [33m 1125[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22merror handling[2m > [22mshould handle non-existent spec gracefully [33m 1155[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22merror handling[2m > [22mshould handle missing specs directory gracefully [33m 1184[2mms[22m[39m
+   [33m[2m鉁?[22m[39m spec command[2m > [22merror handling[2m > [22mshould honor --no-color (no ANSI escapes) [33m 1922[2mms[22m[39m
+ [32m鉁?[39m test/commands/config.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 92[2mms[22m[39m
+ [32m鉁?[39m test/core/global-config.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+ [32m鉁?[39m test/telemetry/config.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+ [32m鉁?[39m test/utils/change-utils.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+ [32m鉁?[39m test/core/validation.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+ [32m鉁?[39m test/core/artifact-graph/state.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+ [32m鉁?[39m test/core/view.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m鉁?[39m test/core/converters/json-converter.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+ [32m鉁?[39m test/core/commands/change-command.list.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m鉁?[39m test/core/artifact-graph/schema.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+[90mstderr[2m | test/core/commands/change-co
+mmand.show-validate.test.ts[2m > [22m[2mCha
+ngeCommand.show/validate[2m > [22m[2mshow -
+-json --requirements-only returns minimal obje
+ct with deltas (deprecated alias)
+[22m[39m鏍囧織 --requirements-only 宸插純鐢紝璇蜂娇鐢?-
+-deltas-only銆?
+ [32m鉁?[39m test/core/commands/change-command.show-validate.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m鉁?[39m test/telemetry/index.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+- Installing zsh completion script...
+- Installing zsh completion script...
+- Installing zsh completion script...
+- Installing zsh completion script...
+- Uninstalling zsh completion script...
+- Uninstalling zsh completion script...
+- Installing zsh completion script...
+- Uninstalling zsh completion script...
+ [32m鉁?[39m test/core/validation.enriched-messages.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m鉁?[39m test/commands/completion.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m鉁?[39m test/core/artifact-graph/graph.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m鉁?[39m test/core/parsers/change-parser.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m鉁?[39m test/commands/feedback.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m鉁?[39m test/core/command-generation/adapters.test.ts [2m([22m[2m76 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m鉁?[39m test/core/config-schema.test.ts [2m([22m[2m56 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m鉁?[39m test/core/shared/skill-generation.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m鉁?[39m test/core/parsers/markdown-parser.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m鉁?[39m test/utils/shell-detection.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m鉁?[39m test/core/completions/generators/powershell-generator.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m鉁?[39m test/utils/interactive.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m鉁?[39m test/core/completions/generators/fish-generator.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m鉁?[39m test/core/command-generation/registry.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m鉁?[39m test/core/completions/generators/bash-generator.test.ts [2m([22m[2m29 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m鉁?[39m test/core/completions/generators/zsh-generator.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m鉁?[39m test/core/command-generation/generator.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m鉁?[39m test/utils/command-references.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m鉁?[39m test/core/command-generation/types.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m鉁?[39m test/commands/artifact-workflow.test.ts [2m([22m[2m53 tests[22m[2m)[22m[33m 49817[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mstatus command[2m > [22mshows status for scaffolded change without proposal.md [33m 1225[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mstatus command[2m > [22mshows status for a change with proposal only [33m 1279[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mstatus command[2m > [22mshows status for a change with proposal and design [33m 1320[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mstatus command[2m > [22moutputs JSON when --json flag is used [33m 1244[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mstatus command[2m > [22mshows complete status when all artifacts are done [33m 1214[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mstatus command[2m > [22msupports --schema option [33m 1160[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22minstructions command[2m > [22mshows instructions for proposal on scaffolded change [33m 1198[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22minstructions command[2m > [22mshows instructions for design artifact [33m 1173[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22minstructions command[2m > [22mshows blocked warning for artifact with unmet dependencies [33m 1264[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22minstructions command[2m > [22moutputs JSON for instructions [33m 1162[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mtemplates command[2m > [22mshows template paths for default schema [33m 1154[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mtemplates command[2m > [22mshows template paths for specified schema [33m 1211[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mtemplates command[2m > [22moutputs JSON mapping of templates [33m 1184[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mnew change command[2m > [22mcreates a new change directory [33m 1198[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mnew change command[2m > [22mcreates README.md when --description is provided [33m 1214[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mnew change command[2m > [22merrors for invalid change name with spaces [33m 323[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mnew change command[2m > [22merrors for duplicate change name [33m 341[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22minstructions apply command[2m > [22mshows apply instructions for spec-driven schema with tasks [33m 1180[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22minstructions apply command[2m > [22mshows blocked state when required artifacts are missing [33m 1259[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22minstructions apply command[2m > [22moutputs JSON for apply instructions [33m 1199[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22minstructions apply command[2m > [22mshows schema instruction from apply block [33m 1186[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22minstructions apply command[2m > [22mshows all_done state when all tasks are complete [33m 1263[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22minstructions apply command[2m > [22muses spec-driven schema apply configuration [33m 1236[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22minstructions apply command[2m > [22mspec-driven schema uses apply block configuration [33m 1240[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22minstructions apply command[2m > [22mfallback: requires all artifacts when schema has no apply block [33m 1227[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22minstructions apply command[2m > [22mfallback: ready when all artifacts exist for schema without apply block [33m 1262[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mexperimental command (deprecated alias for init)[2m > [22mshows deprecation notice [33m 1149[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mexperimental command (deprecated alias for init)[2m > [22merrors for unknown tool [33m 310[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mexperimental command (deprecated alias for init)[2m > [22merrors for tool without skillsDir [33m 326[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mexperimental command (deprecated alias for init)[2m > [22mcreates skills for Claude tool [33m 1162[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mexperimental command (deprecated alias for init)[2m > [22mcreates skills for Cursor tool [33m 1214[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mexperimental command (deprecated alias for init)[2m > [22mcreates skills for Windsurf tool [33m 1195[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mproject config integration[2m > [22mnew change uses config schema[2m > [22mcreates change with schema from project config [33m 1184[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mproject config integration[2m > [22mnew change uses config schema[2m > [22mCLI schema overrides config schema [33m 1224[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mproject config integration[2m > [22minstructions command with config[2m > [22minjects context and rules from config into instructions [33m 1192[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mproject config integration[2m > [22minstructions command with config[2m > [22mdoes not inject rules for non-matching artifact [33m 1224[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mproject config integration[2m > [22mbackwards compatibility[2m > [22mexisting changes work without config file [33m 2477[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mproject config integration[2m > [22mbackwards compatibility[2m > [22mchanges with metadata work without config file [33m 1152[2mms[22m[39m
+   [33m[2m鉁?[22m[39m artifact-workflow CLI commands[2m > [22mproject config integration[2m > [22mconfig changes reflected immediately[2m > [22mconfig changes are reflected without restart [33m 2284[2mms[22m[39m
+
+[31m鈳幆鈳幆鈳幆[39m[1m[41m Failed Tests 22 
+[49m[22m[31m鈳幆鈳幆鈳幆鈳?[39m
+
+[41m[1m FAIL [22m[49m test/core/archive.te
+st.ts[2m > [22mArchiveCommand[2m > [22mexe
+cute[2m > [22mshould update specs when archi
+ving (delta-based ADDED) and include change na
+me in skeleton
+[31m[1mAssertionError[22m: expected '# test
+-capability Specification\n\n##鈥? to contain '
+created by archiving change spec-feat鈥?[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- created by archiving change spec-featur
+e[39m
+[31m+ # test-capability Specification[39m
+[31m+[39m
+[31m+ ## Purpose[39m
+[31m+ TBD - 閫氳繃褰掓。鍙樻洿 spec-feature 鍒涘缓銆傝鍦ㄥ綊妗
+ｅ悗鏇存柊 Purpose銆?[39m
+[31m+ ## Requirements[39m
+[31m+ ### Requirement: The system SHALL provi
+de test capability[39m
+[31m+[39m
+[31m+ #### Scenario: Basic test[39m
+[31m+ Given a test condition[39m
+[31m+ When an action occurs[39m
+[31m+ Then expected result happens[39m
+[31m+[39m
+[31m+[39m
+
+[36m [2m鉂?[22m test/core/archive.test.ts:[2
+m124:30[22m[39m
+    [90m122| [39m      expect(updatedContent
+).toContain('# test-capability Specificatio鈥? 
+   [90m123| [39m      [34mexpect[39m(updat
+edContent)[33m.[39m[34mtoContain[39m([32m
+'## Purpose'[39m)[33m;[39m
+    [90m124| [39m      expect(updatedContent
+).toContain(`created by archiving change ${鈥? 
+   [90m   | [39m                            
+ [31m^[39m
+    [90m125| [39m      [34mexpect[39m(upda
+tedContent)[33m.[39m[34mtoContain[39m([32
+m'## Requirements'[39m)[33m;[39m
+    [90m126| [39m      expect(updatedContent
+).toContain('### Requirement: The system SH鈥?
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳痆1/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/archive.te
+st.ts[2m > [22mArchiveCommand[2m > [22mexe
+cute[2m > [22mshould skip spec updates when 
+--skip-specs flag is used
+[31m[1mAssertionError[22m: expected "spy" t
+o be called with arguments: [ Array(1) ][90m
+
+Received: 
+
+[1m  1st spy call:
+
+[22m[2m  [[22m
+[32m-   "Skipping spec updates (--skip-specs 
+flag provided).",[90m
+[31m+   "[90m
+[31m+ 鈿狅笍  璀﹀憡锛氳烦杩囨牎楠屽彲鑳戒細褰掓。鏃犳晥鐨勮鑼冦€?,[90m
+[2m  ][22m
+
+[1m  2nd spy call:
+
+[22m[2m  [[22m
+[32m-   "Skipping spec updates (--skip-specs 
+flag provided).",[90m
+[31m+   "[2026-02-11T13:42:47.042Z] 宸茶烦杩囧彉鏇寸殑
+鏍￠獙锛歴kip-specs-feature",[90m
+[2m  ][22m
+
+[1m  3rd spy call:
+
+[22m[2m  [[22m
+[32m-   "Skipping spec updates (--skip-specs 
+flag provided).",[90m
+[31m+   "鍙楀奖鍝嶇殑鏂囦欢锛歰penspec\\changes\\skip-sp
+ecs-feature",[90m
+[2m  ][22m
+
+[1m  4th spy call:
+
+[22m[2m  [[22m
+[32m-   "Skipping spec updates (--skip-specs 
+flag provided).",[90m
+[31m+   "浠诲姟鐘舵€侊細鏃犱换鍔?,[90m
+[2m  ][22m
+
+[1m  5th spy call:
+
+[22m[2m  [[22m
+[32m-   "Skipping spec updates (--skip-specs 
+flag provided).",[90m
+[31m+   "璺宠繃瑙勮寖鏇存柊锛堝凡鎻愪緵 --skip-specs 鏍囧織锛夈€?
+,[90m
+[2m  ][22m
+
+[1m  6th spy call:
+
+[22m[2m  [[22m
+[32m-   "Skipping spec updates (--skip-specs 
+flag provided).",[90m
+[31m+   "鍙樻洿 'skip-specs-feature' 宸插綊妗ｄ负 '202
+6-02-11-skip-specs-feature'銆?,[90m
+[2m  ][22m
+[31m[90m
+
+Number of calls: [1m6[22m
+[31m[39m
+[36m [2m鉂?[22m test/core/archive.test.ts:[2
+m331:27[22m[39m
+    [90m329| [39m
+    [90m330| [39m      [90m// Verify skip m
+essage was logged[39m
+    [90m331| [39m      [34mexpect[39m(cons
+ole[33m.[39mlog)[33m.[39m[34mtoHaveBeenCa
+lledWith[39m(
+    [90m   | [39m                          
+[31m^[39m
+    [90m332| [39m        [32m'Skipping spec
+ updates (--skip-specs flag provided).'[39m
+    [90m333| [39m      )[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳痆2/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/archive.te
+st.ts[2m > [22mArchiveCommand[2m > [22mexe
+cute[2m > [22mshould proceed with archive wh
+en user declines spec updates
+[31m[1mAssertionError[22m: expected "spy" t
+o be called with arguments: [ { 鈥?2) } ][90m
+
+Received: 
+
+[1m  1st spy call:
+
+[22m[2m  [[22m
+[2m    {[22m
+[2m      "default": true,[22m
+[32m-     "message": "Proceed with spec updat
+es?",[90m
+[31m+     "message": "缁х画鏇存柊瑙勮寖锛?,[90m
+[2m    },[22m
+[2m  ][22m
+[31m[90m
+
+Number of calls: [1m1[22m
+[31m[39m
+[36m [2m鉂?[22m test/core/archive.test.ts:[2
+m418:27[22m[39m
+    [90m416| [39m
+    [90m417| [39m      [90m// Verify user w
+as prompted about specs[39m
+    [90m418| [39m      [34mexpect[39m(mock
+Confirm)[33m.[39m[34mtoHaveBeenCalledWith[
+39m({
+    [90m   | [39m                          
+[31m^[39m
+    [90m419| [39m        message[33m:[39m 
+[32m'Proceed with spec updates?'[39m[33m,[
+39m
+    [90m420| [39m        [35mdefault[39m[
+33m:[39m [35mtrue[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳痆3/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/archive.te
+st.ts[2m > [22mArchiveCommand[2m > [22mint
+eractive mode[2m > [22mshould use select pro
+mpt for change selection
+[31m[1mAssertionError[22m: expected "spy" t
+o be called with arguments: [ ObjectContaining
+{鈥 ][90m
+
+Received: 
+
+[1m  1st spy call:
+
+[22m[2m  [[22m
+[32m-   ObjectContaining {[90m
+[32m-     "choices": ArrayContaining [[90m
+[32m-       ObjectContaining {[90m
+[31m+   {[90m
+[31m+     "choices": [[90m
+[31m+       {[90m
+[31m+         "name": "feature-a     鏃犱换鍔?,[
+90m
+[2m          "value": "feature-a",[22m
+[2m        },[22m
+[32m-       ObjectContaining {[90m
+[31m+       {[90m
+[31m+         "name": "feature-b     鏃犱换鍔?,[
+90m
+[2m          "value": "feature-b",[22m
+[2m        },[22m
+[2m      ],[22m
+[32m-     "message": "Select a change to arch
+ive",[90m
+[31m+     "message": "閫夋嫨瑕佸綊妗ｇ殑鍙樻洿",[90m
+[2m    },[22m
+[2m  ][22m
+[31m[90m
+
+Number of calls: [1m1[22m
+[31m[39m
+[36m [2m鉂?[22m test/core/archive.test.ts:[2
+m741:26[22m[39m
+    [90m739| [39m
+    [90m740| [39m      // Verify select was 
+called with correct options (values matter,鈥? 
+   [90m741| [39m      [34mexpect[39m(mockS
+elect)[33m.[39m[34mtoHaveBeenCalledWith[39
+m(expect[33m.[39m[34mobjectContaining[39m(
+{
+    [90m   | [39m                         [
+31m^[39m
+    [90m742| [39m        message[33m:[39m 
+[32m'Select a change to archive'[39m[33m,[
+39m
+    [90m743| [39m        choices[33m:[39m 
+expect[33m.[39m[34marrayContaining[39m([
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳痆4/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/archive.te
+st.ts[2m > [22mArchiveCommand[2m > [22mint
+eractive mode[2m > [22mshould cancel when us
+er declines task warning
+[31m[1mAssertionError[22m: expected "spy" t
+o be called with arguments: [ 'Archive cancell
+ed.' ][90m
+
+Received: 
+
+[1m  1st spy call:
+
+[22m[2m  [[22m
+[32m-   "Archive cancelled.",[90m
+[31m+   "褰掓。宸插彇娑堛€?,[90m
+[2m  ][22m
+[31m[90m
+
+Number of calls: [1m1[22m
+[31m[39m
+[36m [2m鉂?[22m test/core/archive.test.ts:[2
+m801:27[22m[39m
+    [90m799| [39m
+    [90m800| [39m      [90m// Verify archiv
+e was cancelled[39m
+    [90m801| [39m      [34mexpect[39m(cons
+ole[33m.[39mlog)[33m.[39m[34mtoHaveBeenCa
+lledWith[39m([32m'Archive cancelled.'[39m)
+[33m;[39m
+    [90m   | [39m                          
+[31m^[39m
+    [90m802| [39m
+    [90m803| [39m      [90m// Verify change
+ was not archived[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳痆5/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatCleanupSummary[2m > [22mshould for
+mat deleted files
+[31m[1mAssertionError[22m: expected '宸叉竻鐞嗘棫
+鐗堟枃浠讹細\n  鉁?宸插垹闄?CLAUDE.md\n  鉁?宸插垹闄?鈥? to con
+tain 'Cleaned up legacy files:'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Cleaned up legacy files:[39m
+[31m+ 宸叉竻鐞嗘棫鐗堟枃浠讹細[39m
+[31m+   鉁?宸插垹闄?CLAUDE.md[39m
+[31m+   鉁?宸插垹闄?CLINE.md[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m587:23[22m[39m
+    [90m585| [39m
+    [90m586| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatCleanupSummary[39m(
+result)[33m;[39m
+    [90m587| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Clean
+ed up legacy files:'[39m)[33m;[39m
+    [90m   | [39m                      [31m
+^[39m
+    [90m588| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'鉁?Rem
+oved CLAUDE.md'[39m)[33m;[39m
+    [90m589| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'鉁?Rem
+oved CLINE.md'[39m)[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳痆6/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatCleanupSummary[2m > [22mshould for
+mat deleted directories
+[31m[1mAssertionError[22m: expected '宸叉竻鐞嗘棫
+鐗堟枃浠讹細\n  鉁?宸插垹闄?.claude/commands/op鈥? to cont
+ain '鉁?Removed .claude/commands/openspec/ 鈥?[
+39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- [7m鉁?Removed[27m .claude/commands/ope
+nspec/[7m (replaced by[27m /opsx:*[7m)[27m
+[39m
+[31m+ 宸叉竻鐞嗘棫鐗堟枃浠讹細[39m
+[31m+ [7m  鉁?宸插垹闄?[27m .claude/commands/open
+spec/[7m锛堝凡琚?[27m /opsx:*[7m 鏇夸唬锛?[27m[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m602:23[22m[39m
+    [90m600| [39m
+    [90m601| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatCleanupSummary[39m(
+result)[33m;[39m
+    [90m602| [39m      expect(summary).toCon
+tain('鉁?Removed .claude/commands/openspec/ 鈥? 
+   [90m   | [39m                      [31m^
+[39m
+    [90m603| [39m    })[33m;[39m
+    [90m604| [39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳痆7/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatCleanupSummary[2m > [22mshould for
+mat modified files
+[31m[1mAssertionError[22m: expected '宸叉竻鐞嗘棫
+鐗堟枃浠讹細\n  鉁?宸蹭粠 AGENTS.md 涓Щ闄?OpenSp鈥? to con
+tain '鉁?Removed OpenSpec markers from AGENT鈥?
+[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 鉁?Removed OpenSpec markers from AGENTS.
+md[39m
+[31m+ 宸叉竻鐞嗘棫鐗堟枃浠讹細[39m
+[31m+   鉁?宸蹭粠 AGENTS.md 涓Щ闄?OpenSpec 鏍囪[39
+m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m615:23[22m[39m
+    [90m613| [39m
+    [90m614| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatCleanupSummary[39m(
+result)[33m;[39m
+    [90m615| [39m      expect(summary).toCon
+tain('鉁?Removed OpenSpec markers from AGENT鈥? 
+   [90m   | [39m                      [31m^
+[39m
+    [90m616| [39m    })[33m;[39m
+    [90m617| [39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳痆8/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatCleanupSummary[2m > [22mshould inc
+lude migration hint for project.md
+[31m[1mAssertionError[22m: expected '闇€瑕佹偍鐨
+勬敞鎰廫n  鈥?openspec/project.md\n    鈥? to contai
+n 'Needs your attention'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Needs your attention[39m
+[31m+ 闇€瑕佹偍鐨勬敞鎰?[39m
+[31m+   鈥?openspec/project.md[39m
+[31m+     鎴戜滑涓嶄細鍒犻櫎姝ゆ枃浠躲€傚畠鍙兘鍖呭惈鏈夌敤鐨勯」鐩笂涓嬫枃
+銆?[39m
+[31m+[39m
+[31m+     鏂扮殑 openspec/config.yaml 鏈変竴涓?"cont
+ext:" 閮ㄥ垎鐢ㄤ簬瑙勫垝[39m
+[31m+     涓婁笅鏂囥€傝繖鍖呭惈鍦ㄦ瘡涓?OpenSpec 璇锋眰涓紝姣旀棫鐨
+?[39m
+[31m+     project.md 鏂瑰紡鏇村彲闈犮€?[39m
+[31m+[39m
+[31m+     瀹℃煡 project.md锛屽皢鏈夌敤鍐呭绉昏嚦 config.y
+aml 鐨?context[39m
+[31m+     閮ㄥ垎锛屽噯澶囧ソ鍚庡垹闄よ鏂囦欢銆?[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m628:23[22m[39m
+    [90m626| [39m
+    [90m627| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatCleanupSummary[39m(
+result)[33m;[39m
+    [90m628| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Needs
+ your attention'[39m)[33m;[39m
+    [90m   | [39m                      [31m
+^[39m
+    [90m629| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'opens
+pec/project.md'[39m)[33m;[39m
+    [90m630| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'confi
+g.yaml'[39m)[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳痆9/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatCleanupSummary[2m > [22mshould inc
+lude errors
+[31m[1mAssertionError[22m: expected '娓呯悊杩囩▼
+涓嚭鐜伴敊璇細\n  鈿?Failed to delete CLAU鈥? to cont
+ain 'Errors during cleanup:'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Errors during cleanup:[39m
+[31m+ 娓呯悊杩囩▼涓嚭鐜伴敊璇細[39m
+[31m+   鈿?Failed to delete CLAUDE.md: Permiss
+ion denied[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m643:23[22m[39m
+    [90m641| [39m
+    [90m642| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatCleanupSummary[39m(
+result)[33m;[39m
+    [90m643| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Error
+s during cleanup:'[39m)[33m;[39m
+    [90m   | [39m                      [31m
+^[39m
+    [90m644| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Faile
+d to delete CLAUDE.md'[39m)[33m;[39m
+    [90m645| [39m    })[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[10/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatDetectionSummary[2m > [22mshould i
+nclude welcoming upgrade header and explanatio
+n
+[31m[1mAssertionError[22m: expected '姝ｅ湪鍗囩骇
+鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to cont
+ain 'Upgrading to the new OpenSpec'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Upgrading to the new OpenSpec[39m
+[31m+ 姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec[39m
+[31m+[39m
+[31m+ OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊
+鏍囧噯銆?[39m
+[31m+ 杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?[39m
+[31m+[39m
+[31m+ 寰呮洿鏂扮殑鏂囦欢[39m
+[31m+ 灏嗙Щ闄?OpenSpec 鏍囪锛屼繚鐣欐偍鐨勫唴瀹癸細[39m
+[31m+   鈥?CLAUDE.md[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m675:23[22m[39m
+    [90m673| [39m
+    [90m674| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatDetectionSummary[39
+m(detection)[33m;[39m
+    [90m675| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Upgra
+ding to the new OpenSpec'[39m)[33m;[39m
+    [90m   | [39m                      [31m
+^[39m
+    [90m676| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'agent
+ skills'[39m)[33m;[39m
+    [90m677| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'keepi
+ng everything working'[39m)[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[11/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatDetectionSummary[2m > [22mshould f
+ormat config files as files to update (never r
+emove)
+[31m[1mAssertionError[22m: expected '姝ｅ湪鍗囩骇
+鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to cont
+ain 'Files to update'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Files to update[39m
+[31m+ 姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec[39m
+[31m+[39m
+[31m+ OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊
+鏍囧噯銆?[39m
+[31m+ 杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?[39m
+[31m+[39m
+[31m+ 寰呮洿鏂扮殑鏂囦欢[39m
+[31m+ 灏嗙Щ闄?OpenSpec 鏍囪锛屼繚鐣欐偍鐨勫唴瀹癸細[39m
+[31m+   鈥?CLAUDE.md[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m694:23[22m[39m
+    [90m692| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatDetectionSummary[39
+m(detection)[33m;[39m
+    [90m693| [39m      // Config files shoul
+d be in "Files to update", not "Files to re鈥? 
+   [90m694| [39m      [34mexpect[39m(summa
+ry)[33m.[39m[34mtoContain[39m([32m'Files 
+to update'[39m)[33m;[39m
+    [90m   | [39m                      [31m
+^[39m
+    [90m695| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'鈥?CLA
+UDE.md'[39m)[33m;[39m
+    [90m696| [39m      [90m// Should NOT be
+ in removals[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[12/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatDetectionSummary[2m > [22mshould f
+ormat files to be updated
+[31m[1mAssertionError[22m: expected '姝ｅ湪鍗囩骇
+鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to cont
+ain 'Files to update'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Files to update[39m
+[31m+ 姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec[39m
+[31m+[39m
+[31m+ OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊
+鏍囧噯銆?[39m
+[31m+ 杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?[39m
+[31m+[39m
+[31m+ 寰呮洿鏂扮殑鏂囦欢[39m
+[31m+ 灏嗙Щ闄?OpenSpec 鏍囪锛屼繚鐣欐偍鐨勫唴瀹癸細[39m
+[31m+   鈥?CLINE.md[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m713:23[22m[39m
+    [90m711| [39m
+    [90m712| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatDetectionSummary[39
+m(detection)[33m;[39m
+    [90m713| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Files
+ to update'[39m)[33m;[39m
+    [90m   | [39m                      [31m
+^[39m
+    [90m714| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'marke
+rs will be removed'[39m)[33m;[39m
+    [90m715| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'your 
+content preserved'[39m)[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[13/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatDetectionSummary[2m > [22mshould f
+ormat slash command directories
+[31m[1mAssertionError[22m: expected '姝ｅ湪鍗囩骇
+鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to cont
+ain 'Files to remove'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Files to remove[39m
+[31m+ 姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec[39m
+[31m+[39m
+[31m+ OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊
+鏍囧噯銆?[39m
+[31m+ 杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?[39m
+[31m+[39m
+[31m+ 寰呭垹闄ょ殑鏂囦欢[39m
+[31m+ 鏃犻渶淇濈暀鐨勭敤鎴峰唴瀹癸細[39m
+[31m+   鈥?.claude/commands/openspec/[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m732:23[22m[39m
+    [90m730| [39m
+    [90m731| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatDetectionSummary[39
+m(detection)[33m;[39m
+    [90m732| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Files
+ to remove'[39m)[33m;[39m
+    [90m   | [39m                      [31m
+^[39m
+    [90m733| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'鈥?.cl
+aude/commands/openspec/'[39m)[33m;[39m
+    [90m734| [39m    })[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[14/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatDetectionSummary[2m > [22mshould f
+ormat slash command files
+[31m[1mAssertionError[22m: expected '姝ｅ湪鍗囩骇
+鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to cont
+ain 'Files to remove'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Files to remove[39m
+[31m+ 姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec[39m
+[31m+[39m
+[31m+ OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊
+鏍囧噯銆?[39m
+[31m+ 杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?[39m
+[31m+[39m
+[31m+ 寰呭垹闄ょ殑鏂囦欢[39m
+[31m+ 鏃犻渶淇濈暀鐨勭敤鎴峰唴瀹癸細[39m
+[31m+   鈥?.cursor/commands/openspec-proposal.
+md[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m749:23[22m[39m
+    [90m747| [39m
+    [90m748| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatDetectionSummary[39
+m(detection)[33m;[39m
+    [90m749| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Files
+ to remove'[39m)[33m;[39m
+    [90m   | [39m                      [31m
+^[39m
+    [90m750| [39m      expect(summary).toCon
+tain('鈥?.cursor/commands/openspec-proposal.鈥? 
+   [90m751| [39m    })[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[15/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatDetectionSummary[2m > [22mshould f
+ormat openspec/AGENTS.md
+[31m[1mAssertionError[22m: expected '姝ｅ湪鍗囩骇
+鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to cont
+ain 'Files to remove'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Files to remove[39m
+[31m+ 姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec[39m
+[31m+[39m
+[31m+ OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊
+鏍囧噯銆?[39m
+[31m+ 杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?[39m
+[31m+[39m
+[31m+ 寰呭垹闄ょ殑鏂囦欢[39m
+[31m+ 鏃犻渶淇濈暀鐨勭敤鎴峰唴瀹癸細[39m
+[31m+   鈥?openspec/AGENTS.md[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m766:23[22m[39m
+    [90m764| [39m
+    [90m765| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatDetectionSummary[39
+m(detection)[33m;[39m
+    [90m766| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Files
+ to remove'[39m)[33m;[39m
+    [90m   | [39m                      [31m
+^[39m
+    [90m767| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'鈥?ope
+nspec/AGENTS.md'[39m)[33m;[39m
+    [90m768| [39m    })[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[16/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatDetectionSummary[2m > [22mshould i
+nclude attention section for project.md
+[31m[1mAssertionError[22m: expected '姝ｅ湪鍗囩骇
+鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to cont
+ain 'Needs your attention'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Needs your attention[39m
+[31m+ 姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec[39m
+[31m+[39m
+[31m+ OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊
+鏍囧噯銆?[39m
+[31m+ 杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?[39m
+[31m+[39m
+[31m+ 闇€瑕佹偍鐨勬敞鎰?[39m
+[31m+   鈥?openspec/project.md[39m
+[31m+     鎴戜滑涓嶄細鍒犻櫎姝ゆ枃浠躲€傚畠鍙兘鍖呭惈鏈夌敤鐨勯」鐩笂涓嬫枃
+銆?[39m
+[31m+[39m
+[31m+     鏂扮殑 openspec/config.yaml 鏈変竴涓?"cont
+ext:" 閮ㄥ垎鐢ㄤ簬瑙勫垝[39m
+[31m+     涓婁笅鏂囥€傝繖鍖呭惈鍦ㄦ瘡涓?OpenSpec 璇锋眰涓紝姣旀棫鐨
+?[39m
+[31m+     project.md 鏂瑰紡鏇村彲闈犮€?[39m
+[31m+[39m
+[31m+     瀹℃煡 project.md锛屽皢鏈夌敤鍐呭绉昏嚦 config.y
+aml 鐨?context[39m
+[31m+     閮ㄥ垎锛屽噯澶囧ソ鍚庡垹闄よ鏂囦欢銆?[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m783:23[22m[39m
+    [90m781| [39m
+    [90m782| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatDetectionSummary[39
+m(detection)[33m;[39m
+    [90m783| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Needs
+ your attention'[39m)[33m;[39m
+    [90m   | [39m                      [31m
+^[39m
+    [90m784| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'鈥?ope
+nspec/project.md'[39m)[33m;[39m
+    [90m785| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'won\'
+t delete this file'[39m)[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[17/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatDetectionSummary[2m > [22mshould i
+nclude attention section with other legacy art
+ifacts
+[31m[1mAssertionError[22m: expected '姝ｅ湪鍗囩骇
+鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to cont
+ain 'Files to update'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Files to update[39m
+[31m+ 姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec[39m
+[31m+[39m
+[31m+ OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊
+鏍囧噯銆?[39m
+[31m+ 杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?[39m
+[31m+[39m
+[31m+ 寰呮洿鏂扮殑鏂囦欢[39m
+[31m+ 灏嗙Щ闄?OpenSpec 鏍囪锛屼繚鐣欐偍鐨勫唴瀹癸細[39m
+[31m+   鈥?CLAUDE.md[39m
+[31m+[39m
+[31m+ 闇€瑕佹偍鐨勬敞鎰?[39m
+[31m+   鈥?openspec/project.md[39m
+[31m+     鎴戜滑涓嶄細鍒犻櫎姝ゆ枃浠躲€傚畠鍙兘鍖呭惈鏈夌敤鐨勯」鐩笂涓嬫枃
+銆?[39m
+[31m+[39m
+[31m+     鏂扮殑 openspec/config.yaml 鏈変竴涓?"cont
+ext:" 閮ㄥ垎鐢ㄤ簬瑙勫垝[39m
+[31m+     涓婁笅鏂囥€傝繖鍖呭惈鍦ㄦ瘡涓?OpenSpec 璇锋眰涓紝姣旀棫鐨
+?[39m
+[31m+     project.md 鏂瑰紡鏇村彲闈犮€?[39m
+[31m+[39m
+[31m+     瀹℃煡 project.md锛屽皢鏈夌敤鍐呭绉昏嚦 config.y
+aml 鐨?context[39m
+[31m+     閮ㄥ垎锛屽噯澶囧ソ鍚庡垹闄よ鏂囦欢銆?[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m804:23[22m[39m
+    [90m802| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatDetectionSummary[39
+m(detection)[33m;[39m
+    [90m803| [39m      [90m// Config files 
+now in "Files to update", not "Files to remove
+"[39m
+    [90m804| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Files
+ to update'[39m)[33m;[39m
+    [90m   | [39m                      [31m
+^[39m
+    [90m805| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'CLAUD
+E.md'[39m)[33m;[39m
+    [90m806| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Needs
+ your attention'[39m)[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[18/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatDetectionSummary[2m > [22mshould g
+roup both removals and updates correctly
+[31m[1mAssertionError[22m: expected '姝ｅ湪鍗囩骇
+鍒版柊鐗?OpenSpec\n\nOpenSpec 鐜板凡浣跨敤 Age鈥? to cont
+ain 'Files to remove'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Files to remove[39m
+[31m+ 姝ｅ湪鍗囩骇鍒版柊鐗?OpenSpec[39m
+[31m+[39m
+[31m+ OpenSpec 鐜板凡浣跨敤 Agent 鎶€鑳斤紝杩欐槸缂栫爜浠ｇ悊鐨勬柊
+鏍囧噯銆?[39m
+[31m+ 杩欑畝鍖栦簡鎮ㄧ殑璁剧疆锛屽悓鏃朵繚鎸佷竴鍒囨甯歌繍琛屻€?[39m
+[31m+[39m
+[31m+ 寰呭垹闄ょ殑鏂囦欢[39m
+[31m+ 鏃犻渶淇濈暀鐨勭敤鎴峰唴瀹癸細[39m
+[31m+   鈥?.claude/commands/openspec/[39m
+[31m+   鈥?openspec/AGENTS.md[39m
+[31m+[39m
+[31m+ 寰呮洿鏂扮殑鏂囦欢[39m
+[31m+ 灏嗙Щ闄?OpenSpec 鏍囪锛屼繚鐣欐偍鐨勫唴瀹癸細[39m
+[31m+   鈥?CLAUDE.md[39m
+[31m+   鈥?CLINE.md[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m824:23[22m[39m
+    [90m822| [39m      [35mconst[39m summa
+ry [33m=[39m [34mformatDetectionSummary[39
+m(detection)[33m;[39m
+    [90m823| [39m      [90m// Check both se
+ctions exist[39m
+    [90m824| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Files
+ to remove'[39m)[33m;[39m
+    [90m   | [39m                      [31m
+^[39m
+    [90m825| [39m      [34mexpect[39m(summ
+ary)[33m.[39m[34mtoContain[39m([32m'Files
+ to update'[39m)[33m;[39m
+    [90m826| [39m      [90m// Check removal
+s (only slash commands and openspec/AGENTS.md)
+[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[19/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatProjectMdMigrationHint[2m > [22msh
+ould return migration hint message
+[31m[1mAssertionError[22m: expected '闇€瑕佹偍鐨
+勬敞鎰廫n  鈥?openspec/project.md\n    鈥? to contai
+n 'Needs your attention'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Needs your attention[39m
+[31m+ 闇€瑕佹偍鐨勬敞鎰?[39m
+[31m+   鈥?openspec/project.md[39m
+[31m+     鎴戜滑涓嶄細鍒犻櫎姝ゆ枃浠躲€傚畠鍙兘鍖呭惈鏈夌敤鐨勯」鐩笂涓嬫枃
+銆?[39m
+[31m+[39m
+[31m+     鏂扮殑 openspec/config.yaml 鏈変竴涓?"cont
+ext:" 閮ㄥ垎鐢ㄤ簬瑙勫垝[39m
+[31m+     涓婁笅鏂囥€傝繖鍖呭惈鍦ㄦ瘡涓?OpenSpec 璇锋眰涓紝姣旀棫鐨
+?[39m
+[31m+     project.md 鏂瑰紡鏇村彲闈犮€?[39m
+[31m+[39m
+[31m+     瀹℃煡 project.md锛屽皢鏈夌敤鍐呭绉昏嚦 config.y
+aml 鐨?context[39m
+[31m+     閮ㄥ垎锛屽噯澶囧ソ鍚庡垹闄よ鏂囦欢銆?[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m854:20[22m[39m
+    [90m852| [39m    [34mit[39m([32m'shou
+ld return migration hint message'[39m[33m,[
+39m () [33m=>[39m {
+    [90m853| [39m      [35mconst[39m hint 
+[33m=[39m [34mformatProjectMdMigrationHint
+[39m()[33m;[39m
+    [90m854| [39m      [34mexpect[39m(hint
+)[33m.[39m[34mtoContain[39m([32m'Needs yo
+ur attention'[39m)[33m;[39m
+    [90m   | [39m                   [31m^[
+39m
+    [90m855| [39m      [34mexpect[39m(hint
+)[33m.[39m[34mtoContain[39m([32m'openspec
+/project.md'[39m)[33m;[39m
+    [90m856| [39m      [34mexpect[39m(hint
+)[33m.[39m[34mtoContain[39m([32m'won\'t d
+elete this file'[39m)[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[20/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatProjectMdMigrationHint[2m > [22msh
+ould include actionable instructions
+[31m[1mAssertionError[22m: expected '闇€瑕佹偍鐨
+勬敞鎰廫n  鈥?openspec/project.md\n    鈥? to contai
+n 'move any useful content'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- move any useful content[39m
+[31m+ 闇€瑕佹偍鐨勬敞鎰?[39m
+[31m+   鈥?openspec/project.md[39m
+[31m+     鎴戜滑涓嶄細鍒犻櫎姝ゆ枃浠躲€傚畠鍙兘鍖呭惈鏈夌敤鐨勯」鐩笂涓嬫枃
+銆?[39m
+[31m+[39m
+[31m+     鏂扮殑 openspec/config.yaml 鏈変竴涓?"cont
+ext:" 閮ㄥ垎鐢ㄤ簬瑙勫垝[39m
+[31m+     涓婁笅鏂囥€傝繖鍖呭惈鍦ㄦ瘡涓?OpenSpec 璇锋眰涓紝姣旀棫鐨
+?[39m
+[31m+     project.md 鏂瑰紡鏇村彲闈犮€?[39m
+[31m+[39m
+[31m+     瀹℃煡 project.md锛屽皢鏈夌敤鍐呭绉昏嚦 config.y
+aml 鐨?context[39m
+[31m+     閮ㄥ垎锛屽噯澶囧ソ鍚庡垹闄よ鏂囦欢銆?[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m863:20[22m[39m
+    [90m861| [39m    [34mit[39m([32m'shou
+ld include actionable instructions'[39m[33m,
+[39m () [33m=>[39m {
+    [90m862| [39m      [35mconst[39m hint 
+[33m=[39m [34mformatProjectMdMigrationHint
+[39m()[33m;[39m
+    [90m863| [39m      [34mexpect[39m(hint
+)[33m.[39m[34mtoContain[39m([32m'move any
+ useful content'[39m)[33m;[39m
+    [90m   | [39m                   [31m^[
+39m
+    [90m864| [39m      [34mexpect[39m(hint
+)[33m.[39m[34mtoContain[39m([32m'delete t
+he file when ready'[39m)[33m;[39m
+    [90m865| [39m    })[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[21/
+22]鈳?[22m[39m
+
+[41m[1m FAIL [22m[49m test/core/legacy-cle
+anup.test.ts[2m > [22mlegacy-cleanup[2m > 
+[22mformatProjectMdMigrationHint[2m > [22msh
+ould explain the new context section benefits
+[31m[1mAssertionError[22m: expected '闇€瑕佹偍鐨
+勬敞鎰廫n  鈥?openspec/project.md\n    鈥? to contai
+n 'included in every OpenSpec request'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- included in every OpenSpec request[39m
+[31m+ 闇€瑕佹偍鐨勬敞鎰?[39m
+[31m+   鈥?openspec/project.md[39m
+[31m+     鎴戜滑涓嶄細鍒犻櫎姝ゆ枃浠躲€傚畠鍙兘鍖呭惈鏈夌敤鐨勯」鐩笂涓嬫枃
+銆?[39m
+[31m+[39m
+[31m+     鏂扮殑 openspec/config.yaml 鏈変竴涓?"cont
+ext:" 閮ㄥ垎鐢ㄤ簬瑙勫垝[39m
+[31m+     涓婁笅鏂囥€傝繖鍖呭惈鍦ㄦ瘡涓?OpenSpec 璇锋眰涓紝姣旀棫鐨
+?[39m
+[31m+     project.md 鏂瑰紡鏇村彲闈犮€?[39m
+[31m+[39m
+[31m+     瀹℃煡 project.md锛屽皢鏈夌敤鍐呭绉昏嚦 config.y
+aml 鐨?context[39m
+[31m+     閮ㄥ垎锛屽噯澶囧ソ鍚庡垹闄よ鏂囦欢銆?[39m
+
+[36m [2m鉂?[22m test/core/legacy-cleanup.test
+.ts:[2m869:20[22m[39m
+    [90m867| [39m    [34mit[39m([32m'shou
+ld explain the new context section benefits'[
+39m[33m,[39m () [33m=>[39m {
+    [90m868| [39m      [35mconst[39m hint 
+[33m=[39m [34mformatProjectMdMigrationHint
+[39m()[33m;[39m
+    [90m869| [39m      [34mexpect[39m(hint
+)[33m.[39m[34mtoContain[39m([32m'included
+ in every OpenSpec request'[39m)[33m;[39m
+    [90m   | [39m                   [31m^[
+39m
+    [90m870| [39m      [34mexpect[39m(hint
+)[33m.[39m[34mtoContain[39m([32m'reliably
+'[39m)[33m;[39m
+    [90m871| [39m    })[33m;[39m
+
+[31m[2m鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆鈳幆[22/
+22]鈳?[22m[39m
+
+
+[2m Test Files [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m58 passed[39m[22m[90m (60)[39m
+[2m      Tests [22m [1m[31m22 failed[39m[22m[2m | [22m[1m[32m1186 passed[39m[22m[2m | [22m[33m9 skipped[39m[90m (1217)[39m
+[2m   Start at [22m 21:42:46
+[2m   Duration [22m 50.20s[2m (transform 743ms, setup 0ms, collect 3.26s, tests 99.71s, environment 7ms, prepare 3.71s)[22m
+

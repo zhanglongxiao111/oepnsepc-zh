@@ -34,17 +34,17 @@ export class ChangeCommand {
       if (canPrompt && changes.length > 0) {
         const { select } = await import('@inquirer/prompts');
         const selected = await select({
-          message: 'Select a change to show',
+          message: '选择要查看的变更',
           choices: changes.map(id => ({ name: id, value: id })),
         });
         changeName = selected;
       } else {
         if (changes.length === 0) {
-          console.error('No change specified. No active changes found.');
+          console.error('未指定变更。没有找到活跃的变更。');
         } else {
-          console.error(`No change specified. Available IDs: ${changes.join(', ')}`);
+          console.error(`未指定变更。可用 ID：${changes.join(', ')}`);
         }
-        console.error('Hint: use "openspec change list" to view available changes.');
+        console.error('提示：使用 "openspec change list" 查看可用的变更。');
         process.exitCode = 1;
         return;
       }
@@ -55,14 +55,14 @@ export class ChangeCommand {
     try {
       await fs.access(proposalPath);
     } catch {
-      throw new Error(`Change "${changeName}" not found at ${proposalPath}`);
+      throw new Error(`变更 "${changeName}" 未找到，路径：${proposalPath}`);
     }
 
     if (options?.json) {
       const jsonOutput = await this.converter.convertChangeToJson(proposalPath);
 
       if (options.requirementsOnly) {
-        console.error('Flag --requirements-only is deprecated; use --deltas-only instead.');
+        console.error('标志 --requirements-only 已弃用，请使用 --deltas-only。');
       }
 
       const parsed: Change = JSON.parse(jsonOutput);
@@ -96,21 +96,21 @@ export class ChangeCommand {
    */
   async list(options?: { json?: boolean; long?: boolean }): Promise<void> {
     const changesPath = path.join(process.cwd(), 'openspec', 'changes');
-    
+
     const changes = await this.getActiveChanges(changesPath);
-    
+
     if (options?.json) {
       const changeDetails = await Promise.all(
         changes.map(async (changeName) => {
           const proposalPath = path.join(changesPath, changeName, 'proposal.md');
           const tasksPath = path.join(changesPath, changeName, 'tasks.md');
-          
+
           try {
             const content = await fs.readFile(proposalPath, 'utf-8');
             const changeDir = path.join(changesPath, changeName);
             const parser = new ChangeParser(content, changeDir);
             const change = await parser.parseChangeWithDeltas(changeName);
-            
+
             let taskStatus = { total: 0, completed: 0 };
             try {
               const tasksContent = await fs.readFile(tasksPath, 'utf-8');
@@ -121,7 +121,7 @@ export class ChangeCommand {
                 console.error(`Failed to read tasks file at ${tasksPath}:`, error);
               }
             }
-            
+
             return {
               id: changeName,
               title: this.extractTitle(content, changeName),
@@ -131,19 +131,19 @@ export class ChangeCommand {
           } catch (error) {
             return {
               id: changeName,
-              title: 'Unknown',
+              title: '未知',
               deltaCount: 0,
               taskStatus: { total: 0, completed: 0 },
             };
           }
         })
       );
-      
+
       const sorted = changeDetails.sort((a, b) => a.id.localeCompare(b.id));
       console.log(JSON.stringify(sorted, null, 2));
     } else {
       if (changes.length === 0) {
-        console.log('No items found');
+        console.log('未找到项目');
         return;
       }
       const sorted = [...changes].sort();
@@ -176,7 +176,7 @@ export class ChangeCommand {
           const deltaCountText = ` [deltas ${change.deltas.length}]`;
           console.log(`${changeName}: ${title}${deltaCountText}${taskStatusText}`);
         } catch {
-          console.log(`${changeName}: (unable to read)`);
+          console.log(`${changeName}：（无法读取）`);
         }
       }
     }
@@ -184,51 +184,51 @@ export class ChangeCommand {
 
   async validate(changeName?: string, options?: { strict?: boolean; json?: boolean; noInteractive?: boolean }): Promise<void> {
     const changesPath = path.join(process.cwd(), 'openspec', 'changes');
-    
+
     if (!changeName) {
       const canPrompt = isInteractive(options);
       const changes = await getActiveChangeIds();
       if (canPrompt && changes.length > 0) {
         const { select } = await import('@inquirer/prompts');
         const selected = await select({
-          message: 'Select a change to validate',
+          message: '选择要验证的变更',
           choices: changes.map(id => ({ name: id, value: id })),
         });
         changeName = selected;
       } else {
         if (changes.length === 0) {
-          console.error('No change specified. No active changes found.');
+          console.error('未指定变更。没有找到活跃的变更。');
         } else {
-          console.error(`No change specified. Available IDs: ${changes.join(', ')}`);
+          console.error(`未指定变更。可用 ID：${changes.join(', ')}`);
         }
-        console.error('Hint: use "openspec change list" to view available changes.');
+        console.error('提示：使用 "openspec change list" 查看可用的变更。');
         process.exitCode = 1;
         return;
       }
     }
-    
+
     const changeDir = path.join(changesPath, changeName);
-    
+
     try {
       await fs.access(changeDir);
     } catch {
-      throw new Error(`Change "${changeName}" not found at ${changeDir}`);
+      throw new Error(`变更 "${changeName}" 未找到，路径：${changeDir}`);
     }
-    
+
     const validator = new Validator(options?.strict || false);
     const report = await validator.validateChangeDeltaSpecs(changeDir);
-    
+
     if (options?.json) {
       console.log(JSON.stringify(report, null, 2));
     } else {
       if (report.valid) {
-        console.log(`Change "${changeName}" is valid`);
+        console.log(`变更 "${changeName}" 验证通过`);
       } else {
-        console.error(`Change "${changeName}" has issues`);
+        console.error(`变更 "${changeName}" 存在问题`);
         report.issues.forEach(issue => {
-          const label = issue.level === 'ERROR' ? 'ERROR' : 'WARNING';
+          const label = issue.level === 'ERROR' ? '错误' : '警告';
           const prefix = issue.level === 'ERROR' ? '✗' : '⚠';
-          console.error(`${prefix} [${label}] ${issue.path}: ${issue.message}`);
+          console.error(`${prefix} [${label}] ${issue.path}：${issue.message}`);
         });
         // Next steps footer to guide fixing issues
         this.printNextSteps();
@@ -268,7 +268,7 @@ export class ChangeCommand {
     const lines = content.split('\n');
     let total = 0;
     let completed = 0;
-    
+
     for (const line of lines) {
       if (line.match(TASK_PATTERN)) {
         total++;
@@ -277,16 +277,16 @@ export class ChangeCommand {
         }
       }
     }
-    
+
     return { total, completed };
   }
 
   private printNextSteps(): void {
     const bullets: string[] = [];
-    bullets.push('- Ensure change has deltas in specs/: use headers ## ADDED/MODIFIED/REMOVED/RENAMED Requirements');
-    bullets.push('- Each requirement MUST include at least one #### Scenario: block');
-    bullets.push('- Debug parsed deltas: openspec change show <id> --json --deltas-only');
-    console.error('Next steps:');
+    bullets.push('- 确保变更在 specs/ 中包含 delta：使用标题 ## ADDED/MODIFIED/REMOVED/RENAMED Requirements');
+    bullets.push('- 每个需求必须包含至少一个 #### Scenario: 块');
+    bullets.push('- 调试已解析的 delta：openspec change show <id> --json --deltas-only');
+    console.error('后续步骤：');
     bullets.forEach(b => console.error(`  ${b}`));
   }
 }

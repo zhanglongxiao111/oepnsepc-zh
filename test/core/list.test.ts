@@ -33,9 +33,9 @@ describe('ListCommand', () => {
   describe('execute', () => {
     it('should handle missing openspec/changes directory', async () => {
       const listCommand = new ListCommand();
-      
+
       await expect(listCommand.execute(tempDir, 'changes')).rejects.toThrow(
-        "No OpenSpec changes directory found. Run 'openspec init' first."
+        "未找到 OpenSpec 变更目录。请先运行 'openspec init'。"
       );
     });
 
@@ -46,14 +46,14 @@ describe('ListCommand', () => {
       const listCommand = new ListCommand();
       await listCommand.execute(tempDir, 'changes');
 
-      expect(logOutput).toEqual(['No active changes found.']);
+      expect(logOutput).toEqual(['没有找到活跃的变更。']);
     });
 
     it('should exclude archive directory', async () => {
       const changesDir = path.join(tempDir, 'openspec', 'changes');
       await fs.mkdir(path.join(changesDir, 'archive'), { recursive: true });
       await fs.mkdir(path.join(changesDir, 'my-change'), { recursive: true });
-      
+
       // Create tasks.md with some tasks
       await fs.writeFile(
         path.join(changesDir, 'my-change', 'tasks.md'),
@@ -63,7 +63,7 @@ describe('ListCommand', () => {
       const listCommand = new ListCommand();
       await listCommand.execute(tempDir, 'changes');
 
-      expect(logOutput).toContain('Changes:');
+      expect(logOutput).toContain('变更：');
       expect(logOutput.some(line => line.includes('my-change'))).toBe(true);
       expect(logOutput.some(line => line.includes('archive'))).toBe(false);
     });
@@ -71,7 +71,7 @@ describe('ListCommand', () => {
     it('should count tasks correctly', async () => {
       const changesDir = path.join(tempDir, 'openspec', 'changes');
       await fs.mkdir(path.join(changesDir, 'test-change'), { recursive: true });
-      
+
       await fs.writeFile(
         path.join(changesDir, 'test-change', 'tasks.md'),
         `# Tasks
@@ -87,13 +87,13 @@ Regular text that should be ignored
       const listCommand = new ListCommand();
       await listCommand.execute(tempDir, 'changes');
 
-      expect(logOutput.some(line => line.includes('2/5 tasks'))).toBe(true);
+      expect(logOutput.some(line => line.includes('2/5 任务'))).toBe(true);
     });
 
     it('should show complete status for fully completed changes', async () => {
       const changesDir = path.join(tempDir, 'openspec', 'changes');
       await fs.mkdir(path.join(changesDir, 'completed-change'), { recursive: true });
-      
+
       await fs.writeFile(
         path.join(changesDir, 'completed-change', 'tasks.md'),
         '- [x] Task 1\n- [x] Task 2\n- [x] Task 3\n'
@@ -102,7 +102,7 @@ Regular text that should be ignored
       const listCommand = new ListCommand();
       await listCommand.execute(tempDir, 'changes');
 
-      expect(logOutput.some(line => line.includes('✓ Complete'))).toBe(true);
+      expect(logOutput.some(line => line.includes('✓ 已完成'))).toBe(true);
     });
 
     it('should handle changes without tasks.md', async () => {
@@ -112,7 +112,7 @@ Regular text that should be ignored
       const listCommand = new ListCommand();
       await listCommand.execute(tempDir, 'changes');
 
-      expect(logOutput.some(line => line.includes('no-tasks') && line.includes('No tasks'))).toBe(true);
+      expect(logOutput.some(line => line.includes('no-tasks') && line.includes('无任务'))).toBe(true);
     });
 
     it('should sort changes alphabetically when sort=name', async () => {
@@ -135,7 +135,7 @@ Regular text that should be ignored
 
     it('should handle multiple changes with various states', async () => {
       const changesDir = path.join(tempDir, 'openspec', 'changes');
-      
+
       // Complete change
       await fs.mkdir(path.join(changesDir, 'completed'), { recursive: true });
       await fs.writeFile(
@@ -156,10 +156,10 @@ Regular text that should be ignored
       const listCommand = new ListCommand();
       await listCommand.execute(tempDir);
 
-      expect(logOutput).toContain('Changes:');
-      expect(logOutput.some(line => line.includes('completed') && line.includes('✓ Complete'))).toBe(true);
-      expect(logOutput.some(line => line.includes('partial') && line.includes('1/3 tasks'))).toBe(true);
-      expect(logOutput.some(line => line.includes('no-tasks') && line.includes('No tasks'))).toBe(true);
+      expect(logOutput).toContain('变更：');
+      expect(logOutput.some(line => line.includes('completed') && line.includes('✓ 已完成'))).toBe(true);
+      expect(logOutput.some(line => line.includes('partial') && line.includes('1/3 任务'))).toBe(true);
+      expect(logOutput.some(line => line.includes('no-tasks') && line.includes('无任务'))).toBe(true);
     });
   });
 });

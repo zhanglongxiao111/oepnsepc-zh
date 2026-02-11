@@ -20,29 +20,29 @@ describe('ArchiveCommand', () => {
     // Create temp directory
     tempDir = path.join(os.tmpdir(), `openspec-archive-test-${Date.now()}`);
     await fs.mkdir(tempDir, { recursive: true });
-    
+
     // Change to temp directory
     process.chdir(tempDir);
-    
+
     // Create OpenSpec structure
     const openspecDir = path.join(tempDir, 'openspec');
     await fs.mkdir(path.join(openspecDir, 'changes'), { recursive: true });
     await fs.mkdir(path.join(openspecDir, 'specs'), { recursive: true });
     await fs.mkdir(path.join(openspecDir, 'changes', 'archive'), { recursive: true });
-    
+
     // Suppress console.log during tests
     console.log = vi.fn();
-    
+
     archiveCommand = new ArchiveCommand();
   });
 
   afterEach(async () => {
     // Restore console.log
     console.log = originalConsoleLog;
-    
+
     // Clear mocks
     vi.clearAllMocks();
-    
+
     // Clean up temp directory
     try {
       await fs.rm(tempDir, { recursive: true, force: true });
@@ -57,21 +57,21 @@ describe('ArchiveCommand', () => {
       const changeName = 'test-feature';
       const changeDir = path.join(tempDir, 'openspec', 'changes', changeName);
       await fs.mkdir(changeDir, { recursive: true });
-      
+
       // Create tasks.md with completed tasks
       const tasksContent = '- [x] Task 1\n- [x] Task 2';
       await fs.writeFile(path.join(changeDir, 'tasks.md'), tasksContent);
-      
+
       // Execute archive with --yes flag
       await archiveCommand.execute(changeName, { yes: true });
-      
+
       // Check that change was moved to archive
       const archiveDir = path.join(tempDir, 'openspec', 'changes', 'archive');
       const archives = await fs.readdir(archiveDir);
-      
+
       expect(archives.length).toBe(1);
       expect(archives[0]).toMatch(new RegExp(`\\d{4}-\\d{2}-\\d{2}-${changeName}`));
-      
+
       // Verify original change directory no longer exists
       await expect(fs.access(changeDir)).rejects.toThrow();
     });
@@ -80,17 +80,17 @@ describe('ArchiveCommand', () => {
       const changeName = 'incomplete-feature';
       const changeDir = path.join(tempDir, 'openspec', 'changes', changeName);
       await fs.mkdir(changeDir, { recursive: true });
-      
+
       // Create tasks.md with incomplete tasks
       const tasksContent = '- [x] Task 1\n- [ ] Task 2\n- [ ] Task 3';
       await fs.writeFile(path.join(changeDir, 'tasks.md'), tasksContent);
-      
+
       // Execute archive with --yes flag
       await archiveCommand.execute(changeName, { yes: true });
-      
+
       // Verify warning was logged
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining('Warning: 2 incomplete task(s) found')
+        expect.stringContaining('警告：发现 2 个未完成的任务')
       );
     });
 
@@ -99,7 +99,7 @@ describe('ArchiveCommand', () => {
       const changeDir = path.join(tempDir, 'openspec', 'changes', changeName);
       const changeSpecDir = path.join(changeDir, 'specs', 'test-capability');
       await fs.mkdir(changeSpecDir, { recursive: true });
-      
+
       // Create delta-based change spec (ADDED requirement)
       const specContent = `# Test Capability Spec - Changes
 
@@ -112,16 +112,16 @@ Given a test condition
 When an action occurs
 Then expected result happens`;
       await fs.writeFile(path.join(changeSpecDir, 'spec.md'), specContent);
-      
+
       // Execute archive with --yes flag and skip validation for speed
       await archiveCommand.execute(changeName, { yes: true, noValidate: true });
-      
+
       // Verify spec was created from skeleton and ADDED requirement applied
       const mainSpecPath = path.join(tempDir, 'openspec', 'specs', 'test-capability', 'spec.md');
       const updatedContent = await fs.readFile(mainSpecPath, 'utf-8');
       expect(updatedContent).toContain('# test-capability Specification');
       expect(updatedContent).toContain('## Purpose');
-      expect(updatedContent).toContain(`created by archiving change ${changeName}`);
+      expect(updatedContent).toContain(`通过归档变更 ${changeName} 创建`);
       expect(updatedContent).toContain('## Requirements');
       expect(updatedContent).toContain('### Requirement: The system SHALL provide test capability');
       expect(updatedContent).toContain('#### Scenario: Basic test');
@@ -132,7 +132,7 @@ Then expected result happens`;
       const changeDir = path.join(tempDir, 'openspec', 'changes', changeName);
       const changeSpecDir = path.join(changeDir, 'specs', 'gift-card');
       await fs.mkdir(changeSpecDir, { recursive: true });
-      
+
       // Create delta spec with both ADDED and REMOVED requirements
       // This simulates refactoring where old fields are removed and new ones are added
       const specContent = `# Gift Card - Changes
@@ -151,15 +151,15 @@ The system SHALL support logo and backgroundColor fields for gift cards.
 ### Requirement: Image Field
 ### Requirement: Thumbnail Field`;
       await fs.writeFile(path.join(changeSpecDir, 'spec.md'), specContent);
-      
+
       // Execute archive - should succeed with warning about REMOVED requirements
       await archiveCommand.execute(changeName, { yes: true, noValidate: true });
-      
+
       // Verify warning was logged about REMOVED requirements being ignored
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining('Warning: gift-card - 2 REMOVED requirement(s) ignored for new spec (nothing to remove).')
+        expect.stringContaining('警告：gift-card - 2 个 REMOVED 需求在新规范中被忽略')
       );
-      
+
       // Verify spec was created with only ADDED requirements
       const mainSpecPath = path.join(tempDir, 'openspec', 'specs', 'gift-card', 'spec.md');
       const updatedContent = await fs.readFile(mainSpecPath, 'utf-8');
@@ -169,7 +169,7 @@ The system SHALL support logo and backgroundColor fields for gift cards.
       // REMOVED requirements should not be in the final spec
       expect(updatedContent).not.toContain('### Requirement: Image Field');
       expect(updatedContent).not.toContain('### Requirement: Thumbnail Field');
-      
+
       // Verify change was archived successfully
       const archiveDir = path.join(tempDir, 'openspec', 'changes', 'archive');
       const archives = await fs.readdir(archiveDir);
@@ -182,7 +182,7 @@ The system SHALL support logo and backgroundColor fields for gift cards.
       const changeDir = path.join(tempDir, 'openspec', 'changes', changeName);
       const changeSpecDir = path.join(changeDir, 'specs', 'new-capability');
       await fs.mkdir(changeSpecDir, { recursive: true });
-      
+
       // Create delta spec with MODIFIED requirement (should fail for new spec)
       const specContent = `# New Capability - Changes
 
@@ -196,20 +196,20 @@ New feature description.
 ### Requirement: Existing Feature
 Modified content.`;
       await fs.writeFile(path.join(changeSpecDir, 'spec.md'), specContent);
-      
+
       // Execute archive - should abort with error message (not throw, but log and return)
       await archiveCommand.execute(changeName, { yes: true, noValidate: true });
-      
+
       // Verify error message mentions MODIFIED not allowed for new specs
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining('new-capability: target spec does not exist; only ADDED requirements are allowed for new specs. MODIFIED and RENAMED operations require an existing spec.')
+        expect.stringContaining('new-capability：目标规范不存在；新规范仅允许 ADDED 需求。MODIFIED 和 RENAMED 操作需要已有的规范。')
       );
-      expect(console.log).toHaveBeenCalledWith('Aborted. No files were changed.');
-      
+      expect(console.log).toHaveBeenCalledWith('已中止。未更改任何文件。');
+
       // Verify spec was NOT created
       const mainSpecPath = path.join(tempDir, 'openspec', 'specs', 'new-capability', 'spec.md');
       await expect(fs.access(mainSpecPath)).rejects.toThrow();
-      
+
       // Verify change was NOT archived
       const archiveDir = path.join(tempDir, 'openspec', 'changes', 'archive');
       const archives = await fs.readdir(archiveDir);
@@ -221,7 +221,7 @@ Modified content.`;
       const changeDir = path.join(tempDir, 'openspec', 'changes', changeName);
       const changeSpecDir = path.join(changeDir, 'specs', 'another-capability');
       await fs.mkdir(changeSpecDir, { recursive: true });
-      
+
       // Create delta spec with RENAMED requirement (should fail for new spec)
       const specContent = `# Another Capability - Changes
 
@@ -234,20 +234,20 @@ New feature description.
 - FROM: \`### Requirement: Old Name\`
 - TO: \`### Requirement: New Name\``;
       await fs.writeFile(path.join(changeSpecDir, 'spec.md'), specContent);
-      
+
       // Execute archive - should abort with error message (not throw, but log and return)
       await archiveCommand.execute(changeName, { yes: true, noValidate: true });
-      
+
       // Verify error message mentions RENAMED not allowed for new specs
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining('another-capability: target spec does not exist; only ADDED requirements are allowed for new specs. MODIFIED and RENAMED operations require an existing spec.')
+        expect.stringContaining('another-capability：目标规范不存在；新规范仅允许 ADDED 需求。MODIFIED 和 RENAMED 操作需要已有的规范。')
       );
-      expect(console.log).toHaveBeenCalledWith('Aborted. No files were changed.');
-      
+      expect(console.log).toHaveBeenCalledWith('已中止。未更改任何文件。');
+
       // Verify spec was NOT created
       const mainSpecPath = path.join(tempDir, 'openspec', 'specs', 'another-capability', 'spec.md');
       await expect(fs.access(mainSpecPath)).rejects.toThrow();
-      
+
       // Verify change was NOT archived
       const archiveDir = path.join(tempDir, 'openspec', 'changes', 'archive');
       const archives = await fs.readdir(archiveDir);
@@ -257,38 +257,38 @@ New feature description.
     it('should throw error if change does not exist', async () => {
       await expect(
         archiveCommand.execute('non-existent-change', { yes: true })
-      ).rejects.toThrow("Change 'non-existent-change' not found.");
+      ).rejects.toThrow("变更 'non-existent-change' 未找到。");
     });
 
     it('should throw error if archive already exists', async () => {
       const changeName = 'duplicate-feature';
       const changeDir = path.join(tempDir, 'openspec', 'changes', changeName);
       await fs.mkdir(changeDir, { recursive: true });
-      
+
       // Create existing archive with same date
       const date = new Date().toISOString().split('T')[0];
       const archivePath = path.join(tempDir, 'openspec', 'changes', 'archive', `${date}-${changeName}`);
       await fs.mkdir(archivePath, { recursive: true });
-      
+
       // Try to archive
       await expect(
         archiveCommand.execute(changeName, { yes: true })
-      ).rejects.toThrow(`Archive '${date}-${changeName}' already exists.`);
+      ).rejects.toThrow(`归档 '${date}-${changeName}' 已存在。`);
     });
 
     it('should handle changes without tasks.md', async () => {
       const changeName = 'no-tasks-feature';
       const changeDir = path.join(tempDir, 'openspec', 'changes', changeName);
       await fs.mkdir(changeDir, { recursive: true });
-      
+
       // Execute archive without tasks.md
       await archiveCommand.execute(changeName, { yes: true });
-      
+
       // Should complete without warnings
       expect(console.log).not.toHaveBeenCalledWith(
-        expect.stringContaining('incomplete task(s)')
+        expect.stringContaining('未完成的任务')
       );
-      
+
       // Verify change was archived
       const archiveDir = path.join(tempDir, 'openspec', 'changes', 'archive');
       const archives = await fs.readdir(archiveDir);
@@ -299,15 +299,15 @@ New feature description.
       const changeName = 'no-specs-feature';
       const changeDir = path.join(tempDir, 'openspec', 'changes', changeName);
       await fs.mkdir(changeDir, { recursive: true });
-      
+
       // Execute archive without specs
       await archiveCommand.execute(changeName, { yes: true });
-      
+
       // Should complete without spec updates
       expect(console.log).not.toHaveBeenCalledWith(
-        expect.stringContaining('Specs to update')
+        expect.stringContaining('待更新的规范')
       );
-      
+
       // Verify change was archived
       const archiveDir = path.join(tempDir, 'openspec', 'changes', 'archive');
       const archives = await fs.readdir(archiveDir);
@@ -319,23 +319,23 @@ New feature description.
       const changeDir = path.join(tempDir, 'openspec', 'changes', changeName);
       const changeSpecDir = path.join(changeDir, 'specs', 'test-capability');
       await fs.mkdir(changeSpecDir, { recursive: true });
-      
+
       // Create spec in change
       const specContent = '# Test Capability Spec\n\nTest content';
       await fs.writeFile(path.join(changeSpecDir, 'spec.md'), specContent);
-      
+
       // Execute archive with --skip-specs flag and noValidate to skip validation
       await archiveCommand.execute(changeName, { yes: true, skipSpecs: true, noValidate: true });
-      
+
       // Verify skip message was logged
       expect(console.log).toHaveBeenCalledWith(
-        'Skipping spec updates (--skip-specs flag provided).'
+        '跳过规范更新（已提供 --skip-specs 标志）。'
       );
-      
+
       // Verify spec was NOT copied to main specs
       const mainSpecPath = path.join(tempDir, 'openspec', 'specs', 'test-capability', 'spec.md');
       await expect(fs.access(mainSpecPath)).rejects.toThrow();
-      
+
       // Verify change was still archived
       const archiveDir = path.join(tempDir, 'openspec', 'changes', 'archive');
       const archives = await fs.readdir(archiveDir);
@@ -386,12 +386,12 @@ The system will log all events.
     it('should proceed with archive when user declines spec updates', async () => {
       const { confirm } = await import('@inquirer/prompts');
       const mockConfirm = confirm as unknown as ReturnType<typeof vi.fn>;
-      
+
       const changeName = 'decline-specs-feature';
       const changeDir = path.join(tempDir, 'openspec', 'changes', changeName);
       const changeSpecDir = path.join(changeDir, 'specs', 'test-capability');
       await fs.mkdir(changeSpecDir, { recursive: true });
-      
+
       // Create valid spec in change
       const specContent = `# Test Capability Spec
 
@@ -407,28 +407,28 @@ Given a test condition
 When an action occurs
 Then expected result happens`;
       await fs.writeFile(path.join(changeSpecDir, 'spec.md'), specContent);
-      
+
       // Mock confirm to return false (decline spec updates)
       mockConfirm.mockResolvedValueOnce(false);
-      
+
       // Execute archive without --yes flag
       await archiveCommand.execute(changeName);
-      
+
       // Verify user was prompted about specs
       expect(mockConfirm).toHaveBeenCalledWith({
-        message: 'Proceed with spec updates?',
+        message: '继续更新规范？',
         default: true
       });
-      
+
       // Verify skip message was logged
       expect(console.log).toHaveBeenCalledWith(
-        'Skipping spec updates. Proceeding with archive.'
+        '跳过规范更新。继续归档。'
       );
-      
+
       // Verify spec was NOT copied to main specs
       const mainSpecPath = path.join(tempDir, 'openspec', 'specs', 'test-capability', 'spec.md');
       await expect(fs.access(mainSpecPath)).rejects.toThrow();
-      
+
       // Verify change was still archived
       const archiveDir = path.join(tempDir, 'openspec', 'changes', 'archive');
       const archives = await fs.readdir(archiveDir);
@@ -598,10 +598,10 @@ new body`;
       expect(unchanged).toBe(mainContent);
       // Assert error message format and abort notice
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining('delta validation failed')
+        expect.stringContaining('校验失败')
       );
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining('Aborted. No files were changed.')
+        expect.stringContaining('已中止。未更改任何文件。')
       );
 
       // Fix MODIFIED to reference New (should succeed)
@@ -704,7 +704,7 @@ E1 updated`);
 
       // Verify aggregated totals line was printed
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining('Totals: + 1, ~ 1, - 0, → 1')
+        expect.stringContaining('汇总：+ 1, ~ 1, - 0, → 1')
       );
     });
   });
@@ -713,10 +713,10 @@ E1 updated`);
     it('should throw error when openspec directory does not exist', async () => {
       // Remove openspec directory
       await fs.rm(path.join(tempDir, 'openspec'), { recursive: true });
-      
+
       await expect(
         archiveCommand.execute('any-change', { yes: true })
-      ).rejects.toThrow("No OpenSpec changes directory found. Run 'openspec init' first.");
+      ).rejects.toThrow("未找到 OpenSpec 变更目录。请先运行 'openspec init'。");
     });
   });
 
@@ -724,28 +724,28 @@ E1 updated`);
     it('should use select prompt for change selection', async () => {
       const { select } = await import('@inquirer/prompts');
       const mockSelect = select as unknown as ReturnType<typeof vi.fn>;
-      
+
       // Create test changes
       const change1 = 'feature-a';
       const change2 = 'feature-b';
       await fs.mkdir(path.join(tempDir, 'openspec', 'changes', change1), { recursive: true });
       await fs.mkdir(path.join(tempDir, 'openspec', 'changes', change2), { recursive: true });
-      
+
       // Mock select to return first change
       mockSelect.mockResolvedValueOnce(change1);
-      
+
       // Execute without change name
       await archiveCommand.execute(undefined, { yes: true });
-      
+
       // Verify select was called with correct options (values matter, names may include progress)
       expect(mockSelect).toHaveBeenCalledWith(expect.objectContaining({
-        message: 'Select a change to archive',
+        message: '选择要归档的变更',
         choices: expect.arrayContaining([
           expect.objectContaining({ value: change1 }),
           expect.objectContaining({ value: change2 })
         ])
       }));
-      
+
       // Verify the selected change was archived
       const archiveDir = path.join(tempDir, 'openspec', 'changes', 'archive');
       const archives = await fs.readdir(archiveDir);
@@ -755,24 +755,24 @@ E1 updated`);
     it('should use confirm prompt for task warnings', async () => {
       const { confirm } = await import('@inquirer/prompts');
       const mockConfirm = confirm as unknown as ReturnType<typeof vi.fn>;
-      
+
       const changeName = 'incomplete-interactive';
       const changeDir = path.join(tempDir, 'openspec', 'changes', changeName);
       await fs.mkdir(changeDir, { recursive: true });
-      
+
       // Create tasks.md with incomplete tasks
       const tasksContent = '- [ ] Task 1';
       await fs.writeFile(path.join(changeDir, 'tasks.md'), tasksContent);
-      
+
       // Mock confirm to return true (proceed)
       mockConfirm.mockResolvedValueOnce(true);
-      
+
       // Execute without --yes flag
       await archiveCommand.execute(changeName);
-      
+
       // Verify confirm was called
       expect(mockConfirm).toHaveBeenCalledWith({
-        message: 'Warning: 1 incomplete task(s) found. Continue?',
+        message: '警告：发现 1 个未完成的任务。继续吗？',
         default: false
       });
     });
@@ -780,26 +780,26 @@ E1 updated`);
     it('should cancel when user declines task warning', async () => {
       const { confirm } = await import('@inquirer/prompts');
       const mockConfirm = confirm as unknown as ReturnType<typeof vi.fn>;
-      
+
       const changeName = 'cancel-test';
       const changeDir = path.join(tempDir, 'openspec', 'changes', changeName);
       await fs.mkdir(changeDir, { recursive: true });
-      
+
       // Create tasks.md with incomplete tasks
       const tasksContent = '- [ ] Task 1';
       await fs.writeFile(path.join(changeDir, 'tasks.md'), tasksContent);
-      
+
       // Mock confirm to return false (cancel) for validation skip
       mockConfirm.mockResolvedValueOnce(false);
       // Mock another false for task warning
       mockConfirm.mockResolvedValueOnce(false);
-      
+
       // Execute without --yes flag but skip validation to test task warning
       await archiveCommand.execute(changeName, { noValidate: true });
-      
+
       // Verify archive was cancelled
-      expect(console.log).toHaveBeenCalledWith('Archive cancelled.');
-      
+      expect(console.log).toHaveBeenCalledWith('归档已取消。');
+
       // Verify change was not archived
       await expect(fs.access(changeDir)).resolves.not.toThrow();
     });

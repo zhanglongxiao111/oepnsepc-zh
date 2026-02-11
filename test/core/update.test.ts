@@ -43,7 +43,7 @@ describe('UpdateCommand', () => {
       });
 
       await expect(updateCommand.execute(testDir)).rejects.toThrow(
-        "No OpenSpec directory found. Run 'openspec init' first."
+        "未找到 OpenSpec 目录。请先运行 'openspec init'。"
       );
     });
 
@@ -53,7 +53,7 @@ describe('UpdateCommand', () => {
       await updateCommand.execute(testDir);
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('No configured tools found')
+        expect.stringContaining('未找到已配置的工具')
       );
 
       consoleSpy.mockRestore();
@@ -100,7 +100,7 @@ Old instructions content
 
       // Check console output
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Updating 1 tool(s): claude')
+        expect.stringContaining('正在更新 1 个工具')
       );
 
       consoleSpy.mockRestore();
@@ -236,7 +236,7 @@ Old instructions content
 
       // Both tools should be updated
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Updating 2 tool(s)')
+        expect.stringContaining('正在更新 2 个工具')
       );
 
       // Verify Claude skills updated
@@ -343,7 +343,7 @@ Old instructions content
 
       // Should report failure
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Failed')
+        expect.stringContaining('失败')
       );
 
       writeSpy.mockRestore();
@@ -387,12 +387,12 @@ Old instructions content
 
       // Cursor should still be updated - check the actual format from ora spinner
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Updated: Cursor')
+        expect.stringContaining('已更新')
       );
 
       // Claude should be reported as failed
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Failed')
+        expect.stringContaining('失败')
       );
 
       writeSpy.mockRestore();
@@ -412,7 +412,7 @@ Old instructions content
 
       // Should report no configured tools
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('No configured tools found')
+        expect.stringContaining('未找到已配置的工具')
       );
 
       consoleSpy.mockRestore();
@@ -435,7 +435,7 @@ Old instructions content
 
       // Should detect and update Claude
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Updating 1 tool(s): claude')
+        expect.stringContaining('正在更新 1 个工具')
       );
 
       consoleSpy.mockRestore();
@@ -514,7 +514,7 @@ Old instructions content
 
       // The success output uses "✓ Updated: <name>"
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Updated: Claude Code')
+        expect.stringContaining('已更新')
       );
 
       consoleSpy.mockRestore();
@@ -536,7 +536,7 @@ Old instructions content
       await updateCommand.execute(testDir);
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Restart your IDE')
+        expect.stringContaining('重启您的 IDE')
       );
 
       consoleSpy.mockRestore();
@@ -572,7 +572,7 @@ Content here
       await updateCommand.execute(testDir);
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('up to date')
+        expect.stringContaining('均为最新')
       );
       expect(consoleSpy).toHaveBeenCalledWith(
         expect.stringContaining('--force')
@@ -692,12 +692,12 @@ Content
 
       // Should show "Force updating" message
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Force updating')
+        expect.stringContaining('强制更新')
       );
 
       // Should show updated message
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Updated: Claude Code')
+        expect.stringContaining('已更新')
       );
 
       consoleSpy.mockRestore();
@@ -764,7 +764,7 @@ metadata:
 
       // Should show both tools being force updated
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Force updating 2 tool(s)')
+        expect.stringContaining('强制更新 2 个工具')
       );
 
       consoleSpy.mockRestore();
@@ -828,12 +828,12 @@ metadata:
 
       // Should show only Claude being updated
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Updating 1 tool(s)')
+        expect.stringContaining('正在更新 1 个工具')
       );
 
       // Should mention Cursor is already up to date
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Already up to date: cursor')
+        expect.stringContaining('已是最新：cursor')
       );
 
       consoleSpy.mockRestore();
@@ -869,12 +869,12 @@ ${OPENSPEC_MARKERS.end}
 
       // Should show v1 upgrade message
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Upgrading to the new OpenSpec')
+        expect.stringContaining('正在升级到新版 OpenSpec')
       );
 
       // Should show marker removal message (config files are never deleted, only have markers removed)
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Removed OpenSpec markers from CLAUDE.md')
+        expect.stringContaining('已从 CLAUDE.md 中移除 OpenSpec 标记')
       );
 
       // Config file should still exist (never deleted)
@@ -916,17 +916,17 @@ ${OPENSPEC_MARKERS.end}
 
       // Should show v1 upgrade message
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Upgrading to the new OpenSpec')
+        expect.stringContaining('正在升级到新版 OpenSpec')
       );
 
       // Should show warning about --force
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Run with --force to auto-cleanup')
+        expect.stringContaining('使用 --force 自动清理')
       );
 
       // Should continue with update
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Updated: Claude Code')
+        expect.stringContaining('已更新')
       );
 
       // Legacy file should still exist (not cleaned up)
@@ -965,7 +965,7 @@ ${OPENSPEC_MARKERS.end}
 
       // Should show cleanup message for directory
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Removed .claude/commands/openspec/')
+        expect.stringContaining('已删除 .claude/commands/openspec/')
       );
 
       // Legacy directory should be deleted
@@ -1000,7 +1000,7 @@ ${OPENSPEC_MARKERS.end}
 
       // Should show cleanup message
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Removed openspec/AGENTS.md')
+        expect.stringContaining('已删除 openspec/AGENTS.md')
       );
 
       // Legacy file should be deleted
@@ -1073,7 +1073,7 @@ More user content after markers.
 
       // Should show marker removal message
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Removed OpenSpec markers from CLAUDE.md')
+        expect.stringContaining('已从 CLAUDE.md 中移除 OpenSpec 标记')
       );
 
       // File should still exist
@@ -1115,7 +1115,7 @@ More user content after markers.
 
       // Should show detected tools message
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Tools detected from legacy artifacts')
+        expect.stringContaining('从旧版工件检测到的工具')
       );
 
       // Should show Claude Code being set up
@@ -1125,7 +1125,7 @@ More user content after markers.
 
       // Should show getting started message for newly configured tools
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Getting started')
+        expect.stringContaining('开始使用')
       );
       expect(consoleSpy).toHaveBeenCalledWith(
         expect.stringContaining('/opsx:new')
@@ -1165,7 +1165,7 @@ More user content after markers.
 
       // Should detect both tools
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Tools detected from legacy artifacts')
+        expect.stringContaining('从旧版工件检测到的工具')
       );
 
       // Both tools should have skills created
@@ -1203,7 +1203,7 @@ More user content after markers.
 
       // Legacy cleanup should happen
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Removed .claude/commands/openspec/')
+        expect.stringContaining('已删除 .claude/commands/openspec/')
       );
 
       // Should NOT show "Tools detected from legacy artifacts" because claude is already configured
@@ -1217,7 +1217,7 @@ More user content after markers.
 
       // Should update existing skills (not "Getting started" for newly configured)
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Updated: Claude Code')
+        expect.stringContaining('已更新')
       );
 
       consoleSpy.mockRestore();
@@ -1253,7 +1253,7 @@ More user content after markers.
 
       // Should detect Cursor as a legacy tool to upgrade (but not Claude)
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Tools detected from legacy artifacts')
+        expect.stringContaining('从旧版工件检测到的工具')
       );
 
       // Cursor skills should be created
@@ -1262,7 +1262,7 @@ More user content after markers.
 
       // Should show "Getting started" for newly configured Cursor
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Getting started')
+        expect.stringContaining('开始使用')
       );
 
       consoleSpy.mockRestore();

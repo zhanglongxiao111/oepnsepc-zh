@@ -2,12 +2,12 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { Validator } from '../../src/core/validation/validator.js';
-import { 
-  ScenarioSchema, 
-  RequirementSchema, 
-  SpecSchema, 
+import {
+  ScenarioSchema,
+  RequirementSchema,
+  SpecSchema,
   ChangeSchema,
-  DeltaSchema 
+  DeltaSchema
 } from '../../src/core/schemas/index.js';
 
 describe('Validation Schemas', () => {
@@ -16,7 +16,7 @@ describe('Validation Schemas', () => {
       const scenario = {
         rawText: 'Given a user is logged in\nWhen they click logout\nThen they are redirected to login page',
       };
-      
+
       const result = ScenarioSchema.safeParse(scenario);
       expect(result.success).toBe(true);
     });
@@ -25,11 +25,11 @@ describe('Validation Schemas', () => {
       const scenario = {
         rawText: '',
       };
-      
+
       const result = ScenarioSchema.safeParse(scenario);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.issues[0].message).toBe('Scenario text cannot be empty');
+        expect(result.error.issues[0].message).toBe('场景文本不能为空');
       }
     });
   });
@@ -44,7 +44,7 @@ describe('Validation Schemas', () => {
           },
         ],
       };
-      
+
       const result = RequirementSchema.safeParse(requirement);
       expect(result.success).toBe(true);
     });
@@ -58,11 +58,11 @@ describe('Validation Schemas', () => {
           },
         ],
       };
-      
+
       const result = RequirementSchema.safeParse(requirement);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.issues[0].message).toBe('Requirement must contain SHALL or MUST keyword');
+        expect(result.error.issues[0].message).toBe('需求必须包含 SHALL 或 MUST 关键词');
       }
     });
 
@@ -71,11 +71,11 @@ describe('Validation Schemas', () => {
         text: 'The system SHALL provide user authentication',
         scenarios: [],
       };
-      
+
       const result = RequirementSchema.safeParse(requirement);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.issues[0].message).toBe('Requirement must have at least one scenario');
+        expect(result.error.issues[0].message).toBe('需求必须至少有一个场景');
       }
     });
   });
@@ -96,7 +96,7 @@ describe('Validation Schemas', () => {
           },
         ],
       };
-      
+
       const result = SpecSchema.safeParse(spec);
       expect(result.success).toBe(true);
     });
@@ -107,11 +107,11 @@ describe('Validation Schemas', () => {
         overview: 'This spec defines user authentication requirements',
         requirements: [],
       };
-      
+
       const result = SpecSchema.safeParse(spec);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.issues[0].message).toBe('Spec must have at least one requirement');
+        expect(result.error.issues[0].message).toBe('规范必须至少有一个需求');
       }
     });
   });
@@ -130,7 +130,7 @@ describe('Validation Schemas', () => {
           },
         ],
       };
-      
+
       const result = ChangeSchema.safeParse(change);
       expect(result.success).toBe(true);
     });
@@ -148,11 +148,11 @@ describe('Validation Schemas', () => {
           },
         ],
       };
-      
+
       const result = ChangeSchema.safeParse(change);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.issues[0].message).toBe('Why section must be at least 50 characters');
+        expect(result.error.issues[0].message).toBe('Why 部分必须至少 50 个字符');
       }
     });
 
@@ -162,18 +162,18 @@ describe('Validation Schemas', () => {
         operation: 'ADDED' as const,
         description: `Add spec ${i}`,
       }));
-      
+
       const change = {
         name: 'massive-change',
         why: 'This is a massive change that affects many parts of the system',
         whatChanges: 'Update everything',
         deltas,
       };
-      
+
       const result = ChangeSchema.safeParse(change);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.issues[0].message).toBe('Consider splitting changes with more than 10 deltas');
+        expect(result.error.issues[0].message).toBe('建议拆分超过 10 个 delta 的变更');
       }
     });
   });
@@ -181,7 +181,7 @@ describe('Validation Schemas', () => {
 
 describe('Validator', () => {
   const testDir = path.join(process.cwd(), 'test-validation-tmp');
-  
+
   beforeEach(async () => {
     await fs.mkdir(testDir, { recursive: true });
   });
@@ -217,10 +217,10 @@ Then they see an error message`;
 
       const specPath = path.join(testDir, 'spec.md');
       await fs.writeFile(specPath, specContent);
-      
+
       const validator = new Validator();
       const report = await validator.validateSpec(specPath);
-      
+
       expect(report.valid).toBe(true);
       expect(report.summary.errors).toBe(0);
     });
@@ -239,10 +239,10 @@ Then authenticated`;
 
       const specPath = path.join(testDir, 'spec.md');
       await fs.writeFile(specPath, specContent);
-      
+
       const validator = new Validator();
       const report = await validator.validateSpec(specPath);
-      
+
       expect(report.valid).toBe(false);
       expect(report.summary.errors).toBeGreaterThan(0);
       expect(report.issues.some(i => i.message.includes('Purpose'))).toBe(true);
@@ -262,10 +262,10 @@ We need to implement user authentication to secure the application and protect u
 
       const changePath = path.join(testDir, 'change.md');
       await fs.writeFile(changePath, changeContent);
-      
+
       const validator = new Validator();
       const report = await validator.validateChange(changePath);
-      
+
       expect(report.valid).toBe(true);
       expect(report.summary.errors).toBe(0);
     });
@@ -278,10 +278,10 @@ We need to implement user authentication to secure the application and protect u
 
       const changePath = path.join(testDir, 'change.md');
       await fs.writeFile(changePath, changeContent);
-      
+
       const validator = new Validator();
       const report = await validator.validateChange(changePath);
-      
+
       expect(report.valid).toBe(false);
       expect(report.summary.errors).toBeGreaterThan(0);
       expect(report.issues.some(i => i.message.includes('Why'))).toBe(true);
@@ -427,7 +427,7 @@ The system will log all events.
 
       expect(report.valid).toBe(false);
       expect(report.summary.errors).toBeGreaterThan(0);
-      expect(report.issues.some(i => i.message.includes('must contain SHALL or MUST'))).toBe(true);
+      expect(report.issues.some(i => i.message.includes('必须包含 SHALL 或 MUST'))).toBe(true);
     });
 
     it('should handle requirements without metadata fields', async () => {

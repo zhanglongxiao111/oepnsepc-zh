@@ -26,12 +26,12 @@ import {
 export function registerConfigCommand(program: Command): void {
   const configCmd = program
     .command('config')
-    .description('View and modify global OpenSpec configuration')
-    .option('--scope <scope>', 'Config scope (only "global" supported currently)')
+    .description('查看和修改 OpenSpec 全局配置')
+    .option('--scope <scope>', '配置作用域（目前仅支持 "global"）')
     .hook('preAction', (thisCommand) => {
       const opts = thisCommand.opts();
       if (opts.scope && opts.scope !== 'global') {
-        console.error('Error: Project-local config is not yet implemented');
+        console.error('错误：项目本地配置尚未实现');
         process.exit(1);
       }
     });
@@ -39,7 +39,7 @@ export function registerConfigCommand(program: Command): void {
   // config path
   configCmd
     .command('path')
-    .description('Show config file location')
+    .description('显示配置文件位置')
     .action(() => {
       console.log(getGlobalConfigPath());
     });
@@ -47,8 +47,8 @@ export function registerConfigCommand(program: Command): void {
   // config list
   configCmd
     .command('list')
-    .description('Show all current settings')
-    .option('--json', 'Output as JSON')
+    .description('显示所有当前设置')
+    .option('--json', '以 JSON 格式输出')
     .action((options: { json?: boolean }) => {
       const config = getGlobalConfig();
 
@@ -62,7 +62,7 @@ export function registerConfigCommand(program: Command): void {
   // config get
   configCmd
     .command('get <key>')
-    .description('Get a specific value (raw, scriptable)')
+    .description('获取特定值（原始值，可用于脚本）')
     .action((key: string) => {
       const config = getGlobalConfig();
       const value = getNestedValue(config as Record<string, unknown>, key);
@@ -82,17 +82,17 @@ export function registerConfigCommand(program: Command): void {
   // config set
   configCmd
     .command('set <key> <value>')
-    .description('Set a value (auto-coerce types)')
-    .option('--string', 'Force value to be stored as string')
-    .option('--allow-unknown', 'Allow setting unknown keys')
+    .description('设置一个值（自动转换类型）')
+    .option('--string', '强制以字符串格式存储值')
+    .option('--allow-unknown', '允许设置未知的键')
     .action((key: string, value: string, options: { string?: boolean; allowUnknown?: boolean }) => {
       const allowUnknown = Boolean(options.allowUnknown);
       const keyValidation = validateConfigKeyPath(key);
       if (!keyValidation.valid && !allowUnknown) {
         const reason = keyValidation.reason ? ` ${keyValidation.reason}.` : '';
-        console.error(`Error: Invalid configuration key "${key}".${reason}`);
-        console.error('Use "openspec config list" to see available keys.');
-        console.error('Pass --allow-unknown to bypass this check.');
+        console.error(`错误：无效的配置键 "${key}"。${reason}`);
+        console.error('使用 "openspec config list" 查看可用的键。');
+        console.error('使用 --allow-unknown 跳过此检查。');
         process.exitCode = 1;
         return;
       }
@@ -107,7 +107,7 @@ export function registerConfigCommand(program: Command): void {
       // Validate the new config
       const validation = validateConfig(newConfig);
       if (!validation.success) {
-        console.error(`Error: Invalid configuration - ${validation.error}`);
+        console.error(`错误：无效的配置 - ${validation.error}`);
         process.exitCode = 1;
         return;
       }
@@ -118,35 +118,35 @@ export function registerConfigCommand(program: Command): void {
 
       const displayValue =
         typeof coercedValue === 'string' ? `"${coercedValue}"` : String(coercedValue);
-      console.log(`Set ${key} = ${displayValue}`);
+      console.log(`已设置 ${key} = ${displayValue}`);
     });
 
   // config unset
   configCmd
     .command('unset <key>')
-    .description('Remove a key (revert to default)')
+    .description('删除一个键（恢复为默认值）')
     .action((key: string) => {
       const config = getGlobalConfig() as Record<string, unknown>;
       const existed = deleteNestedValue(config, key);
 
       if (existed) {
         saveGlobalConfig(config as GlobalConfig);
-        console.log(`Unset ${key} (reverted to default)`);
+        console.log(`已取消设置 ${key}（已恢复为默认值）`);
       } else {
-        console.log(`Key "${key}" was not set`);
+        console.log(`键 "${key}" 未被设置`);
       }
     });
 
   // config reset
   configCmd
     .command('reset')
-    .description('Reset configuration to defaults')
-    .option('--all', 'Reset all configuration (required)')
-    .option('-y, --yes', 'Skip confirmation prompts')
+    .description('将配置重置为默认值')
+    .option('--all', '重置所有配置（必须）')
+    .option('-y, --yes', '跳过确认提示')
     .action(async (options: { all?: boolean; yes?: boolean }) => {
       if (!options.all) {
-        console.error('Error: --all flag is required for reset');
-        console.error('Usage: openspec config reset --all [-y]');
+        console.error('错误：重置操作需要 --all 标志');
+        console.error('用法：openspec config reset --all [-y]');
         process.exitCode = 1;
         return;
       }
@@ -154,31 +154,31 @@ export function registerConfigCommand(program: Command): void {
       if (!options.yes) {
         const { confirm } = await import('@inquirer/prompts');
         const confirmed = await confirm({
-          message: 'Reset all configuration to defaults?',
+          message: '确定将所有配置重置为默认值？',
           default: false,
         });
 
         if (!confirmed) {
-          console.log('Reset cancelled.');
+          console.log('重置已取消。');
           return;
         }
       }
 
       saveGlobalConfig({ ...DEFAULT_CONFIG });
-      console.log('Configuration reset to defaults');
+      console.log('配置已重置为默认值');
     });
 
   // config edit
   configCmd
     .command('edit')
-    .description('Open config in $EDITOR')
+    .description('在 $EDITOR 中打开配置文件')
     .action(async () => {
       const editor = process.env.EDITOR || process.env.VISUAL;
 
       if (!editor) {
-        console.error('Error: No editor configured');
-        console.error('Set the EDITOR or VISUAL environment variable to your preferred editor');
-        console.error('Example: export EDITOR=vim');
+        console.error('错误：未配置编辑器');
+        console.error('请设置 EDITOR 或 VISUAL 环境变量为您的首选编辑器');
+        console.error('示例：export EDITOR=vim');
         process.exitCode = 1;
         return;
       }
@@ -203,7 +203,7 @@ export function registerConfigCommand(program: Command): void {
           if (code === 0) {
             resolve();
           } else {
-            reject(new Error(`Editor exited with code ${code}`));
+            reject(new Error(`编辑器以退出码 ${code} 结束`));
           }
         });
         child.on('error', reject);
@@ -215,17 +215,17 @@ export function registerConfigCommand(program: Command): void {
         const validation = validateConfig(parsedConfig);
 
         if (!validation.success) {
-          console.error(`Error: Invalid configuration - ${validation.error}`);
+          console.error(`错误：无效的配置 - ${validation.error}`);
           process.exitCode = 1;
         }
       } catch (error) {
         if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-          console.error(`Error: Config file not found at ${configPath}`);
+          console.error(`错误：配置文件未找到，路径：${configPath}`);
         } else if (error instanceof SyntaxError) {
-          console.error(`Error: Invalid JSON in ${configPath}`);
+          console.error(`错误：${configPath} 中包含无效的 JSON`);
           console.error(error.message);
         } else {
-          console.error(`Error: Unable to validate configuration - ${error instanceof Error ? error.message : String(error)}`);
+          console.error(`错误：无法验证配置 - ${error instanceof Error ? error.message : String(error)}`);
         }
         process.exitCode = 1;
       }

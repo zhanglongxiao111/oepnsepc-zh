@@ -158,7 +158,7 @@ describe('InitCommand', () => {
     it('should throw error for invalid tool names', async () => {
       const initCommand = new InitCommand({ tools: 'invalid-tool', force: true });
 
-      await expect(initCommand.execute(testDir)).rejects.toThrow(/Invalid tool\(s\): invalid-tool/);
+      await expect(initCommand.execute(testDir)).rejects.toThrow(/无效的工具：invalid-tool/);
     });
 
     it('should handle comma-separated tool names with spaces', async () => {
@@ -177,7 +177,7 @@ describe('InitCommand', () => {
       const initCommand = new InitCommand({ tools: 'all,claude', force: true });
 
       await expect(initCommand.execute(testDir)).rejects.toThrow(
-        /Cannot combine reserved values "all" or "none" with specific tool IDs/
+        /不能将保留值 "all" 或 "none" 与特定的工具 ID 组合使用/
       );
     });
 
@@ -348,13 +348,13 @@ describe('InitCommand', () => {
       );
 
       const initCommand = new InitCommand({ tools: 'claude', force: true });
-      await expect(initCommand.execute(readOnlyDir)).rejects.toThrow(/Insufficient permissions/);
+      await expect(initCommand.execute(readOnlyDir)).rejects.toThrow(/没有足够的权限写入/);
     });
 
     it('should throw error in non-interactive mode without --tools flag', async () => {
       const initCommand = new InitCommand({ interactive: false });
 
-      await expect(initCommand.execute(testDir)).rejects.toThrow(/Missing required option --tools/);
+      await expect(initCommand.execute(testDir)).rejects.toThrow(/缺少必需选项 --tools/);
     });
   });
 
