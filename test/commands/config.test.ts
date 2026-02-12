@@ -19,7 +19,7 @@ describe('config command integration', () => {
     process.env.XDG_CONFIG_HOME = tempDir;
 
     // Spy on console.error
-    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
   });
 
   afterEach(() => {
@@ -87,7 +87,7 @@ describe('config command integration', () => {
     const config = getGlobalConfig();
     // Should return defaults
     expect(config.featureFlags).toEqual({});
-    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.stringContaining('Invalid JSON'));
+    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.stringContaining('JSON 无效'));
   });
 });
 

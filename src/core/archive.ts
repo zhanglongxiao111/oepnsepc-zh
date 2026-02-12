@@ -68,11 +68,7 @@ export class ArchiveCommand {
     if (!changeName) {
       const selectedChange = await this.selectChange(changesDir);
       if (!selectedChange) {
-<<<<<<< HEAD
         console.log('未选择变更。操作已取消。');
-=======
-        console.log('未选择变更。正在中止。');
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
         return;
       }
       changeName = selectedChange;
@@ -104,11 +100,7 @@ export class ArchiveCommand {
         const changeReport = await validator.validateChange(changeFile);
         // Proposal validation is informative only (do not block archive)
         if (!changeReport.valid) {
-<<<<<<< HEAD
           console.log(chalk.yellow(`\n提案警告（proposal.md，不阻止归档）：`));
-=======
-          console.log(chalk.yellow(`\nproposal.md 中的提案警告（非阻塞）：`));
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
           for (const issue of changeReport.issues) {
             const symbol = issue.level === 'ERROR' ? '⚠' : (issue.level === 'WARNING' ? '⚠' : 'ℹ');
             console.log(chalk.yellow(`  ${symbol} ${issue.message}`));
@@ -141,11 +133,7 @@ export class ArchiveCommand {
         const deltaReport = await validator.validateChangeDeltaSpecs(changeDir);
         if (!deltaReport.valid) {
           hasValidationErrors = true;
-<<<<<<< HEAD
           console.log(chalk.red(`\n变更 delta 规范中的校验错误：`));
-=======
-          console.log(chalk.red(`\n变更 delta 规范中的验证错误：`));
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
           for (const issue of deltaReport.issues) {
             if (issue.level === 'ERROR') {
               console.log(chalk.red(`  ✗ ${issue.message}`));
@@ -157,13 +145,8 @@ export class ArchiveCommand {
       }
 
       if (hasValidationErrors) {
-<<<<<<< HEAD
         console.log(chalk.red('\n校验失败。请先修复错误再归档。'));
         console.log(chalk.yellow('要跳过校验（不推荐），请使用 --no-validate 标志。'));
-=======
-        console.log(chalk.red('\n验证失败。请在归档之前修复错误。'));
-        console.log(chalk.yellow('要跳过验证（不推荐），使用 --no-validate 标志。'));
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
         return;
       }
     } else {
@@ -173,11 +156,7 @@ export class ArchiveCommand {
       if (!options.yes) {
         const { confirm } = await import('@inquirer/prompts');
         const proceed = await confirm({
-<<<<<<< HEAD
           message: chalk.yellow('⚠️  警告：跳过校验可能会归档无效的规范。继续吗？'),
-=======
-          message: chalk.yellow('⚠️  警告：跳过验证可能会归档无效的规范。继续？(y/N)'),
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
           default: false
         });
         if (!proceed) {
@@ -185,17 +164,10 @@ export class ArchiveCommand {
           return;
         }
       } else {
-<<<<<<< HEAD
         console.log(chalk.yellow(`\n⚠️  警告：跳过校验可能会归档无效的规范。`));
       }
 
       console.log(chalk.yellow(`[${timestamp}] 已跳过变更的校验：${changeName}`));
-=======
-        console.log(chalk.yellow(`\n⚠️  警告：跳过验证可能会归档无效的规范。`));
-      }
-
-      console.log(chalk.yellow(`[${timestamp}] 已跳过变更的验证：${changeName}`));
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
       console.log(chalk.yellow(`受影响的文件：${changeDir}`));
     }
 
@@ -209,11 +181,7 @@ export class ArchiveCommand {
       if (!options.yes) {
         const { confirm } = await import('@inquirer/prompts');
         const proceed = await confirm({
-<<<<<<< HEAD
           message: `警告：发现 ${incompleteTasks} 个未完成的任务。继续吗？`,
-=======
-          message: `警告：发现 ${incompleteTasks} 个未完成的任务。继续？`,
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
           default: false
         });
         if (!proceed) {
@@ -221,17 +189,12 @@ export class ArchiveCommand {
           return;
         }
       } else {
-<<<<<<< HEAD
         console.log(`警告：发现 ${incompleteTasks} 个未完成的任务。由于 --yes 标志，继续执行。`);
-=======
-        console.log(`警告：发现 ${incompleteTasks} 个未完成的任务。由于 --yes 标志而继续。`);
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
       }
     }
 
     // Handle spec updates unless skipSpecs flag is set
     if (options.skipSpecs) {
-<<<<<<< HEAD
       console.log('跳过规范更新（已提供 --skip-specs 标志）。');
     } else {
       // Find specs to update
@@ -239,17 +202,8 @@ export class ArchiveCommand {
 
       if (specUpdates.length > 0) {
         console.log('\n待更新的规范：');
-=======
-      console.log('跳过规范更新（提供了 --skip-specs 标志）。');
-    } else {
-      // Find specs to update
-      const specUpdates = await this.findSpecUpdates(changeDir, mainSpecsDir);
-
-      if (specUpdates.length > 0) {
-        console.log('\n要更新的规范：');
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
         for (const update of specUpdates) {
-          const status = update.exists ? '更新' : '创建';
+          const status = update.exists ? 'update' : 'create';
           const capability = path.basename(path.dirname(update.target));
           console.log(`  ${capability}: ${status}`);
         }
@@ -258,11 +212,7 @@ export class ArchiveCommand {
         if (!options.yes) {
           const { confirm } = await import('@inquirer/prompts');
           shouldUpdateSpecs = await confirm({
-<<<<<<< HEAD
             message: '继续更新规范？',
-=======
-            message: '继续进行规范更新？',
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
             default: true
           });
           if (!shouldUpdateSpecs) {
@@ -291,11 +241,7 @@ export class ArchiveCommand {
             if (!skipValidation) {
               const report = await new Validator().validateSpecContent(specName, p.rebuilt);
               if (!report.valid) {
-<<<<<<< HEAD
                 console.log(chalk.red(`\n重建的 ${specName} 规范中存在校验错误（将不会写入更改）：`));
-=======
-                console.log(chalk.red(`\n${specName} 的重建规范中的验证错误（不会写入更改）：`));
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
                 for (const issue of report.issues) {
                   if (issue.level === 'ERROR') console.log(chalk.red(`  ✗ ${issue.message}`));
                   else if (issue.level === 'WARNING') console.log(chalk.yellow(`  ⚠ ${issue.message}`));
@@ -311,11 +257,7 @@ export class ArchiveCommand {
             totals.renamed += p.counts.renamed;
           }
           console.log(
-<<<<<<< HEAD
             `汇总：+ ${totals.added}, ~ ${totals.modified}, - ${totals.removed}, → ${totals.renamed}`
-=======
-            `总计：+ ${totals.added}, ~ ${totals.modified}, - ${totals.removed}, → ${totals.renamed}`
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
           );
           console.log('规范更新成功。');
         }
@@ -339,13 +281,8 @@ export class ArchiveCommand {
     // Create archive directory if needed
     await fs.mkdir(archiveDir, { recursive: true });
 
-<<<<<<< HEAD
     // Move change to archive (uses copy+remove on EPERM/EXDEV, e.g. Windows)
     await moveDirectory(changeDir, archivePath);
-=======
-    // Move change to archive
-    await fs.rename(changeDir, archivePath);
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
 
     console.log(`变更 '${changeName}' 已归档为 '${archiveName}'。`);
   }
@@ -360,11 +297,7 @@ export class ArchiveCommand {
       .sort();
 
     if (changeDirs.length === 0) {
-<<<<<<< HEAD
       console.log('没有找到活跃的变更。');
-=======
-      console.log('未找到活跃的变更。');
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
       return null;
     }
 
@@ -399,326 +332,6 @@ export class ArchiveCommand {
     }
   }
 
-<<<<<<< HEAD
-=======
-  // Deprecated: replaced by shared task-progress utilities
-  private async checkIncompleteTasks(_tasksPath: string): Promise<number> {
-    return 0;
-  }
-
-  private async findSpecUpdates(changeDir: string, mainSpecsDir: string): Promise<SpecUpdate[]> {
-    const updates: SpecUpdate[] = [];
-    const changeSpecsDir = path.join(changeDir, 'specs');
-
-    try {
-      const entries = await fs.readdir(changeSpecsDir, { withFileTypes: true });
-
-      for (const entry of entries) {
-        if (entry.isDirectory()) {
-          const specFile = path.join(changeSpecsDir, entry.name, 'spec.md');
-          const targetFile = path.join(mainSpecsDir, entry.name, 'spec.md');
-
-          try {
-            await fs.access(specFile);
-
-            // Check if target exists
-            let exists = false;
-            try {
-              await fs.access(targetFile);
-              exists = true;
-            } catch {
-              exists = false;
-            }
-
-            updates.push({
-              source: specFile,
-              target: targetFile,
-              exists
-            });
-          } catch {
-            // Source spec doesn't exist, skip
-          }
-        }
-      }
-    } catch {
-      // No specs directory in change
-    }
-
-    return updates;
-  }
-
-  private async buildUpdatedSpec(update: SpecUpdate, changeName: string): Promise<{ rebuilt: string; counts: { added: number; modified: number; removed: number; renamed: number } }> {
-    // Read change spec content (delta-format expected)
-    const changeContent = await fs.readFile(update.source, 'utf-8');
-
-    // Parse deltas from the change spec file
-    const plan = parseDeltaSpec(changeContent);
-    const specName = path.basename(path.dirname(update.target));
-
-    // Pre-validate duplicates within sections
-    const addedNames = new Set<string>();
-    for (const add of plan.added) {
-      const name = normalizeRequirementName(add.name);
-      if (addedNames.has(name)) {
-        throw new Error(
-          `${specName} 验证失败 - ADDED 中存在重复需求，标题为 "### Requirement: ${add.name}"`
-        );
-      }
-      addedNames.add(name);
-    }
-    const modifiedNames = new Set<string>();
-    for (const mod of plan.modified) {
-      const name = normalizeRequirementName(mod.name);
-      if (modifiedNames.has(name)) {
-        throw new Error(
-          `${specName} 验证失败 - MODIFIED 中存在重复需求，标题为 "### Requirement: ${mod.name}"`
-        );
-      }
-      modifiedNames.add(name);
-    }
-    const removedNamesSet = new Set<string>();
-    for (const rem of plan.removed) {
-      const name = normalizeRequirementName(rem);
-      if (removedNamesSet.has(name)) {
-        throw new Error(
-          `${specName} 验证失败 - REMOVED 中存在重复需求，标题为 "### Requirement: ${rem}"`
-        );
-      }
-      removedNamesSet.add(name);
-    }
-    const renamedFromSet = new Set<string>();
-    const renamedToSet = new Set<string>();
-    for (const { from, to } of plan.renamed) {
-      const fromNorm = normalizeRequirementName(from);
-      const toNorm = normalizeRequirementName(to);
-      if (renamedFromSet.has(fromNorm)) {
-        throw new Error(
-          `${specName} 验证失败 - RENAMED 中存在重复的 FROM，标题为 "### Requirement: ${from}"`
-        );
-      }
-      if (renamedToSet.has(toNorm)) {
-        throw new Error(
-          `${specName} 验证失败 - RENAMED 中存在重复的 TO，标题为 "### Requirement: ${to}"`
-        );
-      }
-      renamedFromSet.add(fromNorm);
-      renamedToSet.add(toNorm);
-    }
-
-    // Pre-validate cross-section conflicts
-    const conflicts: Array<{ name: string; a: string; b: string }> = [];
-    for (const n of modifiedNames) {
-      if (removedNamesSet.has(n)) conflicts.push({ name: n, a: 'MODIFIED', b: 'REMOVED' });
-      if (addedNames.has(n)) conflicts.push({ name: n, a: 'MODIFIED', b: 'ADDED' });
-    }
-    for (const n of addedNames) {
-      if (removedNamesSet.has(n)) conflicts.push({ name: n, a: 'ADDED', b: 'REMOVED' });
-    }
-    // Renamed interplay: MODIFIED must reference the NEW header, not FROM
-    for (const { from, to } of plan.renamed) {
-      const fromNorm = normalizeRequirementName(from);
-      const toNorm = normalizeRequirementName(to);
-      if (modifiedNames.has(fromNorm)) {
-        throw new Error(
-          `${specName} 验证失败 - 当存在重命名时，MODIFIED 必须引用新标题 "### Requirement: ${to}"`
-        );
-      }
-      // Detect ADDED colliding with a RENAMED TO
-      if (addedNames.has(toNorm)) {
-        throw new Error(
-          `${specName} 验证失败 - RENAMED TO 标题与 ADDED 冲突，标题为 "### Requirement: ${to}"`
-        );
-      }
-    }
-    if (conflicts.length > 0) {
-      const c = conflicts[0];
-      throw new Error(
-        `${specName} 验证失败 - 需求出现在多个部分（${c.a} 和 ${c.b}），标题为 "### Requirement: ${c.name}"`
-      );
-    }
-    const hasAnyDelta = (plan.added.length + plan.modified.length + plan.removed.length + plan.renamed.length) > 0;
-    if (!hasAnyDelta) {
-      throw new Error(
-        `Delta 解析未找到 ${path.basename(path.dirname(update.source))} 的操作。` +
-        `请在变更规范中提供 ADDED/MODIFIED/REMOVED/RENAMED 部分。`
-      );
-    }
-
-    // Load or create base target content
-    let targetContent: string;
-    let isNewSpec = false;
-    try {
-      targetContent = await fs.readFile(update.target, 'utf-8');
-    } catch {
-      // Target spec does not exist; MODIFIED and RENAMED are not allowed for new specs
-      // REMOVED will be ignored with a warning since there's nothing to remove
-      if (plan.modified.length > 0 || plan.renamed.length > 0) {
-        throw new Error(
-          `${specName}：目标规范不存在；新规范只允许 ADDED 需求。MODIFIED 和 RENAMED 操作需要已存在的规范。`
-        );
-      }
-      // Warn about REMOVED requirements being ignored for new specs
-      if (plan.removed.length > 0) {
-        console.log(
-          chalk.yellow(
-            `⚠️  警告：${specName} - ${plan.removed.length} 个 REMOVED 需求被忽略（新规范无内容可移除）。`
-          )
-        );
-      }
-      isNewSpec = true;
-      targetContent = this.buildSpecSkeleton(specName, changeName);
-    }
-
-    // Extract requirements section and build name->block map
-    const parts = extractRequirementsSection(targetContent);
-    const nameToBlock = new Map<string, RequirementBlock>();
-    for (const block of parts.bodyBlocks) {
-      nameToBlock.set(normalizeRequirementName(block.name), block);
-    }
-
-    // Apply operations in order: RENAMED → REMOVED → MODIFIED → ADDED
-    // RENAMED
-    for (const r of plan.renamed) {
-      const from = normalizeRequirementName(r.from);
-      const to = normalizeRequirementName(r.to);
-      if (!nameToBlock.has(from)) {
-        throw new Error(
-          `${specName} RENAMED 失败，标题为 "### Requirement: ${r.from}" - 未找到源`
-        );
-      }
-      if (nameToBlock.has(to)) {
-        throw new Error(
-          `${specName} RENAMED 失败，标题为 "### Requirement: ${r.to}" - 目标已存在`
-        );
-      }
-      const block = nameToBlock.get(from)!;
-      const newHeader = `### Requirement: ${to}`;
-      const rawLines = block.raw.split('\n');
-      rawLines[0] = newHeader;
-      const renamedBlock: RequirementBlock = {
-        headerLine: newHeader,
-        name: to,
-        raw: rawLines.join('\n'),
-      };
-      nameToBlock.delete(from);
-      nameToBlock.set(to, renamedBlock);
-    }
-
-    // REMOVED
-    for (const name of plan.removed) {
-      const key = normalizeRequirementName(name);
-      if (!nameToBlock.has(key)) {
-        // 对于新规范，REMOVED 需求已在上方警告并忽略
-        // 对于现有规范，缺失需求是一个错误
-        if (!isNewSpec) {
-          throw new Error(
-            `${specName} REMOVED 失败，标题为 "### Requirement: ${name}" - 未找到`
-          );
-        }
-        // 对于新规范跳过删除（已在上方警告）
-        continue;
-      }
-      nameToBlock.delete(key);
-    }
-
-    // MODIFIED
-    for (const mod of plan.modified) {
-      const key = normalizeRequirementName(mod.name);
-      if (!nameToBlock.has(key)) {
-        throw new Error(
-          `${specName} MODIFIED 失败，标题为 "### Requirement: ${mod.name}" - 未找到`
-        );
-      }
-      // Replace block with provided raw (ensure header line matches key)
-      const modHeaderMatch = mod.raw.split('\n')[0].match(/^###\s*Requirement:\s*(.+)\s*$/);
-      if (!modHeaderMatch || normalizeRequirementName(modHeaderMatch[1]) !== key) {
-        throw new Error(
-          `${specName} MODIFIED 失败，标题为 "### Requirement: ${mod.name}" - 内容中的标题不匹配`
-        );
-      }
-      nameToBlock.set(key, mod);
-    }
-
-    // ADDED
-    for (const add of plan.added) {
-      const key = normalizeRequirementName(add.name);
-      if (nameToBlock.has(key)) {
-        throw new Error(
-          `${specName} ADDED 失败，标题为 "### Requirement: ${add.name}" - 已存在`
-        );
-      }
-      nameToBlock.set(key, add);
-    }
-
-    // Duplicates within resulting map are implicitly prevented by key uniqueness.
-
-    // Recompose requirements section preserving original ordering where possible
-    const keptOrder: RequirementBlock[] = [];
-    const seen = new Set<string>();
-    for (const block of parts.bodyBlocks) {
-      const key = normalizeRequirementName(block.name);
-      const replacement = nameToBlock.get(key);
-      if (replacement) {
-        keptOrder.push(replacement);
-        seen.add(key);
-      }
-    }
-    // Append any newly added that were not in original order
-    for (const [key, block] of nameToBlock.entries()) {
-      if (!seen.has(key)) {
-        keptOrder.push(block);
-      }
-    }
-
-    const reqBody = [
-      parts.preamble && parts.preamble.trim() ? parts.preamble.trimEnd() : ''
-    ]
-      .filter(Boolean)
-      .concat(keptOrder.map(b => b.raw))
-      .join('\n\n')
-      .trimEnd();
-
-    const rebuilt = [
-      parts.before.trimEnd(),
-      parts.headerLine,
-      reqBody,
-      parts.after
-    ]
-      .filter((s, idx) => !(idx === 0 && s === ''))
-      .join('\n')
-      .replace(/\n{3,}/g, '\n\n');
-
-    return {
-      rebuilt,
-      counts: {
-        added: plan.added.length,
-        modified: plan.modified.length,
-        removed: plan.removed.length,
-        renamed: plan.renamed.length,
-      }
-    };
-  }
-
-  private async writeUpdatedSpec(update: SpecUpdate, rebuilt: string, counts: { added: number; modified: number; removed: number; renamed: number }): Promise<void> {
-    // Create target directory if needed
-    const targetDir = path.dirname(update.target);
-    await fs.mkdir(targetDir, { recursive: true });
-    await fs.writeFile(update.target, rebuilt);
-
-    const specName = path.basename(path.dirname(update.target));
-    console.log(`正在将更改应用到 openspec/specs/${specName}/spec.md：`);
-    if (counts.added) console.log(`  + ${counts.added} 已添加`);
-    if (counts.modified) console.log(`  ~ ${counts.modified} 已修改`);
-    if (counts.removed) console.log(`  - ${counts.removed} 已移除`);
-    if (counts.renamed) console.log(`  → ${counts.renamed} 已重命名`);
-  }
-
-  private buildSpecSkeleton(specFolderName: string, changeName: string): string {
-    const titleBase = specFolderName;
-    return `# ${titleBase} 规范\n\n## Purpose\n待定 - 通过归档变更 ${changeName} 创建。归档后更新目的。\n\n## Requirements\n`;
-  }
-
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
   private getArchiveDate(): string {
     // Returns date in YYYY-MM-DD format
     return new Date().toISOString().split('T')[0];

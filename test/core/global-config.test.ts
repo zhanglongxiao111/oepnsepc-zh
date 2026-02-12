@@ -26,7 +26,7 @@ describe('global-config', () => {
     originalEnv = { ...process.env };
 
     // Spy on console.error for warning tests
-    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
   });
 
   afterEach(() => {
@@ -151,7 +151,7 @@ describe('global-config', () => {
       getGlobalConfig();
 
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Invalid JSON')
+        expect.stringContaining('JSON 无效')
       );
     });
 

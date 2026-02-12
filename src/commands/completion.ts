@@ -51,21 +51,21 @@ export class CompletionCommand {
 
       // Shell was detected but not supported
       if (detectionResult.detected && !detectionResult.shell) {
-        console.error(`错误：Shell '${detectionResult.detected}' 目前不支持。当前支持的 shell：${CompletionFactory.getSupportedShells().join(', ')}`);
+        console.error(`错误：Shell '${detectionResult.detected}' 暂不支持。当前支持：${CompletionFactory.getSupportedShells().join(', ')}`);
         process.exitCode = 1;
         return null;
       }
 
       // No shell specified and cannot auto-detect
-      console.error('错误：无法自动检测 shell。请显式指定 shell。');
+      console.error('错误：无法自动检测 Shell。请明确指定 Shell。');
       console.error(`用法：openspec completion ${operationName} [shell]`);
-      console.error(`当前支持的 shell：${CompletionFactory.getSupportedShells().join(', ')}`);
+      console.error(`当前支持：${CompletionFactory.getSupportedShells().join(', ')}`);
       process.exitCode = 1;
       return null;
     }
 
     if (!CompletionFactory.isSupported(normalizedShell)) {
-      console.error(`错误：Shell '${normalizedShell}' 目前不支持。当前支持的 shell：${CompletionFactory.getSupportedShells().join(', ')}`);
+      console.error(`错误：Shell '${normalizedShell}' 暂不支持。当前支持：${CompletionFactory.getSupportedShells().join(', ')}`);
       process.exitCode = 1;
       return null;
     }
@@ -125,7 +125,7 @@ export class CompletionCommand {
     const generator = CompletionFactory.createGenerator(shell);
     const installer = CompletionFactory.createInstaller(shell);
 
-    const spinner = ora(`正在安装 ${shell} 补全脚本...`).start();
+    const spinner = ora(`正在安装 ${shell} 补全脚本…`).start();
 
     try {
       // Generate the completion script
@@ -140,11 +140,10 @@ export class CompletionCommand {
         console.log(`✓ ${result.message}`);
 
         if (verbose && result.installedPath) {
-          console.log(`  安装位置：${result.installedPath}`);
+          console.log(`  已安装至：${result.installedPath}`);
           if (result.backupPath) {
             console.log(`  已创建备份：${result.backupPath}`);
           }
-<<<<<<< HEAD
 
           // Check if any shell config was updated
           const configWasUpdated = result.zshrcConfigured || result.bashrcConfigured || result.profileConfigured;
@@ -157,7 +156,7 @@ export class CompletionCommand {
               powershell: '$PROFILE',
             };
             const configPath = configPaths[shell] || 'config file';
-            console.log(`  ${configPath} configured automatically`);
+            console.log(`  ${configPath} 已自动配置`);
           }
         }
 
@@ -166,10 +165,6 @@ export class CompletionCommand {
           console.log('');
           for (const warning of result.warnings) {
             console.log(warning);
-=======
-          if (result.zshrcConfigured) {
-            console.log(`  ~/.zshrc 已自动配置`);
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
           }
         }
 
@@ -179,7 +174,6 @@ export class CompletionCommand {
           for (const instruction of result.instructions) {
             console.log(instruction);
           }
-<<<<<<< HEAD
         } else {
           // Check if any shell config was updated (InstallationResult has: zshrcConfigured, bashrcConfigured, profileConfigured)
           const configWasUpdated = result.zshrcConfigured || result.bashrcConfigured || result.profileConfigured;
@@ -196,13 +190,8 @@ export class CompletionCommand {
             };
             const reloadCmd = reloadCommands[shell] || `restart your ${shell} shell`;
 
-            console.log(`Restart your shell or run: ${reloadCmd}`);
+            console.log(`重启 Shell 或运行：${reloadCmd}`);
           }
-=======
-        } else if (result.zshrcConfigured) {
-          console.log('');
-          console.log('请重启 shell 或执行：exec zsh');
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
         }
       } else {
         console.error(`✗ ${result.message}`);
@@ -235,21 +224,17 @@ export class CompletionCommand {
       const configPath = configPaths[shell] || `${shell} configuration`;
 
       const confirmed = await confirm({
-<<<<<<< HEAD
-        message: `Remove OpenSpec configuration from ${configPath}?`,
-=======
-        message: '是否从 ~/.zshrc 中移除 OpenSpec 配置？',
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
+        message: `从 ${configPath} 移除 OpenSpec 配置？`,
         default: false,
       });
 
       if (!confirmed) {
-        console.log('已取消卸载。');
+        console.log('卸载已取消。');
         return;
       }
     }
 
-    const spinner = ora(`正在卸载 ${shell} 补全脚本...`).start();
+    const spinner = ora(`正在卸载 ${shell} 补全脚本…`).start();
 
     try {
       const result = await installer.uninstall();

@@ -111,17 +111,17 @@ export async function validateChangeExists(
   if (!changeName) {
     const available = await getAvailableChanges();
     if (available.length === 0) {
-      throw new Error('No changes found. Create one with: openspec new change <name>');
+      throw new Error('未找到变更。请使用以下命令创建：openspec new change <name>');
     }
     throw new Error(
-      `Missing required option --change. Available changes:\n  ${available.join('\n  ')}`
+      `缺少必需选项 --change。可用的变更：\n  ${available.join('\n  ')}`
     );
   }
 
   // Validate change name format to prevent path traversal
   const nameValidation = validateChangeName(changeName);
   if (!nameValidation.valid) {
-    throw new Error(`Invalid change name '${changeName}': ${nameValidation.error}`);
+    throw new Error(`无效的变更名称 '${changeName}'：${nameValidation.error}`);
   }
 
   // Check directory existence directly
@@ -132,11 +132,11 @@ export async function validateChangeExists(
     const available = await getAvailableChanges();
     if (available.length === 0) {
       throw new Error(
-        `Change '${changeName}' not found. No changes exist. Create one with: openspec new change <name>`
+        `变更 '${changeName}' 未找到。当前没有任何变更。请使用以下命令创建：openspec new change <name>`
       );
     }
     throw new Error(
-      `Change '${changeName}' not found. Available changes:\n  ${available.join('\n  ')}`
+      `变更 '${changeName}' 未找到。可用的变更：\n  ${available.join('\n  ')}`
     );
   }
 
@@ -154,7 +154,7 @@ export function validateSchemaExists(schemaName: string, projectRoot?: string): 
   if (!schemaDir) {
     const availableSchemas = listSchemas(projectRoot);
     throw new Error(
-      `Schema '${schemaName}' not found. Available schemas:\n  ${availableSchemas.join('\n  ')}`
+      `Schema '${schemaName}' 未找到。可用的 schema：\n  ${availableSchemas.join('\n  ')}`
     );
   }
   return schemaName;

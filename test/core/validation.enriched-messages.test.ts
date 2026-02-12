@@ -43,7 +43,7 @@ There are changes proposed, but no delta specs provided yet.`;
     const report = await validator.validateSpec(specPath);
     expect(report.valid).toBe(false);
     const msg = report.issues.map(i => i.message).join('\n');
-    expect(msg).toContain('Spec must have a Purpose section');
+    expect(msg).toContain('规范必须包含 Purpose 章节');
     expect(msg).toContain('预期标题："## Purpose" 和 "## Requirements"');
   });
 

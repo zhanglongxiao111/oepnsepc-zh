@@ -74,11 +74,7 @@ export class SpecCommand {
       if (canPrompt && specIds.length > 0) {
         const { select } = await import('@inquirer/prompts');
         specId = await select({
-<<<<<<< HEAD
           message: '选择要查看的规范',
-=======
-          message: '选择要显示的规范',
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
           choices: specIds.map(id => ({ name: id, value: id })),
         });
       } else {
@@ -88,20 +84,12 @@ export class SpecCommand {
 
     const specPath = join(this.SPECS_DIR, specId, 'spec.md');
     if (!existsSync(specPath)) {
-<<<<<<< HEAD
       throw new Error(`规范 '${specId}' 未找到，路径：openspec/specs/${specId}/spec.md`);
-=======
-      throw new Error(`规范 '${specId}' 未在 openspec/specs/${specId}/spec.md 找到`);
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
     }
 
     if (options.json) {
       if (options.requirements && options.requirement) {
-<<<<<<< HEAD
         throw new Error('--requirements 和 --requirement 不能同时使用');
-=======
-        throw new Error('选项 --requirements 和 --requirement 不能同时使用');
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
       }
       const parsed = parseSpecFromFile(specPath, specId);
       const filtered = filterSpec(parsed, options);
@@ -127,11 +115,7 @@ export function registerSpecCommand(rootProgram: typeof program) {
 
   // Deprecation notice for noun-based commands
   specCommand.hook('preAction', () => {
-<<<<<<< HEAD
     console.error('警告："openspec spec ..." 命令已弃用。请使用动词优先的命令（如 "openspec show"、"openspec validate --specs"）。');
-=======
-    console.error('警告："openspec spec ..." 命令已弃用。请使用动词优先的命令（例如 "openspec show"、"openspec validate --specs"）。');
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
   });
 
   specCommand
@@ -154,15 +138,9 @@ export function registerSpecCommand(rootProgram: typeof program) {
 
   specCommand
     .command('list')
-<<<<<<< HEAD
     .description('列出所有可用规范')
     .option('--json', '以 JSON 格式输出')
     .option('--long', '显示 ID、标题和计数')
-=======
-    .description('列出所有可用的规范')
-    .option('--json', '以 JSON 格式输出')
-    .option('--long', '显示 ID 和标题及计数')
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
     .action((options: { json?: boolean; long?: boolean }) => {
       try {
         if (!existsSync(SPECS_DIR)) {
@@ -220,13 +198,8 @@ export function registerSpecCommand(rootProgram: typeof program) {
   specCommand
     .command('validate [spec-id]')
     .description('验证规范结构')
-<<<<<<< HEAD
     .option('--strict', '启用严格校验模式')
     .option('--json', '以 JSON 格式输出校验报告')
-=======
-    .option('--strict', '启用严格验证模式')
-    .option('--json', '以 JSON 格式输出验证报告')
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
     .option('--no-interactive', '禁用交互式提示')
     .action(async (specId: string | undefined, options: { strict?: boolean; json?: boolean; noInteractive?: boolean }) => {
       try {
@@ -247,11 +220,7 @@ export function registerSpecCommand(rootProgram: typeof program) {
         const specPath = join(SPECS_DIR, specId, 'spec.md');
 
         if (!existsSync(specPath)) {
-<<<<<<< HEAD
           throw new Error(`规范 '${specId}' 未找到，路径：openspec/specs/${specId}/spec.md`);
-=======
-          throw new Error(`规范 '${specId}' 未在 openspec/specs/${specId}/spec.md 找到`);
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
         }
 
         const validator = new Validator(options.strict);
@@ -261,11 +230,7 @@ export function registerSpecCommand(rootProgram: typeof program) {
           console.log(JSON.stringify(report, null, 2));
         } else {
           if (report.valid) {
-<<<<<<< HEAD
             console.log(`规范 '${specId}' 验证通过`);
-=======
-            console.log(`规范 '${specId}' 有效`);
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
           } else {
             console.error(`规范 '${specId}' 存在问题`);
             report.issues.forEach(issue => {

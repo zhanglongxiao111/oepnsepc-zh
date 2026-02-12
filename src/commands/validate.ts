@@ -66,11 +66,7 @@ export class ValidateCommand {
   private async runInteractiveSelector(opts: { strict: boolean; json: boolean; concurrency?: string }): Promise<void> {
     const { select } = await import('@inquirer/prompts');
     const choice = await select({
-<<<<<<< HEAD
       message: '您想要验证什么？',
-=======
-      message: '你想验证什么？',
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
       choices: [
         { name: '全部（变更 + 规范）', value: 'all' },
         { name: '所有变更', value: 'changes' },
@@ -89,11 +85,7 @@ export class ValidateCommand {
     items.push(...changes.map(id => ({ name: `change/${id}`, value: { type: 'change' as const, id } })));
     items.push(...specs.map(id => ({ name: `spec/${id}`, value: { type: 'spec' as const, id } })));
     if (items.length === 0) {
-<<<<<<< HEAD
       console.error('未找到可验证的项目。');
-=======
-      console.error('未找到要验证的项目。');
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
       process.exitCode = 1;
       return;
     }
@@ -102,11 +94,7 @@ export class ValidateCommand {
   }
 
   private printNonInteractiveHint(): void {
-<<<<<<< HEAD
     console.error('没有可验证的内容。请尝试以下命令：');
-=======
-    console.error('没有可验证的内容。尝试以下之一：');
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
     console.error('  openspec validate --all');
     console.error('  openspec validate --changes');
     console.error('  openspec validate --specs');
@@ -124,23 +112,14 @@ export class ValidateCommand {
     if (!type) {
       console.error(`未知项目 '${itemName}'`);
       const suggestions = nearestMatches(itemName, [...changes, ...specs]);
-<<<<<<< HEAD
       if (suggestions.length) console.error(`您是否指的是：${suggestions.join(', ')}？`);
-=======
-      if (suggestions.length) console.error(`你是指：${suggestions.join(', ')}？`);
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
       process.exitCode = 1;
       return;
     }
 
     if (!opts.typeOverride && isChange && isSpec) {
-<<<<<<< HEAD
       console.error(`歧义项目 '${itemName}' 同时匹配了变更和规范。`);
       console.error('请使用 --type change|spec，或使用：openspec change validate / openspec spec validate');
-=======
-      console.error(`模糊项目 '${itemName}' 同时匹配变更和规范。`);
-      console.error('传递 --type change|spec，或使用：openspec change validate / openspec spec validate');
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
       process.exitCode = 1;
       return;
     }
@@ -175,11 +154,7 @@ export class ValidateCommand {
       return;
     }
     if (report.valid) {
-<<<<<<< HEAD
       console.log(`${type === 'change' ? '变更' : '规范'} '${id}' 验证通过`);
-=======
-      console.log(`${type === 'change' ? '变更' : '规范'} '${id}' 有效`);
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
     } else {
       console.error(`${type === 'change' ? '变更' : '规范'} '${id}' 存在问题`);
       for (const issue of report.issues) {
@@ -194,15 +169,9 @@ export class ValidateCommand {
   private printNextSteps(type: ItemType): void {
     const bullets: string[] = [];
     if (type === 'change') {
-<<<<<<< HEAD
       bullets.push('- 确保变更在 specs/ 中包含 delta：使用标题 ## ADDED/MODIFIED/REMOVED/RENAMED Requirements');
       bullets.push('- 每个需求必须包含至少一个 #### Scenario: 块');
       bullets.push('- 调试已解析的 delta：openspec change show <id> --json --deltas-only');
-=======
-      bullets.push('- 确保变更在 specs/ 中有 delta：使用标题 ## ADDED/MODIFIED/REMOVED/RENAMED Requirements');
-      bullets.push('- 每个需求必须包含至少一个 #### Scenario: 块');
-      bullets.push('- 调试解析的 delta：openspec change show <id> --json --deltas-only');
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
     } else {
       bullets.push('- 确保规范包含 ## Purpose 和 ## Requirements 部分');
       bullets.push('- 每个需求必须包含至少一个 #### Scenario: 块');
@@ -319,11 +288,7 @@ export class ValidateCommand {
         if (res.valid) console.log(`✓ ${res.type}/${res.id}`);
         else console.error(`✗ ${res.type}/${res.id}`);
       }
-<<<<<<< HEAD
       console.log(`总计：${summary.totals.passed} 通过，${summary.totals.failed} 失败（共 ${summary.totals.items} 项）`);
-=======
-      console.log(`总计：${summary.totals.passed} 通过，${summary.totals.failed} 失败（${summary.totals.items} 个项目）`);
->>>>>>> 0e40f46b09282db2e0cfd10a24f710c3a3d4b860
     }
 
     process.exitCode = failed > 0 ? 1 : 0;

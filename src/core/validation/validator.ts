@@ -350,10 +350,10 @@ export class Validator {
     if (msg === VALIDATION_MESSAGES.CHANGE_NO_DELTAS) {
       return `${msg}. ${VALIDATION_MESSAGES.GUIDE_NO_DELTAS}`;
     }
-    if (msg.includes('规范必须有 Purpose 部分') || msg.includes('Spec must have a Purpose section') || msg.includes('规范必须有 Requirements 部分') || msg.includes('Spec must have a Requirements section')) {
+    if (msg.includes('规范必须包含 Purpose 章节') || msg.includes('规范必须有 Purpose 部分') || msg.includes('Spec must have a Purpose section') || msg.includes('规范必须包含 Requirements 章节') || msg.includes('规范必须有 Requirements 部分') || msg.includes('Spec must have a Requirements section')) {
       return `${msg}. ${VALIDATION_MESSAGES.GUIDE_MISSING_SPEC_SECTIONS}`;
     }
-    if (msg.includes('变更必须有 Why 部分') || msg.includes('Change must have a Why section') || msg.includes('变更必须有 What Changes 部分') || msg.includes('Change must have a What Changes section')) {
+    if (msg.includes('变更必须包含 Why 章节') || msg.includes('变更必须有 Why 部分') || msg.includes('Change must have a Why section') || msg.includes('变更必须包含 What Changes 章节') || msg.includes('变更必须有 What Changes 部分') || msg.includes('Change must have a What Changes section')) {
       return `${msg}. ${VALIDATION_MESSAGES.GUIDE_MISSING_CHANGE_SECTIONS}`;
     }
     return msg;
