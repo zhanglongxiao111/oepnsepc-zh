@@ -1,425 +1,332 @@
-# Workflows
+# 工作流
 
-This guide covers common workflow patterns for OpenSpec and when to use each one. For basic setup, see [Getting Started](getting-started.md). For command reference, see [Commands](commands.md).
+本指南展示如何在实际工作中有效组合 OpenSpec 命令。阅读前请先了解[快速入门](getting-started.md)和[命令](commands.md)。
 
-## Philosophy: Actions, Not Phases
+## 核心思想
 
-Traditional workflows force you through phases: planning, then implementation, then done. But real work doesn't fit neatly into boxes.
+**OpenSpec 是基于动作的，而非基于阶段的。** 你不会按固定阶段前进 — 而是做有意义的事情。
 
-OPSX takes a different approach:
-
-```text
-Traditional (phase-locked):
-
-  PLANNING ────────► IMPLEMENTING ────────► DONE
-      │                    │
-      │   "Can't go back"  │
-      └────────────────────┘
-
-OPSX (fluid actions):
-
-  proposal ──► specs ──► design ──► tasks ──► implement
+```
+         ┌───────────────────────────────────────────────┐
+         │           动作（Actions）                      │
+         │                                               │
+         │     new ◄──► continue ◄──► apply ◄──► archive │
+         │      │          │           │             │   │
+         │      └──────────┴───────────┴─────────────┘   │
+         │                    任意顺序                    │
+         └───────────────────────────────────────────────┘
 ```
 
-**Key principles:**
+每次操作都会推进你的变更。你可以根据需要随时回退来更新工件。
 
-- **Actions, not phases** - Commands are things you can do, not stages you're stuck in
-- **Dependencies are enablers** - They show what's possible, not what's required next
+## 常用模式
 
-> **Customization:** OPSX workflows are driven by schemas that define artifact sequences. See [Customization](customization.md) for details on creating custom schemas.
+### 快速功能开发
 
-## Workflow Patterns
-
-### Quick Feature
-
-When you know what you want to build and just need to execute:
+当你清楚要构建什么，想要快速启动时：
 
 ```text
-/opsx:new ──► /opsx:ff ──► /opsx:apply ──► /opsx:verify ──► /opsx:archive
-```
-
-**Example conversation:**
-
-```text
-You: /opsx:new add-logout-button
-
-AI:  Created openspec/changes/add-logout-button/
-     Ready to create: proposal
+You: /opsx:new add-search-filter
+AI:  Created change.
 
 You: /opsx:ff
-
-AI:  Creating all planning artifacts...
-     ✓ proposal.md
+AI:  ✓ proposal.md
      ✓ specs/
      ✓ design.md
      ✓ tasks.md
-     Ready for implementation!
 
 You: /opsx:apply
-
-AI:  Working through tasks...
-     ✓ Added logout button to header
-     ✓ Implemented session clearing
-     ✓ Added confirmation dialog
-     All tasks complete!
+AI:  [实施所有任务]
 
 You: /opsx:archive
-
-AI:  ✓ Merged specs
-     ✓ Archived change
+AI:  ✓ 已归档
 ```
 
-**Best for:** Small to medium features, bug fixes, straightforward changes.
+**最佳场景：** 需求明确的中小型功能。
 
-### Exploratory
+### 探索模式
 
-When requirements are unclear or you need to investigate first:
-
-```text
-/opsx:explore ──► /opsx:new ──► /opsx:continue ──► ... ──► /opsx:apply
-```
-
-**Example conversation:**
+当你不确定要做什么，或需要调查时：
 
 ```text
 You: /opsx:explore
 
 AI:  What would you like to explore?
 
-You: I want to improve page load performance but I'm not sure
-     where the bottlenecks are.
+You: Our dashboard loads slowly. What could we improve?
 
-AI:  Let me help investigate...
-     [Analyzes bundle sizes, identifies slow queries, reviews
-     component render patterns]
+AI:  [分析代码库]
+     I found several issues:
+     1. N+1 queries in the user list
+     2. Missing pagination on the orders page
+     3. No caching on the config endpoint
+     ...
 
-     I found three main bottlenecks:
-     1. Large unoptimized images
-     2. Synchronous data fetching in ProductList
-     3. Re-renders from context changes
+You: Let's fix the N+1 queries first.
 
-     Which would you like to address first?
-
-You: Let's tackle the data fetching issue.
-
-You: /opsx:new optimize-product-list-fetching
-
-AI:  Created change. Ready to create: proposal
+You: /opsx:new fix-dashboard-queries
+AI:  Created change.
 
 You: /opsx:continue
+AI:  ✓ proposal.md
+     [依次创建工件...]
+```
 
-AI:  Creating proposal based on our exploration...
-     [Writes proposal incorporating investigation insights]
+**最佳场景：** 需求模糊、需要调研、灵感探索。
 
-     Ready to create: specs, design
-     Which would you like next?
+### 增量审查模式
+
+当你想在每一步进行审查时：
+
+```text
+You: /opsx:new add-billing-integration
 
 You: /opsx:continue
+AI:  ✓ proposal.md
+     [你审查提案]
 
-AI:  Creating specs...
-```
+You: Looks good, but add error handling for failed webhooks.
 
-**Best for:** Performance optimization, debugging, architectural decisions, unclear requirements.
+You: /opsx:continue
+AI:  ✓ specs/ (包含 webhook 错误处理场景)
+     [你审查规范]
 
-### Parallel Changes
+You: /opsx:continue
+AI:  ✓ design.md
 
-Work on multiple changes at once:
-
-```text
-Change A: /opsx:new ──► /opsx:ff ──► /opsx:apply (in progress)
-                                         │
-                                    context switch
-                                         │
-Change B: /opsx:new ──► /opsx:ff ──────► /opsx:apply
-```
-
-**Example conversation:**
-
-```text
-You: I'm working on add-dark-mode but got pulled into a bug fix
-
-You: /opsx:new fix-login-redirect
-
-AI:  Created openspec/changes/fix-login-redirect/
-
-You: /opsx:ff
-
-AI:  ✓ Created planning artifacts
+You: /opsx:continue
+AI:  ✓ tasks.md
 
 You: /opsx:apply
+AI:  [实施]
+```
 
-AI:  Working on fix-login-redirect...
-     [Implements the fix]
-     All tasks complete!
+**最佳场景：** 需要在每个工件上精细控制的复杂变更。
 
-You: /opsx:archive
+### 并行开发
 
-AI:  ✓ Archived fix-login-redirect
+同时进行多个变更：
 
-You: Let's get back to dark mode
+```text
+You: /opsx:new add-dark-mode
+You: /opsx:ff
+     [规划 dark mode]
+
+You: /opsx:new fix-memory-leak
+You: /opsx:ff
+     [规划 memory leak 修复]
 
 You: /opsx:apply add-dark-mode
+     [实施 dark mode]
 
-AI:  Resuming add-dark-mode...
-     Picking up at task 2.3: Update Header...
+You: /opsx:apply fix-memory-leak
+     [修复 memory leak]
+
+You: /opsx:archive add-dark-mode
+You: /opsx:archive fix-memory-leak
 ```
 
-**Best for:** Parallel work streams, urgent interrupts, team collaboration.
+**最佳场景：** 不相关的独立工作流。
 
-When you have multiple completed changes, use `/opsx:bulk-archive`:
+---
+
+## `/opsx:ff` vs `/opsx:continue`
+
+| 场景 | 使用 |
+|------|------|
+| 需求明确，想要快速完成 | `/opsx:ff` |
+| 需要审查每个工件 | `/opsx:continue` |
+| 复杂变更，可能需要调整 | `/opsx:continue` |
+| 简单功能或 bug 修复 | `/opsx:ff` |
+| 对方案不确定 | `/opsx:continue` |
+
+**关键区别：**
+
+- `/opsx:ff` — 一次性生成所有工件。速度快，但控制权更少。
+- `/opsx:continue` — 每次一个工件。更多审查和调整的机会。
+
+在实际工作中，很多人先用 `/opsx:ff` 快速获取所有工件，然后根据需要编辑它们。都是有效的方式。
+
+---
+
+## 更新 vs 新建
+
+### 何时更新现有变更
+
+- 范围扩大（更多需求发现）
+- 设计方案变化
+- 实施反馈导致工件需要调整
+
+**只需编辑工件，然后继续。**
 
 ```text
-You: /opsx:bulk-archive
+# 发现设计需要调整
+You: Let me update the design to use WebSocket instead of polling.
+     [编辑 design.md]
 
-AI:  Found 3 completed changes:
-     - add-dark-mode (all tasks done)
-     - fix-login-redirect (all tasks done)
-     - update-footer (all tasks done)
-
-     Checking for spec conflicts...
-     ⚠ add-dark-mode and update-footer both touch specs/ui/
-
-     Inspecting codebase to resolve...
-     Both changes are implemented. Will apply in chronological order.
-
-     Archive all 3 changes?
-
-You: Yes
-
-AI:  ✓ Archived add-dark-mode
-     ✓ Archived fix-login-redirect
-     ✓ Archived update-footer
-     Specs merged in order: add-dark-mode → update-footer
+You: /opsx:apply
+     [AI 根据更新后的设计继续实施]
 ```
 
-Bulk archive detects when multiple changes touch the same specs and resolves conflicts by checking what's actually implemented.
+### 何时启动新变更
 
-### Completing a Change
-
-The recommended completion flow:
+- 完全不同的功能
+- 独立的工作流
+- 需要分开追踪的问题
 
 ```text
-/opsx:apply ──► /opsx:verify ──► /opsx:archive
-                    │                 │
-              validates          prompts to sync
-              implementation     if needed
+You: /opsx:new add-websocket-support
+     [这是一个独立的功能，应该有自己的变更]
 ```
 
-#### Verify: Check Your Work
+**经验法则：** 如果变更的"为什么"变了，那就是一个新的变更。如果变更的"怎么做"变了，更新现有工件。
 
-`/opsx:verify` validates implementation against your artifacts across three dimensions:
+---
+
+## 推荐的完成流程
+
+完成变更的推荐流程：
+
+```
+/opsx:apply → /opsx:verify → /opsx:archive
+```
+
+### 为什么推荐这个流程
+
+1. **Apply** — 实施所有任务
+2. **Verify** — 检查实施是否匹配规范和设计
+3. **Archive** — 最终化并合并规范
+
+Verify 步骤是可选的，但推荐使用。它会发现：
+- 遗漏的任务
+- 与规范不匹配的实施
+- 与设计文档的不一致
 
 ```text
 You: /opsx:verify
+AI:  ⚠ Task 2.3 "Add keyboard shortcut" is not checked
+     ⚠ Spec scenario "System preference detection" has no test
+     ✓ All other checks passed
 
-AI:  Verifying add-auth...
+You: Let me fix those.
+     [完成遗漏的任务和测试]
 
-     COMPLETENESS
-     ✓ All 12 tasks in tasks.md are checked
-     ✓ All requirements in specs have corresponding code
-     ⚠ Scenario "Session timeout after inactivity" not tested
-
-     CORRECTNESS
-     ✓ Implementation matches spec intent
-     ✓ Edge cases from scenarios are handled
-     ✓ Error states match spec definitions
-
-     COHERENCE
-     ✓ Design decisions reflected in code structure
-     ✓ Naming conventions consistent with design.md
-     ⚠ Design mentions "event-driven" but implementation uses polling
-
-     SUMMARY
-     ─────────────────────────────
-     Critical issues: 0
-     Warnings: 2
-     Ready to archive: Yes (with warnings)
-
-     Recommendations:
-     1. Add test for session timeout scenario
-     2. Consider refactoring to event-driven as designed, or update design.md
-```
-
-**What verify checks:**
-
-| Dimension | What it validates |
-|-----------|------------------|
-| Completeness | All tasks done, all requirements implemented, scenarios covered |
-| Correctness | Implementation matches spec intent, edge cases handled |
-| Coherence | Design decisions reflected in code, patterns consistent |
-
-Verify won't block archive, but it surfaces issues you might want to address first.
-
-#### Archive: Finalize the Change
-
-`/opsx:archive` completes the change and moves it to the archive:
-
-```text
 You: /opsx:archive
-
-AI:  Archiving add-auth...
-
-     Artifact status:
-     ✓ proposal.md exists
-     ✓ specs/ exists
-     ✓ design.md exists
-     ✓ tasks.md exists (12/12 tasks complete)
-
-     Delta specs: Not yet synced to main
-     → Would you like to sync now?
-
-You: Yes
-
-AI:  ✓ Synced specs to openspec/specs/auth/spec.md
-     ✓ Moved to openspec/changes/archive/2025-01-24-add-auth/
-
-     Change archived successfully.
+AI:  ✓ All checks passed
+     ✓ Archived successfully
 ```
 
-Archive will prompt if specs aren't synced. It won't block on incomplete tasks, but it will warn you.
+---
 
-## When to Use What
+## 处理中途返工
 
-### `/opsx:ff` vs `/opsx:continue`
+实际开发中，你经常会在实施过程中发现需要调整之前的工件。这完全正常。
 
-| Situation | Use |
-|-----------|-----|
-| Clear requirements, ready to build | `/opsx:ff` |
-| Exploring, want to review each step | `/opsx:continue` |
-| Want to iterate on proposal before specs | `/opsx:continue` |
-| Time pressure, need to move fast | `/opsx:ff` |
-| Complex change, want control | `/opsx:continue` |
-
-**Rule of thumb:** If you can describe the full scope upfront, use `/opsx:ff`. If you're figuring it out as you go, use `/opsx:continue`.
-
-### When to Update vs Start Fresh
-
-A common question: when is updating an existing change okay, and when should you start a new one?
-
-**Update the existing change when:**
-
-- Same intent, refined execution
-- Scope narrows (MVP first, rest later)
-- Learning-driven corrections (codebase isn't what you expected)
-- Design tweaks based on implementation discoveries
-
-**Start a new change when:**
-
-- Intent fundamentally changed
-- Scope exploded to different work entirely
-- Original change can be marked "done" standalone
-- Patches would confuse more than clarify
+### 更新工件后继续
 
 ```text
-                     ┌─────────────────────────────────────┐
-                     │     Is this the same work?          │
-                     └──────────────┬──────────────────────┘
-                                    │
-                 ┌──────────────────┼──────────────────┐
-                 │                  │                  │
-                 ▼                  ▼                  ▼
-          Same intent?      >50% overlap?      Can original
-          Same problem?     Same scope?        be "done" without
-                 │                  │          these changes?
-                 │                  │                  │
-       ┌────────┴────────┐  ┌──────┴──────┐   ┌───────┴───────┐
-       │                 │  │             │   │               │
-      YES               NO YES           NO  NO              YES
-       │                 │  │             │   │               │
-       ▼                 ▼  ▼             ▼   ▼               ▼
-    UPDATE            NEW  UPDATE       NEW  UPDATE          NEW
+You: /opsx:apply add-dark-mode
+
+AI:  Working on task 2.1 "Create ThemeToggle"...
+     I notice the design doesn't account for high-contrast mode.
+     Should I update the design first?
+
+You: Yes, update the design to include high-contrast mode,
+     then update the specs and tasks accordingly.
+
+AI:  [更新 design.md — 新增高对比度模式]
+     [更新 specs/ — 新增高对比度场景]
+     [更新 tasks.md — 新增高对比度任务]
+     
+     Updated artifacts. Continuing implementation...
+     ✓ 2.1 Create ThemeToggle (with high-contrast support)
 ```
 
-**Example: "Add dark mode"**
-
-- "Need to also support custom themes" → New change (scope exploded)
-- "System preference detection is harder than expected" → Update (same intent)
-- "Let's ship toggle first, add preferences later" → Update then archive, then new change
-
-## Best Practices
-
-### Keep Changes Focused
-
-One logical unit of work per change. If you're doing "add feature X and also refactor Y", consider two separate changes.
-
-**Why it matters:**
-- Easier to review and understand
-- Cleaner archive history
-- Can ship independently
-- Simpler rollback if needed
-
-### Use `/opsx:explore` for Unclear Requirements
-
-Before committing to a change, explore the problem space:
+### 大幅方向变更
 
 ```text
-You: /opsx:explore
+You: /opsx:apply
 
-AI:  What would you like to explore?
+AI:  While implementing, I discovered the current UI framework
+     doesn't support CSS custom properties well.
 
-You: How should we handle rate limiting for our API?
+You: Let's redesign. Update the approach to use Tailwind's
+     dark mode classes instead.
 
-AI:  Let me investigate your current setup and options...
-     [Researches codebase, considers patterns]
-
-     I see three approaches we could take:
-     1. Middleware-based (simple, per-endpoint)
-     2. Redis-backed (scalable, shared state)
-     3. Token bucket per user (fair, complex)
-
-     Your current stack suggests #1 or #2. What's your scale?
+AI:  [更新 design.md — 从 CSS 变量改为 Tailwind]
+     [更新 tasks.md — 反映新的技术方案]
+     
+     Updated. Starting fresh on tasks...
 ```
 
-Exploration clarifies thinking before you create artifacts.
+---
 
-### Verify Before Archiving
+## 技巧与最佳实践
 
-Use `/opsx:verify` to check implementation matches artifacts:
+### 命名变更
+
+**推荐：** 描述性、使用连字符分隔
 
 ```text
-You: /opsx:verify
-
-AI:  Verifying add-dark-mode...
-
-     ✓ All tasks in tasks.md are checked
-     ✓ Requirements in specs have corresponding code
-     ✓ Design decisions are reflected in implementation
-
-     Ready to archive!
+add-dark-mode
+fix-login-timeout
+refactor-payment-module
 ```
 
-Catches mismatches before you close out the change.
-
-### Name Changes Clearly
-
-Good names make `openspec list` useful:
+**避免：** 模糊、过于简短
 
 ```text
-Good:                          Avoid:
-add-dark-mode                  feature-1
-fix-login-redirect             update
-optimize-product-query         changes
-implement-2fa                  wip
+update
+fix
+wip
+changes
 ```
 
-## Command Quick Reference
+### 保持变更聚焦
 
-For full command details and options, see [Commands](commands.md).
+一个变更 = 一件事。不要在一个变更中塞满不相关的功能。
 
-| Command | Purpose | When to Use |
-|---------|---------|-------------|
-| `/opsx:explore` | Think through ideas | Unclear requirements, investigation |
-| `/opsx:new` | Start a change | Beginning any new work |
-| `/opsx:continue` | Create next artifact | Step-by-step artifact creation |
-| `/opsx:ff` | Create all planning artifacts | Clear scope, ready to build |
-| `/opsx:apply` | Implement tasks | Ready to write code |
-| `/opsx:verify` | Validate implementation | Before archiving, catch mismatches |
-| `/opsx:sync` | Merge delta specs | Optional—archive prompts if needed |
-| `/opsx:archive` | Complete the change | All work finished |
-| `/opsx:bulk-archive` | Archive multiple changes | Parallel work, batch completion |
+```text
+# 好：每个主题一个变更
+/opsx:new add-dark-mode
+/opsx:new fix-auth-timeout
+/opsx:new refactor-api-layer
 
-## Next Steps
+# 不推荐：一个变更包揽所有
+/opsx:new update-frontend
+```
 
-- [Commands](commands.md) - Full command reference with options
-- [Concepts](concepts.md) - Deep dive into specs, artifacts, and schemas
-- [Customization](customization.md) - Create custom workflows
+### 利用项目配置
+
+在 `openspec/config.yaml` 中注入上下文可以大幅提升工件质量：
+
+```yaml
+context: |
+  技术栈：TypeScript、React、Node.js、PostgreSQL
+  API 风格：RESTful，文档在 docs/api.md
+  测试：Jest + React Testing Library
+  我们重视所有公共 API 的向后兼容性
+
+rules:
+  proposal:
+    - 包含回退计划
+  specs:
+    - 使用 Given/When/Then 格式
+```
+
+### 上下文管理
+
+OpenSpec 在干净的上下文窗口中效果最好：
+
+- 开始 `/opsx:apply` 前清除上下文
+- 不同变更之间切换上下文
+- 如果 AI 的输出质量下降（通常是上下文过长），重新开始对话
+
+---
+
+## 下一步
+
+- [命令](commands.md) — 完整命令参考
+- [核心概念](concepts.md) — 深入理解规范、变更和 Schema
+- [CLI](cli.md) — 终端命令参考
+- [自定义配置](customization.md) — 配置规则和自定义 Schema

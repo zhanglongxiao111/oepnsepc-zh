@@ -231,7 +231,9 @@ export class PowerShellInstaller {
       let isUpdate = false;
       try {
         const existingContent = await fs.readFile(targetPath, 'utf-8');
-        if (existingContent === completionScript) {
+        // Strip BOM for comparison since we prepend BOM on write
+        const existingWithoutBom = existingContent.replace(/^\uFEFF/, '');
+        if (existingWithoutBom === completionScript) {
           // Already installed and up to date
           return {
             success: true,
@@ -257,8 +259,11 @@ export class PowerShellInstaller {
       // Backup existing file if updating
       const backupPath = isUpdate ? await this.backupExistingFile(targetPath) : undefined;
 
-      // Write the completion script
-      await fs.writeFile(targetPath, completionScript, 'utf-8');
+      // Write the completion script with UTF-8 BOM for Windows PowerShell 5.1 compatibility
+      // Windows PowerShell 5.1 defaults to system codepage (e.g. GBK on Chinese Windows)
+      // without BOM, causing Chinese characters to display as mojibake
+      const BOM = '\uFEFF';
+      await fs.writeFile(targetPath, BOM + completionScript, 'utf-8');
 
       // Auto-configure PowerShell profile
       const profileConfigured = await this.configureProfile(targetPath);

@@ -1,43 +1,27 @@
-# Multi-Language Guide
+# 多语言指南
 
-Configure OpenSpec to generate artifacts in languages other than English.
+配置 OpenSpec 以生成英语以外语言的工件。
 
-## Quick Setup
+## 快速设置
 
-Add a language instruction to your `openspec/config.yaml`:
+在你的 `openspec/config.yaml` 中添加语言指令：
 
 ```yaml
 schema: spec-driven
 
 context: |
-  Language: Portuguese (pt-BR)
-  All artifacts must be written in Brazilian Portuguese.
+  语言：中文（简体）
+  所有产出物必须用简体中文撰写。
 
-  # Your other project context below...
-  Tech stack: TypeScript, React, Node.js
+  # 下方添加其他项目上下文...
+  技术栈：TypeScript、React、Node.js
 ```
 
-That's it. All generated artifacts will now be in Portuguese.
+就这样。现在所有生成的工件都将使用中文。
 
-## Language Examples
+## 各语言示例
 
-### Portuguese (Brazil)
-
-```yaml
-context: |
-  Language: Portuguese (pt-BR)
-  All artifacts must be written in Brazilian Portuguese.
-```
-
-### Spanish
-
-```yaml
-context: |
-  Idioma: Español
-  Todos los artefactos deben escribirse en español.
-```
-
-### Chinese (Simplified)
+### 中文（简体）
 
 ```yaml
 context: |
@@ -45,7 +29,23 @@ context: |
   所有产出物必须用简体中文撰写。
 ```
 
-### Japanese
+### 葡萄牙语（巴西）
+
+```yaml
+context: |
+  Language: Portuguese (pt-BR)
+  All artifacts must be written in Brazilian Portuguese.
+```
+
+### 西班牙语
+
+```yaml
+context: |
+  Idioma: Español
+  Todos los artefactos deben escribirse en español.
+```
+
+### 日语
 
 ```yaml
 context: |
@@ -53,7 +53,7 @@ context: |
   すべての成果物は日本語で作成してください。
 ```
 
-### French
+### 法语
 
 ```yaml
 context: |
@@ -61,7 +61,7 @@ context: |
   Tous les artefacts doivent être rédigés en français.
 ```
 
-### German
+### 德语
 
 ```yaml
 context: |
@@ -69,47 +69,47 @@ context: |
   Alle Artefakte müssen auf Deutsch verfasst werden.
 ```
 
-## Tips
+## 使用技巧
 
-### Handle Technical Terms
+### 处理技术术语
 
-Decide how to handle technical terminology:
+决定如何处理技术术语：
 
 ```yaml
 context: |
-  Language: Japanese
-  Write in Japanese, but:
-  - Keep technical terms like "API", "REST", "GraphQL" in English
-  - Code examples and file paths remain in English
+  语言：中文（简体）
+  用中文撰写，但：
+  - 保留技术术语如 "API"、"REST"、"GraphQL" 的英文形式
+  - 代码示例和文件路径保持英文
 ```
 
-### Combine with Other Context
+### 与其他上下文组合使用
 
-Language settings work alongside your other project context:
+语言设置与你的其他项目上下文协同工作：
 
 ```yaml
 schema: spec-driven
 
 context: |
-  Language: Portuguese (pt-BR)
-  All artifacts must be written in Brazilian Portuguese.
+  语言：中文（简体）
+  所有产出物必须用简体中文撰写。
 
-  Tech stack: TypeScript, React 18, Node.js 20
-  Database: PostgreSQL with Prisma ORM
+  技术栈：TypeScript、React 18、Node.js 20
+  数据库：PostgreSQL + Prisma ORM
 ```
 
-## Verification
+## 验证
 
-To verify your language config is working:
+验证你的语言配置是否生效：
 
 ```bash
-# Check the instructions - should show your language context
+# 检查指令 — 应该显示你的语言上下文
 openspec instructions proposal --change my-change
 
-# Output will include your language context
+# 输出会包含你的语言上下文
 ```
 
-## Related Documentation
+## 相关文档
 
-- [Customization Guide](./customization.md) - Project configuration options
-- [Workflows Guide](./workflows.md) - Full workflow documentation
+- [自定义配置指南](./customization.md) - 项目配置选项
+- [工作流指南](./workflows.md) - 完整工作流文档
